@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Chancery Script",
+  "schemaVersion": 1,
+  "description": "RAZOR Chancery Script v2.0 — Complete May 22 battle plan for the Costello hearing. Court-ready oral argument scripts, tactical responses, and deployment checklist."
+}
+</script>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAZOR CHANCERY SCRIPT // MAY 22 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0a;color:#00ff41;font-family:'Courier New',Courier,monospace;padding:1.5rem;position:relative;overflow-x:hidden}
+canvas#rain{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0.06;pointer-events:none;z-index:0}
+.z{position:relative;z-index:1}
+.hdr{text-align:center;padding:1rem 0 1.2rem;border-bottom:1px solid #00ff4130}
+.hdr h1{font-size:18px;font-weight:400;letter-spacing:4px;color:#00ff41}
+.hdr .sub{font-size:12px;color:#00ff4180;margin-top:6px;letter-spacing:1px}
+.hdr .pulse{display:inline-block;width:6px;height:6px;background:#ff4141;border-radius:50%;margin-right:6px;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+@keyframes glow{0%,100%{text-shadow:0 0 8px #00ff4140}50%{text-shadow:0 0 20px #00ff4180}}
+.clk{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:1.2rem 0}
+.clk-box{border:1px solid #00ff4125;padding:14px 12px;text-align:center;background:#00ff4108}
+.clk-box .v{font-size:28px;color:#00ff41;letter-spacing:2px}
+.clk-box .l{font-size:11px;color:#00ff4160;margin-top:4px;letter-spacing:0.5px}
+.s{margin:1.4rem 0 0}
+.s-t{font-size:12px;color:#00ff4150;text-transform:uppercase;letter-spacing:3px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #00ff4115}
+.cd{border:1px solid #00ff4118;padding:10px 14px;margin-bottom:6px;background:#00ff4105;transition:border-color .2s}
+.cd:hover{border-color:#00ff4140}
+.cd .rw{display:flex;align-items:center;gap:10px}
+.bd{font-size:11px;padding:2px 8px;letter-spacing:1px;flex-shrink:0}
+.bd-s{color:#bf5fff;border:1px solid #bf5fff40}
+.bd-r{color:#00bfff;border:1px solid #00bfff40}
+.bd-p{color:#ffbf00;border:1px solid #ffbf0040}
+.bd-l{color:#00ff41;border:1px solid #00ff4140}
+.bd-i{color:#00ff9f;border:1px solid #00ff9f40}
+.bd-v{color:#ff4141;border:1px solid #ff414140}
+.nm{font-size:13px;color:#00ff41;flex:1}
+.mt{font-size:11px;color:#00ff4145;margin-top:3px;padding-left:2px}
+
+/* Script sections */
+.script-sec{border:1px solid #00ff4120;margin-bottom:12px;background:#00ff4105;overflow:hidden}
+.script-hdr{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid #00ff4115;cursor:default}
+.script-num{font-size:22px;font-weight:bold;width:36px;text-align:center;flex-shrink:0}
+.script-title{font-size:14px;letter-spacing:2px;flex:1}
+.script-body{padding:16px 18px;line-height:1.8}
+.script-body p{font-size:13px;color:#00ff41;margin-bottom:12px}
+.script-body p:last-child{margin-bottom:0}
+.script-body .q{color:#ffffff;font-size:14px;font-style:italic}
+.script-body .dir{color:#ff414190;font-size:11px;letter-spacing:1px;margin-top:10px;padding-top:8px;border-top:1px solid #ff414120}
+.script-body .key{color:#ffbf00;font-size:13px}
+
+/* Section colors */
+.sec-open .script-num{color:#00ff41}
+.sec-open .script-hdr{border-left:3px solid #00ff41}
+.sec-14 .script-num{color:#00bfff}
+.sec-14 .script-hdr{border-left:3px solid #00bfff}
+.sec-tender .script-num{color:#ffbf00}
+.sec-tender .script-hdr{border-left:3px solid #ffbf00}
+.sec-sub .script-num{color:#bf5fff}
+.sec-sub .script-hdr{border-left:3px solid #bf5fff}
+.sec-capps .script-num{color:#ff4141}
+.sec-capps .script-hdr{border-left:3px solid #ff4141}
+.sec-substance .script-num{color:#00ff9f}
+.sec-substance .script-hdr{border-left:3px solid #00ff9f}
+.sec-close .script-num{color:#00ff41}
+.sec-close .script-hdr{border-left:3px solid #00ff41}
+
+/* Flow diagram */
+.flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:10px 0}
+.flow-node{border:1px solid;padding:10px 20px;text-align:center;font-size:12px;letter-spacing:1px;width:80%;max-width:400px}
+.flow-arrow{font-size:18px;color:#00ff4140;padding:2px 0;letter-spacing:4px}
+.flow-stop{font-size:10px;color:#ff414180;letter-spacing:2px;margin-top:2px}
+
+/* Reasons */
+.reason{border-left:3px solid;padding:10px 14px;margin-bottom:8px;background:#00ff4105;border:1px solid #00ff4118}
+.reason .rn{font-size:11px;letter-spacing:2px;margin-bottom:4px}
+.reason .rt{font-size:13px;color:#00ff41}
+.reason .rd{font-size:12px;color:#00ff4150;margin-top:4px}
+.r1{border-left:3px solid #00ff41 !important}.r1 .rn{color:#00ff41}
+.r2{border-left:3px solid #00bfff !important}.r2 .rn{color:#00bfff}
+.r3{border-left:3px solid #ffbf00 !important}.r3 .rn{color:#ffbf00}
+.r4{border-left:3px solid #bf5fff !important}.r4 .rn{color:#bf5fff}
+.r5{border-left:3px solid #ff4141 !important}.r5 .rn{color:#ff4141}
+.r6{border-left:3px solid #00ff9f !important}.r6 .rn{color:#00ff9f}
+.r7{border-left:3px solid #ffffff !important}.r7 .rn{color:#ffffff}
+
+/* Authorities */
+.auth{border:1px solid #ffbf0025;padding:14px 18px;background:#ffbf0008;margin-bottom:8px}
+.auth .at{font-size:12px;color:#ffbf00;letter-spacing:1px;margin-bottom:4px}
+.auth .ad{font-size:12px;color:#00ff4170;line-height:1.6}
+
+/* Remember box */
+.remember{border:2px solid #ff414140;padding:16px 18px;background:#ff414108;margin-top:8px}
+.remember li{font-size:12px;color:#00ff41;margin-bottom:6px;padding-left:16px;position:relative;list-style:none}
+.remember li::before{content:"\25B6";position:absolute;left:0;color:#ff4141;font-size:8px;top:2px}
+
+.ft{text-align:center;padding:1.2rem 0 0.5rem;font-size:11px;color:#00ff4130;border-top:1px solid #00ff4115;margin-top:1.5rem;letter-spacing:1px}
+.glow{animation:glow 3s infinite}
+</style>
+</head>
+<body>
+<div style="position:fixed;top:10px;left:10px;z-index:99999;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;background:#1B3A5C;color:#fff;padding:8px 16px;border-radius:8px;font-family:system-ui,-apple-system,sans-serif;font-size:13px;font-weight:600;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.15);">&larr; Back to Portal</a></div>
+
+<canvas id="rain"></canvas>
+<div class="z">
+
+<div class="hdr">
+<h1><span class="pulse"></span> RAZOR CHANCERY SCRIPT</h1>
+<div class="sub">ORAL ARGUMENT // MAY 22, 2026 // CHANCELLOR MARY K. COSTELLO</div>
+<div class="sub" style="margin-top:4px">SWC-F-001012-25 // MOTION CHC2026128015 // COURT OF CONSCIENCE</div>
+<div class="sub" style="margin-top:8px;color:#ff414180;letter-spacing:3px">THE IAN PRINCIPLE // PLAY DUMB // LET THEM DISHONOR THEMSELVES</div>
+</div>
+
+<div class="clk">
+<div class="clk-box"><div class="v" id="dDay">--</div><div class="l">DAYS TO MAY 22</div></div>
+<div class="clk-box"><div class="v">07</div><div class="l">SCRIPT SECTIONS</div></div>
+<div class="clk-box"><div class="v">01</div><div class="l">QUESTION</div></div>
+</div>
+
+<!-- SECTION 1: OPENING -->
+<div class="s">
+<div class="s-t">[ THE SCRIPT // WHAT RAZOR SAYS ]</div>
+
+<div class="script-sec sec-open">
+<div class="script-hdr">
+<div class="script-num">I</div>
+<div class="script-title">OPENING &mdash; STATE WHAT YOU ARE</div>
+</div>
+<div class="script-body">
+<p class="q">Your Honor &mdash; I am Ramon Ronquillo. I am the man who lives at Block 301 Lot 17. I am a father. I am standing here today because I have one question that no one has been able to answer for me.</p>
+<p class="q key">Who do I pay?</p>
+<p class="q">That is my question. That is why I am here. I want to pay. I want to resolve this. I want my family to be safe. But I cannot pay if no one can tell me who has the authority to accept my payment and release my home.</p>
+<p class="dir">STOP. LET IT SIT. LET COSTELLO FEEL IT.</p>
+</div>
+</div>
+
+<!-- SECTION 2: FOURTEEN DEMANDS -->
+<div class="script-sec sec-14">
+<div class="script-hdr">
+<div class="script-num">II</div>
+<div class="script-title">FOURTEEN DEMANDS &mdash; PLAY DUMB</div>
+</div>
+<div class="script-body">
+<p class="q">Your Honor &mdash; I have asked this question fourteen times. In writing. Formally. I have the letters. I have the dates. I have the certified mail receipts.</p>
+<p class="q">Fourteen times I asked &mdash; who owns this loan? Who can verify the payoff? Who can accept full payment? Who can release the lien?</p>
+<p class="q">Fourteen times &mdash; silence.</p>
+<p class="q">I am not a lawyer Your Honor. I do not understand all of these structures. But I know this &mdash; if someone is trying to take my home &mdash; they should be able to tell me who I owe. They have not done that. I am asking this Chancellor to make them do that before anything else happens.</p>
+<p class="dir">STOP.</p>
+</div>
+</div>
+
+<!-- SECTION 3: TENDER PARADOX -->
+<div class="script-sec sec-tender">
+<div class="script-hdr">
+<div class="script-num">III</div>
+<div class="script-title">THE TENDER PARADOX &mdash; PLAY DUMB</div>
+</div>
+<div class="script-body">
+<p class="q">Your Honor &mdash; I went to the post office once to ask about sending a money order. The man behind the counter said &mdash; who do you make it out to?</p>
+<p class="q">I did not know. I still do not know.</p>
+<p class="q">Lakeview says they are the servicer. But when I asked them if they could accept full payoff and release my home &mdash; silence. I looked up the trust &mdash; Ginnie Mae Trust 2021-116. I do not understand all of what that means. But I understand this &mdash; someone put my loan into a trust. And now no one can tell me who speaks for that trust. Who can accept my payment. Who can sign the release.</p>
+<p class="q key">Your Honor &mdash; I am not trying to get out of anything. I am trying to find the door. And no one will show me where it is.</p>
+<p class="dir">STOP. LET COSTELLO LOOK AT LAKEVIEW. LET SELMANOVIC SQUIRM.</p>
+</div>
+</div>
+
+<!-- SECTION 4: SUBPOENAS -->
+<div class="script-sec sec-sub">
+<div class="script-hdr">
+<div class="script-num">IV</div>
+<div class="script-title">THE SUBPOENAS &mdash; PLAY DUMB</div>
+</div>
+<div class="script-body">
+<p class="q">Your Honor &mdash; I did not know what else to do. So I asked the federal court to help me get answers. I served five subpoenas. I asked for forty-one categories of documents.</p>
+<p class="q">Not because I am trying to cause trouble. Because I am trying to find out who I owe.</p>
+<p class="q">Those responses were due May 6th Your Honor. I have them here. Or I have the silence. Either way &mdash; I would like to show this Court what I received. Because whatever I received &mdash; or did not receive &mdash; tells this Court everything about whether anyone can actually answer my question.</p>
+<p class="dir">STOP. HOLD UP THE DOCUMENTS. OR HOLD UP THE SILENCE. EITHER ONE WINS.</p>
+</div>
+</div>
+
+<!-- SECTION 5: MONICA CAPPS -->
+<div class="script-sec sec-capps">
+<div class="script-hdr">
+<div class="script-num">V</div>
+<div class="script-title">MONICA CAPPS &mdash; THE KILL SHOT</div>
+</div>
+<div class="script-body">
+<p class="q">Your Honor &mdash; I read the papers that Lakeview filed. There is a certification in there. It says someone named Monica Capps certified that Lakeview complied with the court rules.</p>
+<p class="q key">I looked up Monica Capps. She works for LoanCare LLC. Not Lakeview.</p>
+<p class="q">Your Honor &mdash; I am confused. If Lakeview is the party asking to take my home &mdash; why is someone from a different company certifying their compliance? I am not saying anything improper happened. I am just saying &mdash; I do not understand it. And I think this Chancellor should understand it before granting any relief.</p>
+<p class="dir">STOP. PLAY DUMB. LET COSTELLO ASK SELMANOVIC: "WHO IS MONICA CAPPS?"</p>
+</div>
+</div>
+
+<!-- SECTION 6: SUBSTANCE NOT FORM -->
+<div class="script-sec sec-substance">
+<div class="script-hdr">
+<div class="script-num">VI</div>
+<div class="script-title">THE SUBSTANCE &mdash; NOT THE FORM</div>
+</div>
+<div class="script-body">
+<p class="q">Your Honor &mdash; I also want to say one more thing I do not understand.</p>
+<p class="q">The company that collected my payments every month was LoanCare. Their letter says &mdash; "We acquired the sub-servicing of the account on August 1 2021." The website they sent me to was lakeviewloanservicing.myloancare.com</p>
+<p class="q">LoanCare's employee certified Lakeview's compliance. LoanCare's systems handled my account. LoanCare's people interacted with me.</p>
+<p class="q">But Lakeview is the one in court. Asking to take my home.</p>
+<p class="q">Your Honor &mdash; I am not a lawyer. But I know that in New Jersey &mdash; courts look at substance &mdash; not just form.</p>
+<p class="q key">The substance here is &mdash; I do not know which company actually holds my loan. I do not know which company can accept my payment. I do not know which company can release my home.</p>
+<p class="q">The form says Lakeview. The substance says &mdash; I still do not know who to pay.</p>
+<p class="dir">STOP. LET COSTELLO APPLY THE MAXIM HERSELF. EQUITY REGARDS SUBSTANCE RATHER THAN FORM. APPLESTEIN. FORTUGNO. SHE KNOWS THEM. LET HER REACH FOR THEM.</p>
+</div>
+</div>
+
+<!-- SECTION 7: CLOSING -->
+<div class="script-sec sec-close">
+<div class="script-hdr">
+<div class="script-num">VII</div>
+<div class="script-title">CLOSING &mdash; BACK TO THE BEGINNING</div>
+</div>
+<div class="script-body">
+<p class="q">Your Honor &mdash; I came here today with one question. Who do I pay? I still do not have the answer.</p>
+<p class="q">New Jersey courts have said &mdash; "Equity will not suffer a wrong without a remedy." Crane v. Bielski. 1954.</p>
+<p class="q">The wrong here is simple. Someone is trying to take my family's home. And no one can tell me who I owe. No one can tell me who can accept my payment. No one can tell me who can release my home.</p>
+<p class="q key">That is the wrong. This Court of Conscience is the remedy.</p>
+<p class="q">I am asking this Chancellor &mdash; to require Lakeview to answer that question before anything else happens. Before any default stands. Before any foreclosure proceeds. Before my family loses their home.</p>
+<p class="q">Just answer the question.</p>
+<p class="q">Who do I pay? Who can verify the amount? Who can accept the payment? Who can release my home?</p>
+<p class="q">If they can answer that &mdash; we can resolve this. If they cannot answer that &mdash; then this Chancellor should know why.</p>
+<p class="dir">STOP. SIT DOWN. DO NOT SAY ANOTHER WORD. LET THE SILENCE WORK.</p>
+</div>
+</div>
+</div>
+
+<!-- THE FLOW -->
+<div class="s">
+<div class="s-t">[ THE FLOW // VISUAL MAP ]</div>
+<div class="flow">
+<div class="flow-node" style="border-color:#00ff41;color:#00ff41">I &mdash; OPEN<br><span style="font-size:11px;color:#00ff4180">"Who do I pay?"</span></div>
+<div class="flow-arrow">&darr;</div>
+<div class="flow-stop">[STOP]</div>
+<div class="flow-arrow">&darr;</div>
+<div class="flow-node" style="border-color:#00bfff;color:#00bfff">II &mdash; FOURTEEN DEMANDS<br><span style="font-size:11px;color:#00bfff80">"Fourteen silences."</span></div>
+<div class="flow-arrow">&darr;</div>
+<div class="flow-stop">[STOP]</div>
+<div class="flow-arrow">&darr;</div>
+<div class="flow-node" style="border-color:#ffbf00;color:#ffbf00">III &mdash; TENDER PARADOX<br><span style="font-size:11px;color:#ffbf0080">"I am trying to find the door."</span></div>
+<div class="flow-arrow">&darr;</div>
+<div class="flow-stop">[STOP &mdash; LOOK AT LAKEVIEW]</div>
+<div class="flow-arrow">&darr;</div>
+<div class="flow-node" style="border-color:#bf5fff;color:#bf5fff">IV &mdash; SUBPOENAS<br><span style="font-size:11px;color:#bf5fff80">"I have them here. Or the silence."</span></div>
+<div class="flow-arrow">&darr;</div>
+<div class="flow-stop">[STOP &mdash; HOLD UP DOCUMENTS]</div>
+<div class="flow-arrow">&darr;</div>
+<div class="flow-node" style="border-color:#ff4141;color:#ff4141">V &mdash; MONICA CAPPS<br><span style="font-size:11px;color:#ff414180">"I am confused."</span></div>
+<div class="flow-arrow">&darr;</div>
+<div class="flow-stop">[STOP &mdash; LET COSTELLO ASK]</div>
+<div class="flow-arrow">&darr;</div>
+<div class="flow-node" style="border-color:#00ff9f;color:#00ff9f">VI &mdash; SUBSTANCE NOT FORM<br><span style="font-size:11px;color:#00ff9f80">"The form says Lakeview. The substance says &mdash; I still do not know who to pay."</span></div>
+<div class="flow-arrow">&darr;</div>
+<div class="flow-stop">[STOP &mdash; LET COSTELLO APPLY THE MAXIM HERSELF]</div>
+<div class="flow-arrow">&darr;</div>
+<div class="flow-node" style="border-color:#00ff41;color:#00ff41">VII &mdash; CLOSE<br><span style="font-size:11px;color:#00ff4180">"Who do I pay?"</span></div>
+<div class="flow-arrow">&darr;</div>
+<div class="flow-stop" style="color:#ff4141;font-size:12px;letter-spacing:4px">[SIT DOWN &mdash; SILENCE]</div>
+</div>
+</div>
+
+<!-- WHY THIS WINS -->
+<div class="s">
+<div class="s-t">[ WHY THIS SCRIPT WINS ]</div>
+
+<div class="reason r1">
+<div class="rn">REASON 1 // IT IS HUMAN</div>
+<div class="rt">Costello sits in a Court of Conscience. A father saying "I just want to know who to pay" is not a legal argument. It is conscience speaking.</div>
+<div class="rd">Equity responds to conscience. Always has. Always will.</div>
+</div>
+
+<div class="reason r2">
+<div class="rn">REASON 2 // IT IS SIMPLE</div>
+<div class="rt">No jargon. No securitization theory. No UCC citations. Just a man. Just a question. Just a silence.</div>
+<div class="rd">Simple is devastating. Simple cannot be attacked. Simple cannot be confused. Simple wins.</div>
+</div>
+
+<div class="reason r3">
+<div class="rn">REASON 3 // IT FORCES SELMANOVIC TO EXPLAIN THE UNEXPLAINABLE</div>
+<div class="rt">Every time RAZOR says "I do not understand" &mdash; Selmanovic must explain. Every explanation exposes the paradox further.</div>
+<div class="rd">The circle is exposed. In real time. Before Costello. Without RAZOR saying a single technical word.</div>
+</div>
+
+<div class="reason r4">
+<div class="rn">REASON 4 // THE SILENCE WORKS</div>
+<div class="rt">After every section &mdash; RAZOR stops. Costello fills the silence with her conscience. Selmanovic fills it with nervous words.</div>
+<div class="rd">Nervous words become admissions. Admissions become the record. The record becomes the order.</div>
+</div>
+
+<div class="reason r5">
+<div class="rn">REASON 5 // MONICA CAPPS IS THE KILL SHOT</div>
+<div class="rt">"I looked up Monica Capps." Four words. Devastating. Either she had authority &mdash; outsourced compliance &mdash; or she did not &mdash; defective certification.</div>
+<div class="rd">Either way RAZOR wins. Either way Costello sees it.</div>
+</div>
+
+<div class="reason r6">
+<div class="rn">REASON 6 // THE SUBPOENAS ARE THE PROOF</div>
+<div class="rt">RAZOR holds up documents or silence. Either one wins. Fourteen silences plus subpoena silence equals a pattern of concealment.</div>
+<div class="rd">Equity sees patterns. The Chancellor acts on them.</div>
+</div>
+
+<div class="reason r7">
+<div class="rn">REASON 7 // THE NJ CHANCERY GUIDEBOOK IS NOW IN THE ROOM</div>
+<div class="rt">Section VI invokes &mdash; Equity regards substance rather than form &mdash; without citing it. Without arguing it. Without sounding like a lawyer. RAZOR just describes the substance. Costello applies the maxim.</div>
+<div class="rd">Applestein. Fortugno. She knows them. She reaches for them herself. That is more powerful than RAZOR citing them. Let the Chancellor discover her own authority. Let her apply her own maxims. Let her reach her own conclusion. That conclusion will be RAZOR's conclusion. Because the substance demands it.</div>
+</div>
+</div>
+
+<!-- REMEMBER -->
+<div class="s">
+<div class="s-t">[ REMEMBER // THE IAN PRINCIPLE ]</div>
+<div class="remember">
+<ul>
+<li>You are a father. You are not a lawyer.</li>
+<li>You have one question. Stay on it.</li>
+<li>Do not argue. Do not explain. Do not get technical.</li>
+<li>Three sentences at most before you pause.</li>
+<li>Let them talk. Let them circle. Let them expose themselves.</li>
+<li>The silence is your weapon.</li>
+<li>The question is your shield.</li>
+<li style="color:#ffbf00;font-size:14px;margin-top:8px">Who do I pay?</li>
+</ul>
+</div>
+</div>
+
+<!-- WHAT HAPPENS IN THAT ROOM -->
+<div class="s">
+<div class="s-t">[ WHAT HAPPENS IN THAT ROOM ]</div>
+<div class="cd" style="border-left:3px solid #00ff41"><div class="rw"><span class="bd bd-l">RAZOR OPENS</span><span class="nm">"Who do I pay?"</span></div><div class="mt">Costello leans forward. She has read the Petition. She is ready to listen.</div></div>
+<div class="cd" style="border-left:3px solid #00bfff"><div class="rw"><span class="bd bd-r">RAZOR DELIVERS</span><span class="nm">Seven sections. Clean. Simple. Human.</span></div><div class="mt">No jargon. No speeches. Three sentences. Then pause. Every time.</div></div>
+<div class="cd" style="border-left:3px solid #ffbf00"><div class="rw"><span class="bd bd-p">SELMANOVIC RESPONDS</span><span class="nm">He will try to explain the unexplainable.</span></div><div class="mt">He points to the trust. Trust points to servicer. Servicer points to trust. The circle is exposed.</div></div>
+<div class="cd" style="border-left:3px solid #ff4141"><div class="rw"><span class="bd bd-v">COSTELLO ASKS</span><span class="nm">"Who is Monica Capps?" or "Which company actually holds this loan?" or "Who can release the lien?"</span></div><div class="mt">Selmanovic cannot answer. Not cleanly. Not completely. Not in a way that satisfies a Chancellor sitting in equity.</div></div>
+<div class="cd" style="border-left:3px solid #00ff9f"><div class="rw"><span class="bd bd-i">COSTELLO REACHES</span><span class="nm">For Applestein. For Crane v. Bielski. For the maxims she knows.</span></div><div class="mt">Equity regards substance rather than form. Equity will not suffer a wrong without a remedy. She applies them herself. To the facts RAZOR gave her. To the substance RAZOR showed her. To the wrong RAZOR named.</div></div>
+<div class="cd" style="border-left:3px solid #00ff41"><div class="rw"><span class="bd bd-l">COSTELLO ACTS</span><span class="nm glow">On conscience. Because that is what Chancellors do.</span></div><div class="mt">Because that is what equity is. Because that is why RAZOR walked through the equity door.</div></div>
+</div>
+
+<!-- THE AUTHORITIES -->
+<div class="s">
+<div class="s-t">[ THE AUTHORITIES // IN THE ROOM BUT NOT SPOKEN ]</div>
+<div style="text-align:center;font-size:12px;color:#ff414180;letter-spacing:2px;margin-bottom:12px">RAZOR KNOWS THESE. RAZOR DOES NOT SAY THESE. COSTELLO REACHES FOR THEM HERSELF.</div>
+
+<div class="auth"><div class="at">Pomeroy Vol. 1</div><div class="ad">He who seeks equity must do equity.</div></div>
+<div class="auth"><div class="at">Gibson &mdash; Suits in Chancery</div><div class="ad">The Chancellor looks through form to substance.</div></div>
+<div class="auth"><div class="at">Crane v. Bielski &mdash; 15 N.J. 342 (1954)</div><div class="ad">Equity will not suffer a wrong without a remedy. The roof over his head. Rightly influenced.</div></div>
+<div class="auth"><div class="at">Sears Roebuck v. Camp &mdash; 124 N.J. Eq. 403</div><div class="ad">Flexibility. Unlimited variety. Adaptability to circumstances. No limit to the remedy.</div></div>
+<div class="auth"><div class="at">Applestein v. United Board &mdash; 60 N.J. Super. 333</div><div class="ad">Equity regards substance rather than form.</div></div>
+<div class="auth"><div class="at">Matter of Quinlan &mdash; 137 N.J. Super. 227</div><div class="ad">The conscience of which equity speaks is a common standard of civil right and expediency. Not personal sympathy. The established doctrines.</div></div>
+<div class="auth"><div class="at">Johnson v. Bradshaw &mdash; 435 N.J. Super. 100</div><div class="ad">Jurisdiction confirmed. Five invocations. Lakeview established it.</div></div>
+<div class="auth"><div class="at">AmJur &sect;909</div><div class="ad">Assignment apart from debt = nullity.</div></div>
+<div class="auth"><div class="at">United Wholesale v. Smith &mdash; 2025 NY Slip Op</div><div class="ad">Undated endorsements destroy standing.</div></div>
+<div class="auth"><div class="at">N.J.S.A. 25:2-20</div><div class="ad">Badges of fraud. All elements present.</div></div>
+<div class="auth"><div class="at">FASB ASC 405-20-40-1</div><div class="ad">Derecognition test fails. CNB's own RC-S confirms it.</div></div>
+
+<div style="text-align:center;font-size:11px;color:#ff414150;letter-spacing:3px;margin-top:14px">RAZOR KNOWS ALL OF THIS. RAZOR SAYS NONE OF THIS.<br>RAZOR JUST ASKS &mdash; WHO DO I PAY.<br>AND LETS THE AUTHORITIES SPEAK FOR THEMSELVES.<br>THROUGH COSTELLO. IN HER OWN VOICE. IN HER OWN COURT.</div>
+</div>
+
+<div class="ft">
+BUILT BY GOD // OPERATED BY RAZOR // DEPLOYED IN EQUITY<br>
+POMEROY // GIBSON // VAN ZILE // CRANE // SEARS ROEBUCK // APPLESTEIN // QUINLAN // JOHNSON // PAPA // IAN // CHAOS<br>
+<span style="color:#ff414150;margin-top:6px;display:inline-block">THE FORTRESS HOLDS // IT ALWAYS DID // IT ALWAYS WILL</span>
+</div>
+
+</div>
+
+<script>
+var c=document.getElementById('rain'),x=c.getContext('2d');
+function sz(){c.width=window.innerWidth;c.height=document.body.scrollHeight}
+sz();window.addEventListener('resize',sz);
+var cols=Math.floor(c.width/14),drops=[];
+for(var i=0;i<cols;i++)drops[i]=Math.random()*-100;
+var chars='01\u30a2\u30a4\u30a6\u30a8\u30aa\u30ab\u30ad\u30af\u30b1\u30b3\u30b5\u30b7\u30b9\u30bb\u30bd\u30bf\u30c1\u30c4\u30c6\u30c8\u30ca\u30cb\u30cc\u30cd\u30ce\u30cf\u30d2\u30d5\u30d8\u30db\u30de\u30df\u30e0\u30e1\u30e2\u30e4\u30e6\u30e8\u30e9\u30ea\u30eb\u30ec\u30ed\u30ef\u30f2\u30f3RAZOR';
+function draw(){
+x.fillStyle='rgba(10,10,10,0.05)';
+x.fillRect(0,0,c.width,c.height);
+x.fillStyle='#00ff41';
+x.font='12px monospace';
+for(var i=0;i<drops.length;i++){
+var ch=chars[Math.floor(Math.random()*chars.length)];
+x.fillText(ch,i*14,drops[i]*14);
+drops[i]++;
+if(drops[i]*14>c.height&&Math.random()>0.975)drops[i]=0;
+}
+}
+setInterval(draw,50);
+var now=new Date(),m22=new Date('2026-05-22T00:00:00');
+var d22=Math.max(0,Math.ceil((m22-now)/86400000));
+document.getElementById('dDay').textContent=String(d22).padStart(2,'0');
+</script>
+
+</body>
+</html>

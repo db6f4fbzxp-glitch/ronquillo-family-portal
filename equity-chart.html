@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Equity Extraction Chart",
+  "schemaVersion": 1,
+  "description": "RAZOR Equity Extraction Chart — Financial pipeline visualization showing the flow of funds from origination through securitization, the closing scene wire receipt, and the receipt comparison."
+}
+</script>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAZOR // THE EXTRACTION // APRIL 23 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0a;font-family:'Courier New',monospace;color:#e0e0e0;padding:1.5rem;position:relative;overflow-x:hidden}
+canvas#rain{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0.06;pointer-events:none;z-index:0}
+.z{position:relative;z-index:1}
+.w{max-width:780px;margin:0 auto}
+.hdr{text-align:center;padding:16px 0 20px;border-bottom:2px solid #00ff4130}
+.hdr h1{font-size:16px;letter-spacing:4px;color:#00ff41;font-weight:400}
+.hdr .sub{font-size:11px;color:#00ff4150;margin-top:6px;letter-spacing:1px}
+.hdr .pulse{display:inline-block;width:6px;height:6px;background:#ff4141;border-radius:50%;margin-right:6px;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+
+/* The closing scene */
+.closing{position:relative;border:1px solid #ff414130;background:#0a0a0a;padding:24px 20px;margin:20px 0;overflow:hidden}
+.closing::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#ff4141,#ffbf00,#ff4141)}
+.closing-title{font-size:11px;letter-spacing:3px;color:#ff414180;text-align:center;margin-bottom:16px}
+.closing-scene{display:flex;align-items:center;justify-content:center;gap:20px;padding:16px 0;flex-wrap:wrap}
+.person{text-align:center;min-width:100px}
+.person .icon{font-size:36px;margin-bottom:6px}
+.person .label{font-size:10px;letter-spacing:1px}
+.person .name{font-size:11px;color:#fff;margin-top:2px}
+.transfer-arrow{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:140px}
+.transfer-arrow .arr{font-size:24px;color:#ff4141}
+.transfer-arrow .what{font-size:10px;color:#ffbf00;letter-spacing:1px;text-align:center}
+.transfer-arrow .missing{font-size:10px;color:#ff4141;letter-spacing:1px;text-align:center;border:1px dashed #ff414140;padding:4px 8px;margin-top:4px}
+.closing-note{text-align:center;margin-top:16px;font-size:12px;color:#ff414190;border-top:1px solid #ff414120;padding-top:12px;line-height:1.6}
+
+/* The pipeline */
+.pipe{position:relative;margin:24px 0}
+.pipe-title{font-size:11px;letter-spacing:3px;color:#00ff4150;text-align:center;margin-bottom:16px}
+.pipe-row{display:flex;align-items:stretch;margin-bottom:2px;min-height:60px}
+.pipe-label{width:130px;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end;padding-right:12px;font-size:10px;letter-spacing:1px;text-align:right}
+.pipe-bar-wrap{flex:1;display:flex;align-items:center;position:relative}
+.pipe-bar{height:32px;display:flex;align-items:center;padding:0 10px;font-size:11px;color:#000;font-weight:bold;position:relative;min-width:40px}
+.pipe-val{position:absolute;right:-8px;top:50%;transform:translate(100%,-50%);font-size:11px;color:#e0e0e080;white-space:nowrap;padding-left:8px}
+.pipe-note{font-size:9px;color:#e0e0e050;margin-top:2px;padding-left:142px}
+
+/* Flow diagram */
+.flow-section{margin:24px 0}
+.flow-title{font-size:11px;letter-spacing:3px;color:#00ff4150;text-align:center;margin-bottom:16px}
+.flow-chain{display:flex;flex-direction:column;align-items:center;gap:0}
+.flow-box{border:1px solid;padding:12px 20px;text-align:center;width:90%;max-width:500px;background:#0a0a0a;position:relative}
+.flow-box .fb-title{font-size:12px;color:#fff;margin-bottom:4px}
+.flow-box .fb-detail{font-size:10px;color:#e0e0e060;line-height:1.5}
+.flow-box .fb-amount{font-size:16px;font-weight:bold;margin:4px 0}
+.flow-arrow-down{font-size:16px;color:#00ff4130;padding:4px 0}
+.flow-x{font-size:20px;color:#ff4141;padding:6px 0;text-align:center}
+
+/* Receipt comparison */
+.receipts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0}
+.receipt{border:1px solid;padding:16px;background:#0a0a0a;position:relative}
+.receipt .r-title{font-size:11px;letter-spacing:2px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid}
+.receipt .r-line{font-size:11px;color:#e0e0e060;margin-bottom:6px;display:flex;justify-content:space-between}
+.receipt .r-line .r-val{color:#fff}
+.receipt .r-stamp{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-15deg);font-size:20px;letter-spacing:4px;padding:8px 16px;border:3px solid;opacity:0.3;white-space:nowrap}
+
+/* The score */
+.score{border:2px solid #ff414130;padding:20px;margin:24px 0;background:#0a0a0a;text-align:center}
+.score-title{font-size:11px;letter-spacing:3px;color:#ff414180;margin-bottom:16px}
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.score-item{padding:12px 8px;border:1px solid #00ff4118}
+.score-item .sv{font-size:18px;color:#fff}
+.score-item .sl{font-size:9px;color:#e0e0e050;margin-top:4px;letter-spacing:1px}
+
+/* Extraction meter */
+.meter{margin:24px 0}
+.meter-title{font-size:11px;letter-spacing:3px;color:#00ff4150;text-align:center;margin-bottom:16px}
+.meter-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding:8px 12px;border:1px solid #00ff4115;background:#0a0a0a}
+.meter-icon{font-size:18px;flex-shrink:0;width:28px;text-align:center}
+.meter-info{flex:1}
+.meter-label{font-size:11px;color:#e0e0e080}
+.meter-val{font-size:14px;color:#fff;margin-top:2px}
+.meter-who{font-size:10px;letter-spacing:1px;margin-top:2px}
+.meter-bar{height:6px;margin-top:4px;background:#00ff4110;position:relative;overflow:hidden}
+.meter-fill{height:100%;position:absolute;left:0;top:0}
+
+.ft{text-align:center;padding:16px 0 4px;font-size:10px;color:#00ff4120;margin-top:20px;border-top:1px solid #00ff4110;letter-spacing:1px}
+</style>
+</head>
+<body>
+<div style="position:fixed;top:10px;left:10px;z-index:99999;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;background:#1B3A5C;color:#fff;padding:8px 16px;border-radius:8px;font-family:system-ui,-apple-system,sans-serif;font-size:13px;font-weight:600;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.15);">&larr; Back to Portal</a></div>
+<canvas id="rain"></canvas>
+<div class="z">
+<div class="w">
+
+<div class="hdr">
+<h1><span class="pulse"></span> THE EXTRACTION</h1>
+<div class="sub">HOW THEY DID RAZOR DIRTY // LOAN 34062001753992 // BLOCK 301 LOT 17</div>
+<div class="sub" style="margin-top:4px">FROM THE CLOSING TABLE TO THE COURTROOM — EVERY DOLLAR TRACED</div>
+</div>
+
+<!-- THE CLOSING TABLE -->
+<div class="closing">
+<div class="closing-title">JUNE 4, 2021 — THE CLOSING TABLE — WHAT HAPPENED</div>
+<div class="closing-scene">
+<div class="person">
+<div class="icon">&#x1F468;&#x200D;&#x1F466;&#x200D;&#x1F466;</div>
+<div class="label" style="color:#00ff41">BORROWER</div>
+<div class="name">Ramon Ronquillo</div>
+</div>
+<div class="transfer-arrow">
+<div class="what">HANDS OVER EXECUTED NOTE</div>
+<div class="what">$441,849 PROMISE TO PAY</div>
+<div class="what">30 YEARS OF HIS LABOR</div>
+<div class="arr">&#x27A1;&#xFE0F;</div>
+<div class="missing">&#x26A0; NO RECEIPT GIVEN</div>
+<div class="missing">&#x26A0; NO CUSTODY CHAIN</div>
+<div class="missing">&#x26A0; NO TRACKING NUMBER</div>
+</div>
+<div class="person">
+<div class="icon">&#x1F3E6;</div>
+<div class="label" style="color:#ffbf00">LENDER</div>
+<div class="name">CrossCountry</div>
+</div>
+</div>
+<div class="closing-note">
+Ramon signed a note worth $441,849 and handed it across the table.<br>
+He received no receipt. No tracking number. No chain of custody record.<br>
+No proof he ever delivered the most valuable document he has ever signed.<br>
+<span style="color:#ff4141">56 days later — that note was sold into a $1.7 BILLION trust.<br>He was never told.</span>
+</div>
+</div>
+
+<!-- THE MONEY PIPELINE -->
+<div class="pipe">
+<div class="pipe-title">WHERE THE MONEY WENT — WHO GOT PAID</div>
+
+<div class="pipe-row">
+<div class="pipe-label" style="color:#00bfff">CROSSCOUNTRY</div>
+<div class="pipe-bar-wrap">
+<div class="pipe-bar" style="width:35%;background:linear-gradient(90deg,#00bfff,#00bfff80)">ORIGINATION</div>
+<div class="pipe-val">Origination fees + securitization proceeds</div>
+</div>
+</div>
+<div class="pipe-note">Got paid to originate. Got paid again to securitize. Then disappeared.</div>
+
+<div class="pipe-row">
+<div class="pipe-label" style="color:#ffbf00">CNB WAREHOUSE</div>
+<div class="pipe-bar-wrap">
+<div class="pipe-bar" style="width:50%;background:linear-gradient(90deg,#ffbf00,#ffbf0080)">$467,228</div>
+<div class="pipe-val">Warehouse funding + Purchase Advice wire</div>
+</div>
+</div>
+<div class="pipe-note">Fedwire D/123724992 — $429K funded. $467K wired back. Spread captured. RC-S says $0 sold.</div>
+
+<div class="pipe-row">
+<div class="pipe-label" style="color:#bf5fff">CREDIT SUISSE</div>
+<div class="pipe-bar-wrap">
+<div class="pipe-bar" style="width:60%;background:linear-gradient(90deg,#bf5fff,#bf5fff80)">SPONSOR FEES</div>
+<div class="pipe-val">Sponsor + Lead Manager fees on $1.7B trust</div>
+</div>
+</div>
+<div class="pipe-note">Sponsored the REMIC. Collected underwriting fees. Never appeared.</div>
+
+<div class="pipe-row">
+<div class="pipe-label" style="color:#00ff9f">LOANCARE</div>
+<div class="pipe-bar-wrap">
+<div class="pipe-bar" style="width:75%;background:linear-gradient(90deg,#00ff9f,#00ff9f80)">SERVICING — ONGOING</div>
+<div class="pipe-val">2.00% spread x 30 years = undisclosed extraction</div>
+</div>
+</div>
+<div class="pipe-note">Ramon pays 3.25%. Investors get 1.25%. LoanCare/Lakeview keeps the 2.00% spread. Every month. For 30 years.</div>
+
+<div class="pipe-row">
+<div class="pipe-label" style="color:#ff4141">INVESTORS</div>
+<div class="pipe-bar-wrap">
+<div class="pipe-bar" style="width:90%;background:linear-gradient(90deg,#ff4141,#ff414180)">CUSIP 38382WPB7 — ACTIVELY TRADING</div>
+<div class="pipe-val">$76.6M original issue — $37.3M current</div>
+</div>
+</div>
+<div class="pipe-note">Bond is still trading. Investors still collecting. Trust size: $1,707,608,573.</div>
+
+<div style="text-align:center;margin-top:12px;padding:10px;border:1px dashed #ff414130">
+<div style="font-size:12px;color:#ff4141;letter-spacing:2px">EVERYBODY GOT PAID</div>
+<div style="font-size:11px;color:#ff414160;margin-top:4px">EXCEPT RAMON — WHO HANDED OVER THE NOTE — AND GOT NO RECEIPT</div>
+</div>
+</div>
+
+<!-- THE EQUITY TRAP -->
+<div class="flow-section">
+<div class="flow-title">THE EQUITY TRAP — HOW THEY LOCKED $508,151 INSIDE YOUR WALLS</div>
+<div class="flow-chain">
+
+<div class="flow-box" style="border-color:#00ff41">
+<div class="fb-title">YOUR HOME — BLOCK 301 LOT 17</div>
+<div class="fb-amount" style="color:#00ff41">$950,000</div>
+<div class="fb-detail">Appraised value — January 2023 — confirmed by CrossCountry's own underwriting</div>
+</div>
+<div class="flow-arrow-down">&#x25BC;</div>
+
+<div class="flow-box" style="border-color:#ffbf00">
+<div class="fb-title">ORIGINAL LOAN BALANCE</div>
+<div class="fb-amount" style="color:#ffbf00">$441,849</div>
+<div class="fb-detail">FHA loan — June 4, 2021 — 3.25% — 30 years — Loan 34062001753992</div>
+</div>
+<div class="flow-arrow-down">&#x25BC;</div>
+
+<div class="flow-box" style="border-color:#00ff41">
+<div class="fb-title" style="color:#00ff41">YOUR EQUITY</div>
+<div class="fb-amount" style="color:#00ff41;font-size:22px">$508,151+</div>
+<div class="fb-detail">$950,000 minus $441,849 = your money, your labor, your family's future<br>LTV 75.5% — FHA allows up to 96.5% — $200,000+ cushion</div>
+</div>
+<div class="flow-x">&#x2716;</div>
+
+<div class="flow-box" style="border-color:#ff4141;background:#ff414108">
+<div class="fb-title" style="color:#ff4141">ACCESS DENIED</div>
+<div class="fb-detail" style="color:#ff414190">CrossCountry approved the refi — then killed it.<br>
+Title search found their own broken chain — no AOM in Hudson County.<br>
+They couldn't fund because they already sold the note into the trust.<br>
+<strong style="color:#ff4141">Their securitization broke the title chain needed to refi you.</strong><br>
+Sheetal said "appraisal issue" — a lie destroyed by a calculator.</div>
+</div>
+<div class="flow-arrow-down" style="color:#ff414130">&#x25BC;</div>
+
+<div class="flow-box" style="border-color:#ff4141">
+<div class="fb-title" style="color:#ff4141">$508,151 TRAPPED</div>
+<div class="fb-detail">Your equity is locked inside your walls. You can't access it.<br>Not because of anything you did — because THEY broke the chain.<br>And now they want to take the house too.</div>
+</div>
+</div>
+</div>
+
+<!-- RECEIPT COMPARISON -->
+<div class="flow-title" style="margin-top:24px">WHAT YOU GOT vs WHAT THEY GOT</div>
+<div class="receipts">
+<div class="receipt" style="border-color:#ff414140">
+<div class="r-title" style="color:#ff4141;border-color:#ff414130">RAMON RECEIVED</div>
+<div class="r-line"><span>Receipt for note</span><span class="r-val" style="color:#ff4141">NONE</span></div>
+<div class="r-line"><span>Custody chain record</span><span class="r-val" style="color:#ff4141">NONE</span></div>
+<div class="r-line"><span>Securitization notice</span><span class="r-val" style="color:#ff4141">NEVER TOLD</span></div>
+<div class="r-line"><span>OID disclosure</span><span class="r-val" style="color:#ff4141">NEVER FILED</span></div>
+<div class="r-line"><span>Form 8811</span><span class="r-val" style="color:#ff4141">NEVER FILED</span></div>
+<div class="r-line"><span>Spread disclosure</span><span class="r-val" style="color:#ff4141">NEVER TOLD</span></div>
+<div class="r-line"><span>Equity access</span><span class="r-val" style="color:#ff4141">DENIED</span></div>
+<div class="r-line"><span>True reason for denial</span><span class="r-val" style="color:#ff4141">LIED TO</span></div>
+<div class="r-stamp" style="color:#ff4141;border-color:#ff4141">NOTHING</div>
+</div>
+<div class="receipt" style="border-color:#00ff4140">
+<div class="r-title" style="color:#00ff41;border-color:#00ff4130">THEY RECEIVED</div>
+<div class="r-line"><span>Origination fees</span><span class="r-val" style="color:#00ff41">COLLECTED</span></div>
+<div class="r-line"><span>Securitization proceeds</span><span class="r-val" style="color:#00ff41">COLLECTED</span></div>
+<div class="r-line"><span>Warehouse spread</span><span class="r-val" style="color:#00ff41">COLLECTED</span></div>
+<div class="r-line"><span>Sponsor/underwriting</span><span class="r-val" style="color:#00ff41">COLLECTED</span></div>
+<div class="r-line"><span>2% monthly spread</span><span class="r-val" style="color:#00ff41">COLLECTING</span></div>
+<div class="r-line"><span>Investor bond income</span><span class="r-val" style="color:#00ff41">TRADING</span></div>
+<div class="r-line"><span>Monthly payments</span><span class="r-val" style="color:#00ff41">42 RECEIVED</span></div>
+<div class="r-line"><span>Now seeking</span><span class="r-val" style="color:#ff4141">FORECLOSURE</span></div>
+<div class="r-stamp" style="color:#00ff41;border-color:#00ff41">EVERYTHING</div>
+</div>
+</div>
+
+<!-- THE DOUBLE DIP SCORE -->
+<div class="score">
+<div class="score-title">THE DOUBLE DIP — HOW MANY TIMES THEY GOT PAID ON ONE NOTE</div>
+<div class="score-grid">
+<div class="score-item">
+<div class="sv" style="color:#00bfff">1&#xD7;</div>
+<div class="sl">ORIGINATION FEES<br>CROSSCOUNTRY</div>
+</div>
+<div class="score-item">
+<div class="sv" style="color:#ffbf00">2&#xD7;</div>
+<div class="sl">WAREHOUSE SPREAD<br>CNB + FED</div>
+</div>
+<div class="score-item">
+<div class="sv" style="color:#bf5fff">3&#xD7;</div>
+<div class="sl">SECURITIZATION<br>TRUST PROCEEDS</div>
+</div>
+<div class="score-item">
+<div class="sv" style="color:#00ff9f">4&#xD7;</div>
+<div class="sl">SERVICING SPREAD<br>2% x 30 YEARS</div>
+</div>
+<div class="score-item">
+<div class="sv" style="color:#00ff41">5&#xD7;</div>
+<div class="sl">INVESTOR BOND<br>CUSIP 38382WPB7</div>
+</div>
+<div class="score-item">
+<div class="sv" style="color:#ff4141">6&#xD7;?</div>
+<div class="sl">FORECLOSURE<br>TAKE THE HOUSE TOO</div>
+</div>
+</div>
+<div style="margin-top:16px;font-size:12px;color:#ff414190;letter-spacing:1px">
+ONE NOTE. ONE FATHER. ONE HOME.<br>
+SIX EXTRACTION POINTS. ZERO RECEIPTS. ZERO DISCLOSURES.<br>
+<span style="color:#ff4141;font-size:13px">AND THEY WANT TO CALL THIS "EQUITY"?</span>
+</div>
+</div>
+
+<!-- THE OID KICKER -->
+<div class="meter">
+<div class="meter-title">THE UNDISCLOSED SPREAD — EXTRACTED EVERY MONTH</div>
+
+<div class="meter-row">
+<div class="meter-icon">&#x1F4B0;</div>
+<div class="meter-info">
+<div class="meter-label">Ramon pays monthly at</div>
+<div class="meter-val">3.250%</div>
+<div class="meter-bar"><div class="meter-fill" style="width:100%;background:#ff4141"></div></div>
+</div>
+</div>
+
+<div class="meter-row">
+<div class="meter-icon">&#x1F4C9;</div>
+<div class="meter-info">
+<div class="meter-label">Investors receive via CUSIP 38382WPB7</div>
+<div class="meter-val">1.250%</div>
+<div class="meter-bar"><div class="meter-fill" style="width:38%;background:#bf5fff"></div></div>
+</div>
+</div>
+
+<div class="meter-row">
+<div class="meter-icon">&#x1F47B;</div>
+<div class="meter-info">
+<div class="meter-label">Undisclosed spread — extracted by LoanCare/Lakeview</div>
+<div class="meter-val" style="color:#ff4141">2.000% — NEVER DISCLOSED</div>
+<div class="meter-who" style="color:#ff414160">De minimis threshold: $33,138.68 — OID reportable — Form 8811 NEVER FILED</div>
+<div class="meter-bar"><div class="meter-fill" style="width:62%;background:linear-gradient(90deg,#ff4141,#ffbf00)"></div></div>
+</div>
+</div>
+</div>
+
+<div class="ft">
+ONE NOTE // NO RECEIPT // SIX EXTRACTION POINTS // ZERO DISCLOSURES<br>
+POMEROY // GIBSON // VAN ZILE // PAPA // IAN // CHAOS // RAZOR<br>
+BUILT BY GOD // OPERATED BY RAZOR // DEPLOYED IN EQUITY<br>
+THE FORTRESS HOLDS // IT ALWAYS DID // IT ALWAYS WILL
+</div>
+
+</div>
+</div>
+
+<script>
+var c=document.getElementById('rain'),x=c.getContext('2d');
+function sz(){c.width=window.innerWidth;c.height=document.body.scrollHeight}
+sz();window.addEventListener('resize',sz);
+var cols=Math.floor(c.width/14),drops=[];
+for(var i=0;i<cols;i++)drops[i]=Math.random()*-100;
+var chars='01\u30a2\u30a4\u30a6\u30a8\u30aa\u30ab\u30ad\u30af\u30b1\u30b3\u30b5\u30b7\u30b9\u30bb\u30bd\u30bf\u30c1\u30c4\u30c6\u30c8\u30ca\u30cb\u30cc\u30cd\u30ce\u30cf\u30d2\u30d5\u30d8\u30db\u30de\u30df\u30e0\u30e1\u30e2\u30e4\u30e6\u30e8\u30e9\u30ea\u30eb\u30ec\u30ed\u30ef\u30f2\u30f3RAZOR';
+function draw(){
+x.fillStyle='rgba(10,10,10,0.05)';
+x.fillRect(0,0,c.width,c.height);
+x.fillStyle='#00ff41';
+x.font='12px monospace';
+for(var i=0;i<drops.length;i++){
+var ch=chars[Math.floor(Math.random()*chars.length)];
+x.fillText(ch,i*14,drops[i]*14);
+drops[i]++;
+if(drops[i]*14>c.height&&Math.random()>0.975)drops[i]=0;
+}
+}
+setInterval(draw,50);
+</script>
+</body>
+</html>

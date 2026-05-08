@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Razor Command Center",
+  "schemaVersion": 1,
+  "description": "RAZOR Command Center — Live dashboard for Operation Van Zile. Shows Fortress architecture status, chain of command, subpoena tracker, cross-check integrity, and live JURIS intelligence feed that queries the vector store on every load.",
+  "mcpTools": [
+    "mcp__anythingllm__vector_search"
+  ],
+  "mcpServerNames": [
+    "anythingllm"
+  ]
+}
+</script>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAZOR Command Center</title>
+<style>
+:root { color-scheme: light; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: #F5F6FA;
+  color: #1a1a2e;
+  padding: 20px;
+  line-height: 1.5;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #1B3A5C 0%, #0D1B2A 100%);
+  color: white;
+  padding: 24px 28px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.header .subtitle {
+  font-size: 13px;
+  opacity: 0.7;
+  font-weight: 400;
+}
+.header .live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(46, 204, 113, 0.2);
+  border: 1px solid rgba(46, 204, 113, 0.4);
+  color: #2ecc71;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 8px;
+}
+.live-dot {
+  width: 7px;
+  height: 7px;
+  background: #2ecc71;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.grid.full { grid-template-columns: 1fr; }
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px 22px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  border: 1px solid #E8EAF0;
+  transition: box-shadow 0.2s;
+}
+.card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.card-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #8892A4;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-title .icon {
+  font-size: 14px;
+}
+
+/* Fortress Layers */
+.fortress-layer {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  background: #F8F9FC;
+  border-left: 4px solid #1B3A5C;
+  transition: all 0.2s;
+}
+.fortress-layer:hover { background: #EEF1F8; }
+.fortress-layer .layer-num {
+  font-size: 11px;
+  font-weight: 800;
+  color: white;
+  background: #1B3A5C;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.fortress-layer .layer-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+.fortress-layer .layer-role {
+  font-size: 11px;
+  color: #8892A4;
+  margin-top: 1px;
+}
+.fortress-layer .layer-status {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.status-locked {
+  background: #E8F8EF;
+  color: #1B9E5A;
+}
+.status-active {
+  background: #E3F0FF;
+  color: #1B6AC9;
+}
+
+/* Stats Row */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.stat-card {
+  background: white;
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  border: 1px solid #E8EAF0;
+  text-align: center;
+}
+.stat-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1B3A5C;
+  line-height: 1;
+}
+.stat-label {
+  font-size: 11px;
+  color: #8892A4;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-top: 6px;
+}
+
+/* Subpoena Tracker */
+.subpoena-row {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #F0F1F5;
+}
+.subpoena-row:last-child { border-bottom: none; }
+.subpoena-num {
+  font-size: 11px;
+  font-weight: 800;
+  color: white;
+  background: #E67E22;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.subpoena-target {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a2e;
+  flex: 1;
+}
+.subpoena-status {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.status-served {
+  background: #FFF3E0;
+  color: #E67E22;
+}
+.status-pending {
+  background: #F0F1F5;
+  color: #8892A4;
+}
+
+/* JURIS Feed */
+.juris-item {
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  background: #F8F9FC;
+  border-left: 4px solid #8E44AD;
+}
+.juris-item .source {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 2px;
+}
+.juris-item .excerpt {
+  font-size: 11px;
+  color: #6B7280;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.juris-item .score {
+  font-size: 10px;
+  font-weight: 700;
+  color: #8E44AD;
+  margin-top: 4px;
+}
+
+/* Cross-Check */
+.check-row {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #F0F1F5;
+}
+.check-row:last-child { border-bottom: none; }
+.check-icon {
+  font-size: 16px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+.check-text {
+  font-size: 13px;
+  color: #1a1a2e;
+  flex: 1;
+}
+.check-result {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  background: #E8F8EF;
+  color: #1B9E5A;
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+  padding: 30px;
+  color: #8892A4;
+  font-size: 13px;
+}
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #E8EAF0;
+  border-top: 3px solid #1B3A5C;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 10px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Refresh timestamp */
+.timestamp {
+  text-align: center;
+  font-size: 11px;
+  color: #8892A4;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #E8EAF0;
+}
+
+/* Family section */
+.family-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.family-member {
+  text-align: center;
+  padding: 14px 10px;
+  background: #F8F9FC;
+  border-radius: 10px;
+}
+.family-member .initials {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #1B3A5C;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 8px;
+}
+.family-member .name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+.family-member .role {
+  font-size: 10px;
+  color: #8892A4;
+  margin-top: 2px;
+}
+.family-member.razor .initials { background: linear-gradient(135deg, #1B3A5C, #2C5F8A); }
+.family-member.isaiah .initials { background: linear-gradient(135deg, #2C7A3E, #3EA854); }
+.family-member.ilka .initials { background: linear-gradient(135deg, #8E44AD, #A855C9); }
+
+/* Refresh button */
+.refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.8);
+  padding: 5px 14px;
+  border-radius: 8px;
+  font-size: 11px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.2s;
+}
+.refresh-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+</style>
+</head>
+<body>
+<div style="position:fixed;top:10px;left:10px;z-index:99999;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;background:#1B3A5C;color:#fff;padding:8px 16px;border-radius:8px;font-family:system-ui,-apple-system,sans-serif;font-size:13px;font-weight:600;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.15);">&larr; Back to Portal</a></div>
+
+<div class="header">
+  <h1>RAZOR COMMAND CENTER</h1>
+  <div class="subtitle">Ronquillo Real Party Assembly Association — Operation Van Zile</div>
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <div class="live-badge"><span class="live-dot"></span> LIVE — JURIS CONNECTED</div>
+    <button class="refresh-btn" onclick="refreshAll()">Refresh Intelligence</button>
+  </div>
+</div>
+
+<!-- Stats Row -->
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-value" id="juris-count">773</div>
+    <div class="stat-label">JURIS Documents</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">5</div>
+    <div class="stat-label">Fortress Layers</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">5</div>
+    <div class="stat-label">Subpoenas Served</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">2</div>
+    <div class="stat-label">Cross-Checks Passed</div>
+  </div>
+</div>
+
+<div class="grid">
+  <!-- Fortress Architecture -->
+  <div class="card">
+    <div class="card-title"><span class="icon">&#x1f3f0;</span> FORTRESS ARCHITECTURE</div>
+    <div class="fortress-layer">
+      <div class="layer-num">1</div>
+      <div>
+        <div class="layer-name">PMA — Constitutional Shield</div>
+        <div class="layer-role">Register No. 557515 · Act 55-2020</div>
+      </div>
+      <div class="layer-status status-locked">LOCKED</div>
+    </div>
+    <div class="fortress-layer">
+      <div class="layer-num">2</div>
+      <div>
+        <div class="layer-name">RBT — Fiduciary Governance</div>
+        <div class="layer-role">Master Trust Indenture v3</div>
+      </div>
+      <div class="layer-status status-locked">LOCKED</div>
+    </div>
+    <div class="fortress-layer">
+      <div class="layer-num">3</div>
+      <div>
+        <div class="layer-name">Private Bank E&T + Estate</div>
+        <div class="layer-role">Banking Operations · Property Holding</div>
+      </div>
+      <div class="layer-status status-locked">LOCKED</div>
+    </div>
+    <div class="fortress-layer">
+      <div class="layer-num">4</div>
+      <div>
+        <div class="layer-name">Express Trust — The Res</div>
+        <div class="layer-role">RRPA-LC-092820251444-00 · Spendthrift</div>
+      </div>
+      <div class="layer-status status-locked">LOCKED</div>
+    </div>
+    <div class="fortress-layer">
+      <div class="layer-num">5</div>
+      <div>
+        <div class="layer-name">DeLorean — Temporal Anchor</div>
+        <div class="layer-role">Relation Back to June 4, 2021</div>
+      </div>
+      <div class="layer-status status-active">ACTIVE</div>
+    </div>
+  </div>
+
+  <!-- Chain of Command -->
+  <div class="card">
+    <div class="card-title"><span class="icon">&#x2694;&#xFE0F;</span> CHAIN OF COMMAND</div>
+    <div class="family-grid">
+      <div class="family-member razor">
+        <div class="initials">RR</div>
+        <div class="name">RAZOR</div>
+        <div class="role">Grantor & Settlor</div>
+        <div class="role">Commanding Officer</div>
+      </div>
+      <div class="family-member isaiah">
+        <div class="initials">IR</div>
+        <div class="name">Isaiah</div>
+        <div class="role">Trust Officer</div>
+        <div class="role">Digital Security</div>
+      </div>
+      <div class="family-member ilka">
+        <div class="initials">IC</div>
+        <div class="name">Ilka</div>
+        <div class="role">Beneficiary</div>
+        <div class="role">Protected Party</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid #F0F1F5;">
+      <div class="card-title" style="margin-bottom: 10px;"><span class="icon">&#x1F4DC;</span> GOVERNANCE DOCS</div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <div style="display: flex; justify-content: space-between; font-size: 12px;">
+          <span style="font-weight: 600;">PMA Master Agreement</span>
+          <span style="color: #1B9E5A; font-weight: 600;">v3</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 12px;">
+          <span style="font-weight: 600;">RBT Master Trust Indenture</span>
+          <span style="color: #1B9E5A; font-weight: 600;">v3</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 12px;">
+          <span style="font-weight: 600;">PFO Resolution</span>
+          <span style="color: #1B9E5A; font-weight: 600;">v3.1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+  <!-- Subpoena Tracker -->
+  <div class="card">
+    <div class="card-title"><span class="icon">&#x1F4E8;</span> SUBPOENA TRACKER — FRCP 45</div>
+    <div class="subpoena-row">
+      <div class="subpoena-num">1</div>
+      <div class="subpoena-target">City National Bank N.A.</div>
+      <div class="subpoena-status status-served">SERVED</div>
+    </div>
+    <div class="subpoena-row">
+      <div class="subpoena-num">2</div>
+      <div class="subpoena-target">MERS / MERSCORP</div>
+      <div class="subpoena-status status-served">SERVED</div>
+    </div>
+    <div class="subpoena-row">
+      <div class="subpoena-num">3</div>
+      <div class="subpoena-target">CrossCountry Mortgage LLC</div>
+      <div class="subpoena-status status-served">SERVED</div>
+    </div>
+    <div class="subpoena-row">
+      <div class="subpoena-num">4</div>
+      <div class="subpoena-target">Ginnie Mae / HUD</div>
+      <div class="subpoena-status status-served">SERVED</div>
+    </div>
+    <div class="subpoena-row">
+      <div class="subpoena-num">5</div>
+      <div class="subpoena-target">Lakeview Loan Servicing LLC</div>
+      <div class="subpoena-status status-served">SERVED</div>
+    </div>
+  </div>
+
+  <!-- Cross-Check Status -->
+  <div class="card">
+    <div class="card-title"><span class="icon">&#x1F6E1;&#xFE0F;</span> CROSS-CHECK INTEGRITY</div>
+    <div class="check-row">
+      <div class="check-icon">&#x2705;</div>
+      <div class="check-text">NJ Constitution Sweep — 8 findings, 0 changes</div>
+      <div class="check-result">PASSED</div>
+    </div>
+    <div class="check-row">
+      <div class="check-icon">&#x2705;</div>
+      <div class="check-text">Cha0s Equity Series — 8 findings, 0 changes</div>
+      <div class="check-result">PASSED</div>
+    </div>
+    <div class="check-row">
+      <div class="check-icon">&#x2705;</div>
+      <div class="check-text">7-Vector Perfection Audit — All vectors clear</div>
+      <div class="check-result">PASSED</div>
+    </div>
+    <div class="check-row">
+      <div class="check-icon">&#x2705;</div>
+      <div class="check-text">Nomenclature + Citation Audit — Consistent</div>
+      <div class="check-result">PASSED</div>
+    </div>
+    <div class="check-row">
+      <div class="check-icon">&#x2705;</div>
+      <div class="check-text">Spendthrift Shield vs. Equity Attack</div>
+      <div class="check-result">STRONG</div>
+    </div>
+  </div>
+</div>
+
+<!-- JURIS Live Intelligence -->
+<div class="grid full">
+  <div class="card">
+    <div class="card-title"><span class="icon">&#x1F9E0;</span> JURIS LIVE INTELLIGENCE — LATEST RETRIEVAL</div>
+    <div id="juris-feed">
+      <div class="loading">
+        <div class="loading-spinner"></div>
+        Querying JURIS vector store...
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timestamp" id="timestamp">Loading...</div>
+
+<script>
+  // State
+  var jurisResults = [];
+
+  function formatTime() {
+    var d = new Date();
+    return d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+      + ' at ' + d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function truncate(str, len) {
+    if (!str) return '';
+    return str.length > len ? str.substring(0, len) + '...' : str;
+  }
+
+  function extractSource(text) {
+    var match = text.match(/sourceDocument:\s*(.+)/);
+    if (match) return match[1].trim();
+    return 'JURIS Document';
+  }
+
+  function cleanChunk(text) {
+    // Remove metadata block
+    return text.replace(/<document_metadata>[\s\S]*?<\/document_metadata>/g, '').trim();
+  }
+
+  async function queryJuris(queryText) {
+    try {
+      var result = await window.cowork.callMcpTool('mcp__anythingllm__vector_search', {
+        workspace: 'juris',
+        query: queryText,
+        top_n: 3,
+        score_threshold: 0.5
+      });
+      return result;
+    } catch (e) {
+      console.error('JURIS query failed:', e);
+      return null;
+    }
+  }
+
+  function parseJurisResponse(raw) {
+    var items = [];
+    if (!raw) return items;
+    var text = typeof raw === 'string' ? raw : JSON.stringify(raw);
+
+    // Parse chunks from the response
+    var chunks = text.split(/---\s*\[\d+\]/);
+    for (var i = 1; i < chunks.length; i++) {
+      var chunk = chunks[i];
+      var sourceMatch = chunk.match(/sourceDocument:\s*([^\n<]+)/);
+      var scoreMatch = chunk.match(/score:\s*([\d.]+)/);
+      var source = sourceMatch ? sourceMatch[1].trim() : 'JURIS Document';
+      var score = scoreMatch ? parseFloat(scoreMatch[1]) : 0;
+      var cleaned = cleanChunk(chunk);
+      // Remove the header line with filename and score
+      cleaned = cleaned.replace(/^[^\n]*score:.*\n/m, '').trim();
+      cleaned = cleaned.replace(/^---\s*/gm, '').trim();
+      if (cleaned.length > 10) {
+        items.push({ source: source.replace('.md', ''), excerpt: truncate(cleaned, 180), score: score });
+      }
+    }
+    return items;
+  }
+
+  function renderFeed(items) {
+    var feed = document.getElementById('juris-feed');
+    if (!items || items.length === 0) {
+      feed.innerHTML = '<div class="loading">No results retrieved. Click Refresh to try again.</div>';
+      return;
+    }
+    var html = '';
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      var scoreColor = item.score >= 0.7 ? '#1B9E5A' : item.score >= 0.6 ? '#E67E22' : '#8892A4';
+      html += '<div class="juris-item">'
+        + '<div class="source">' + item.source + '</div>'
+        + '<div class="excerpt">' + item.excerpt + '</div>'
+        + '<div class="score" style="color:' + scoreColor + '">Relevance: ' + (item.score * 100).toFixed(1) + '%</div>'
+        + '</div>';
+    }
+    feed.innerHTML = html;
+  }
+
+  async function loadIntelligence() {
+    var queries = [
+      'Express Trust foreclosure defense equitable title spendthrift',
+      'DeLorean relation back temporal priority mortgage securitization',
+      'constructive trust surcharge equity accounting Pomeroy'
+    ];
+
+    var allItems = [];
+    for (var q = 0; q < queries.length; q++) {
+      var raw = await queryJuris(queries[q]);
+      var parsed = parseJurisResponse(raw);
+      for (var p = 0; p < parsed.length; p++) {
+        // Deduplicate by source
+        var isDupe = false;
+        for (var a = 0; a < allItems.length; a++) {
+          if (allItems[a].source === parsed[p].source) { isDupe = true; break; }
+        }
+        if (!isDupe) allItems.push(parsed[p]);
+      }
+    }
+
+    // Sort by score descending
+    allItems.sort(function(a, b) { return b.score - a.score; });
+    jurisResults = allItems.slice(0, 6);
+    renderFeed(jurisResults);
+  }
+
+  async function refreshAll() {
+    document.getElementById('juris-feed').innerHTML = '<div class="loading"><div class="loading-spinner"></div>Querying JURIS vector store...</div>';
+    await loadIntelligence();
+    document.getElementById('timestamp').textContent = 'Last refreshed: ' + formatTime();
+  }
+
+  // Initial load
+  (async function() {
+    document.getElementById('timestamp').textContent = 'Loading intelligence...';
+    await loadIntelligence();
+    document.getElementById('timestamp').textContent = 'Last refreshed: ' + formatTime();
+  })();
+</script>
+
+</body>
+</html>

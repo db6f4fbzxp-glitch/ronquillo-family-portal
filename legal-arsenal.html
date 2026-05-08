@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legal Arsenal — Cha0s Equity Doctrine</title>
+<style>
+:root { color-scheme: light; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  background: #FAFAF8;
+  color: #2C2C2C;
+  line-height: 1.7;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #1B3A5C 0%, #2D5F8A 60%, #3A7CB8 100%);
+  color: #fff;
+  padding: 48px 24px 40px;
+  text-align: center;
+}
+.hero h1 { font-size: 28px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 8px; }
+.hero .subtitle { font-size: 15px; opacity: 0.85; font-style: italic; max-width: 560px; margin: 0 auto; }
+.hero .crest { font-size: 48px; margin-bottom: 12px; display: block; }
+.hero .back-link {
+  display: inline-block; margin-top: 16px; color: rgba(255,255,255,0.8);
+  text-decoration: none; font-size: 13px; font-family: system-ui, -apple-system, sans-serif;
+}
+.hero .back-link:hover { color: #fff; }
+
+/* ── STATS BAR ── */
+.stats-bar {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+  max-width: 820px; margin: -20px auto 20px; padding: 0 20px; position: relative; z-index: 2;
+}
+.stat-pill {
+  background: #fff; border: 1px solid #E8E4DC; border-radius: 30px;
+  padding: 10px 20px; font-family: system-ui, -apple-system, sans-serif;
+  font-size: 13px; color: #1B3A5C; font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.stat-pill span { color: #2E7D32; font-size: 16px; margin-right: 4px; }
+
+/* ── CONTAINER ── */
+.container { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+
+/* ── CATEGORY TABS ── */
+.tab-nav {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+  margin: 28px auto; max-width: 820px; padding: 0 20px;
+}
+.tab-btn {
+  background: #fff; border: 1px solid #E8E4DC; border-radius: 8px;
+  padding: 10px 16px; cursor: pointer; font-family: system-ui, -apple-system, sans-serif;
+  font-size: 13px; color: #555; transition: all 0.2s; font-weight: 500;
+}
+.tab-btn:hover { border-color: #1B3A5C; color: #1B3A5C; }
+.tab-btn.active {
+  background: #1B3A5C; color: #fff; border-color: #1B3A5C;
+}
+.tab-btn .count {
+  display: inline-block; background: rgba(0,0,0,0.08); border-radius: 10px;
+  padding: 1px 7px; font-size: 11px; margin-left: 4px;
+}
+.tab-btn.active .count { background: rgba(255,255,255,0.25); }
+
+/* ── CATEGORY PANEL ── */
+.cat-panel { display: none; }
+.cat-panel.active { display: block; }
+
+/* ── SECTION HEADER ── */
+.cat-header {
+  text-align: center; margin: 28px 0 20px; padding: 0 20px;
+}
+.cat-header h2 { font-size: 22px; color: #1B3A5C; margin-bottom: 6px; }
+.cat-header p { font-size: 14px; color: #777; max-width: 600px; margin: 0 auto; }
+
+/* ── AUTHORITY CARD ── */
+.auth-card {
+  background: #fff; border: 1px solid #E8E4DC; border-radius: 12px;
+  padding: 20px 24px; margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: all 0.2s;
+}
+.auth-card:hover {
+  border-color: #1B3A5C; box-shadow: 0 4px 16px rgba(27,58,92,0.08);
+}
+.auth-card .cite {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 15px; font-weight: 700; color: #1B3A5C; margin-bottom: 6px;
+}
+.auth-card .holding {
+  font-size: 14px; color: #3A3A3A; margin-bottom: 8px; line-height: 1.6;
+}
+.auth-card .source-tag {
+  display: inline-block; font-size: 11px; font-family: system-ui, -apple-system, sans-serif;
+  background: #F0EDE6; color: #888; border-radius: 4px; padding: 2px 8px;
+  margin-right: 4px; margin-bottom: 4px;
+}
+.auth-card .source-tag.constitutional { background: #E8F5E9; color: #2E7D32; }
+.auth-card .source-tag.federal { background: #E3F2FD; color: #1565C0; }
+.auth-card .source-tag.caselaw { background: #FFF3E0; color: #E65100; }
+.auth-card .source-tag.treatise { background: #F3E5F5; color: #7B1FA2; }
+.auth-card .source-tag.ucc { background: #E0F2F1; color: #00695C; }
+.auth-card .source-tag.maxim { background: #FCE4EC; color: #C62828; }
+.auth-card .source-tag.rule { background: #FFFDE7; color: #F57F17; }
+.auth-card .source-tag.regulation { background: #ECEFF1; color: #455A64; }
+
+/* ── QUICK LOOKUP ── */
+.lookup-section {
+  background: #fff; border: 1px solid #E8E4DC; border-radius: 12px;
+  padding: 28px; margin: 28px auto; max-width: 820px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+.lookup-section h3 {
+  font-size: 18px; color: #1B3A5C; margin-bottom: 16px;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+.lookup-row {
+  display: grid; grid-template-columns: 1fr 1.4fr; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid #F0EDE6; font-size: 14px;
+}
+.lookup-row:last-child { border-bottom: none; }
+.lookup-arg { color: #1B3A5C; font-weight: 600; font-family: system-ui, -apple-system, sans-serif; font-size: 13px; }
+.lookup-cite { color: #3A3A3A; font-size: 13px; }
+
+/* ── MAXIM CARDS ── */
+.maxim-card {
+  background: linear-gradient(135deg, #F8F7F4 0%, #fff 100%);
+  border: 1px solid #E8E4DC; border-left: 4px solid #1B3A5C;
+  border-radius: 0 12px 12px 0; padding: 20px 24px; margin-bottom: 14px;
+}
+.maxim-card .maxim-text {
+  font-size: 16px; font-style: italic; color: #1B3A5C;
+  margin-bottom: 8px; line-height: 1.6;
+}
+.maxim-card .maxim-source { font-size: 13px; color: #888; }
+.maxim-card .maxim-use { font-size: 13px; color: #555; margin-top: 6px; }
+
+/* ── PLEADING CHECKLIST ── */
+.checklist-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid #F0EDE6; font-size: 14px;
+}
+.checklist-item:last-child { border-bottom: none; }
+.check-box {
+  flex-shrink: 0; width: 20px; height: 20px; border: 2px solid #1B3A5C;
+  border-radius: 4px; margin-top: 2px; display: flex; align-items: center;
+  justify-content: center; cursor: pointer; transition: all 0.2s;
+  font-size: 12px; color: transparent; font-family: system-ui, sans-serif;
+}
+.check-box.checked { background: #2E7D32; border-color: #2E7D32; color: #fff; }
+.checklist-text { color: #3A3A3A; line-height: 1.5; }
+
+/* ── SEARCH ── */
+.search-wrap {
+  max-width: 820px; margin: 20px auto; padding: 0 20px;
+}
+.search-box {
+  width: 100%; padding: 14px 20px; border: 1px solid #E8E4DC; border-radius: 10px;
+  font-size: 15px; font-family: system-ui, -apple-system, sans-serif;
+  background: #fff; color: #2C2C2C; outline: none; transition: border-color 0.2s;
+}
+.search-box:focus { border-color: #1B3A5C; box-shadow: 0 0 0 3px rgba(27,58,92,0.1); }
+.search-box::placeholder { color: #BBB; }
+.search-count {
+  text-align: center; font-size: 13px; color: #888; margin-top: 8px;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* ── FOOTER ── */
+.portal-footer {
+  text-align: center; padding: 40px 20px; margin-top: 40px;
+  border-top: 1px solid #E8E4DC;
+}
+.portal-footer p { font-size: 13px; color: #999; margin-bottom: 4px; }
+.portal-footer .motto { font-style: italic; color: #1B3A5C; font-size: 14px; margin-top: 8px; }
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 22px; }
+  .stats-bar { gap: 8px; }
+  .stat-pill { padding: 8px 14px; font-size: 12px; }
+  .tab-btn { padding: 8px 12px; font-size: 12px; }
+  .lookup-row { grid-template-columns: 1fr; gap: 4px; }
+  .auth-card { padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════ HERO ═══════ -->
+<div class="hero">
+  <span class="crest">&#9879;</span>
+  <h1>Legal Arsenal</h1>
+  <p class="subtitle">Every statute, case, treatise, and maxim from the Cha0s Equity Doctrine — organized, categorized, and battle-ready.</p>
+  <a href="index.html" class="back-link">&larr; Back to Portal</a>
+</div>
+
+<!-- ═══════ STATS BAR ═══════ -->
+<div class="stats-bar">
+  <div class="stat-pill"><span>45+</span> Federal Statutes</div>
+  <div class="stat-pill"><span>34+</span> Case Citations</div>
+  <div class="stat-pill"><span>40+</span> Treatise Sections</div>
+  <div class="stat-pill"><span>5</span> UCC Provisions</div>
+  <div class="stat-pill"><span>5</span> Equitable Maxims</div>
+  <div class="stat-pill"><span>10</span> Source Documents</div>
+</div>
+
+<!-- ═══════ SEARCH ═══════ -->
+<div class="search-wrap">
+  <input type="text" class="search-box" id="searchBox" placeholder="Search all authorities... (e.g., 'surcharge', '405(h)', 'Grupo Mexicano')">
+  <div class="search-count" id="searchCount"></div>
+</div>
+
+<!-- ═══════ CATEGORY TABS ═══════ -->
+<div class="tab-nav" id="tabNav">
+  <button class="tab-btn active" data-tab="constitution">Constitution <span class="count">2</span></button>
+  <button class="tab-btn" data-tab="federal">Federal Statutes <span class="count">45</span></button>
+  <button class="tab-btn" data-tab="state">State / UCC <span class="count">9</span></button>
+  <button class="tab-btn" data-tab="rules">Federal Rules <span class="count">4</span></button>
+  <button class="tab-btn" data-tab="caselaw">Case Law <span class="count">34</span></button>
+  <button class="tab-btn" data-tab="treatises">Treatises <span class="count">40</span></button>
+  <button class="tab-btn" data-tab="maxims">Maxims &amp; Doctrines <span class="count">10</span></button>
+  <button class="tab-btn" data-tab="regulations">Regulations <span class="count">6</span></button>
+  <button class="tab-btn" data-tab="lookup">Quick Lookup</button>
+  <button class="tab-btn" data-tab="checklist">Pleading Checklist</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 1: CONSTITUTION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="cat-panel active" id="panel-constitution">
+<div class="container">
+  <div class="cat-header">
+    <h2>U.S. Constitution</h2>
+    <p>The bedrock: Article III equity jurisdiction and Fifth Amendment due process.</p>
+  </div>
+
+  <div class="auth-card" data-search="article iii section 2 constitution equity jurisdiction judicial power chancery 1789">
+    <div class="cite">Article III, &sect; 2</div>
+    <div class="holding">Establishes federal judicial power over "all Cases, in Law and Equity." The foundation of every bill in equity filed in federal court. Implemented by the Judiciary Act of 1789.</div>
+    <span class="source-tag constitutional">Constitutional</span>
+    <span class="source-tag">All Cha0s Files</span>
+  </div>
+
+  <div class="auth-card" data-search="fifth amendment due process deprivation property liberty accounting federal agency">
+    <div class="cite">Fifth Amendment &mdash; Due Process Clause</div>
+    <div class="holding">Jurisdictional basis for equitable accounting of federal agency-held funds. No person shall be deprived of life, liberty, or property without due process of law. Underpins every accounting demand against a federal custodian.</div>
+    <span class="source-tag constitutional">Constitutional</span>
+    <span class="source-tag">Accounting Master</span>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 2: FEDERAL STATUTES -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="cat-panel" id="panel-federal">
+<div class="container">
+  <div class="cat-header">
+    <h2>Federal Statutes</h2>
+    <p>45+ U.S.C. citations across jurisdiction, Social Security, Internal Revenue, Treasury, and civil rights.</p>
+  </div>
+
+  <!-- JURISDICTION -->
+  <h3 style="font-size:16px;color:#1B3A5C;margin:20px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">Jurisdiction &amp; Procedure (28 U.S.C.)</h3>
+
+  <div class="auth-card" data-search="28 usc 1331 federal question jurisdiction subject matter">
+    <div class="cite">28 U.S.C. &sect; 1331 &mdash; Federal Question Jurisdiction</div>
+    <div class="holding">Primary basis for federal court subject-matter jurisdiction over claims arising under the Constitution, laws, or treaties of the United States.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">All Cha0s Files</span>
+  </div>
+
+  <div class="auth-card" data-search="28 usc 1332 diversity jurisdiction 75000 amount controversy">
+    <div class="cite">28 U.S.C. &sect; 1332 &mdash; Diversity Jurisdiction</div>
+    <div class="holding">Alternative jurisdictional basis when complete diversity exists and amount in controversy exceeds $75,000.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Consumer Credit Adaptation</span>
+  </div>
+
+  <div class="auth-card" data-search="28 usc 1346 federal tax refund claims district court">
+    <div class="cite">28 U.S.C. &sect; 1346(a)(1) &mdash; Federal Tax Refund Claims</div>
+    <div class="holding">District court jurisdiction over federal tax refund suits.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="28 usc 1391 venue residence action arose personal">
+    <div class="cite">28 U.S.C. &sect; 1391(b), (e) &mdash; Venue</div>
+    <div class="holding">Personal residence or place where the action arose for venue purposes.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Multiple Files</span>
+  </div>
+
+  <div class="auth-card" data-search="28 usc 1491 tucker act court federal claims monetary damages 10000">
+    <div class="cite">28 U.S.C. &sect; 1491 &mdash; Tucker Act (Court of Federal Claims)</div>
+    <div class="holding">Claims against United States for monetary damages exceeding $10,000.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="28 usc 1651 all writs mandamus inherent power court">
+    <div class="cite">28 U.S.C. &sect; 1651(a) &mdash; All Writs Act</div>
+    <div class="holding">Inherent power of federal courts to issue all writs necessary or appropriate in aid of their jurisdictions.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Equity Jurisdiction</span>
+  </div>
+
+  <div class="auth-card" data-search="28 usc 1961 interest federal judgments rate">
+    <div class="cite">28 U.S.C. &sect; 1961 &mdash; Interest on Federal Judgments</div>
+    <div class="holding">Post-judgment interest calculations for federal court awards.</div>
+    <span class="source-tag federal">Federal Statute</span>
+  </div>
+
+  <div class="auth-card" data-search="28 usc 2041 2042 court registry deposits withdrawal federal">
+    <div class="cite">28 U.S.C. &sect;&sect; 2041&ndash;2042 &mdash; Court Registry Deposits</div>
+    <div class="holding">Statutory authority for court registry funds, deposit procedures, and withdrawal mechanisms.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Court Accounting</span>
+  </div>
+
+  <div class="auth-card" data-search="28 usc 2201 declaratory judgment act relief tax exception">
+    <div class="cite">28 U.S.C. &sect; 2201 &mdash; Declaratory Judgment Act</div>
+    <div class="holding">Authority for declaratory relief (subject to tax exception under &sect; 7421).</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="28 usc 2283 anti injunction act federal state relations proceedings">
+    <div class="cite">28 U.S.C. &sect; 2283 &mdash; Anti-Injunction Act (Federal-State)</div>
+    <div class="holding">Limits federal court injunctions against state court proceedings. Boundary: does not apply to in personam relief against officers.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Consumer Credit</span>
+  </div>
+
+  <!-- SOCIAL SECURITY -->
+  <h3 style="font-size:16px;color:#1B3A5C;margin:28px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">Social Security Act (42 U.S.C.)</h3>
+
+  <div class="auth-card" data-search="42 usc 401 oasi di trust funds statutory trustee social security">
+    <div class="cite">42 U.S.C. &sect; 401 &mdash; OASI/DI Trust Funds</div>
+    <div class="holding">Statutory trust funds with named trustees. Establishes quasi-fiduciary relationship between SSA and beneficiaries.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Accounting Master</span>
+  </div>
+
+  <div class="auth-card" data-search="42 usc 402 k 5 government pension offset gpo spousal survivor benefit">
+    <div class="cite">42 U.S.C. &sect; 402(k)(5) &mdash; Government Pension Offset</div>
+    <div class="holding">GPO reduction formula for spousal/survivor benefits based on government pension.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Accounting Master</span>
+  </div>
+
+  <div class="auth-card" data-search="42 usc 405 g judicial review ssa final decision commissioner exclusive">
+    <div class="cite">42 U.S.C. &sect; 405(g) &mdash; SSA Judicial Review</div>
+    <div class="holding">Exclusive vehicle for reviewing "final decisions" of the Commissioner. Creates jurisdictional channeling boundary.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Accounting Master</span>
+  </div>
+
+  <div class="auth-card" data-search="42 usc 405 h channeling provision jurisdiction stripping arising under ssa shalala">
+    <div class="cite">42 U.S.C. &sect; 405(h) &mdash; Jurisdictional Channeling</div>
+    <div class="holding">Strips &sect; 1331 jurisdiction for claims "arising under" SSA. BOUNDARY: Does not apply where it would mean "no review at all" (Shalala v. Illinois).</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Accounting Master</span>
+  </div>
+
+  <div class="auth-card" data-search="42 usc 405 j representative payee fiduciary accounting duties express">
+    <div class="cite">42 U.S.C. &sect; 405(j) &mdash; Representative Payee</div>
+    <div class="holding">Express statutory fiduciary with accounting duties. Creates actionable fiduciary relationship.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Accounting Master</span>
+  </div>
+
+  <div class="auth-card" data-search="42 usc 415 a 7 windfall elimination provision wep pension earnings reduction">
+    <div class="cite">42 U.S.C. &sect; 415(a)(7) &mdash; Windfall Elimination Provision</div>
+    <div class="holding">WEP reduction formula for Social Security benefits based on pension earnings.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Accounting Master</span>
+  </div>
+
+  <div class="auth-card" data-search="42 usc 1983 civil rights action deprivation color state law section 1983">
+    <div class="cite">42 U.S.C. &sect; 1983 &mdash; Civil Rights Action</div>
+    <div class="holding">Deprivation of rights, privileges, or immunities under color of state law.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Vital Records</span>
+  </div>
+
+  <div class="auth-card" data-search="42 usc 1988 attorney fees civil rights actions costs recovery">
+    <div class="cite">42 U.S.C. &sect; 1988 &mdash; Attorney's Fees</div>
+    <div class="holding">Cost and fee recovery in &sect; 1983 civil rights actions.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Vital Records</span>
+  </div>
+
+  <!-- INTERNAL REVENUE -->
+  <h3 style="font-size:16px;color:#1B3A5C;margin:28px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">Internal Revenue Code (26 U.S.C.)</h3>
+
+  <div class="auth-card" data-search="26 usc 6109 tax identification numbers ssn requirements irs">
+    <div class="cite">26 U.S.C. &sect; 6109 &mdash; Tax Identification Numbers</div>
+    <div class="holding">SSN assignment requirements and obligations.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Vital Records</span>
+  </div>
+
+  <div class="auth-card" data-search="26 usc 6213 statutory notice deficiency tax court jurisdiction pre-payment">
+    <div class="cite">26 U.S.C. &sect; 6213 &mdash; Notice of Deficiency</div>
+    <div class="holding">Tax Court jurisdiction procedure for pre-payment disputes.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="26 usc 6320 6330 notice lien levy cdp collection due process hearing">
+    <div class="cite">26 U.S.C. &sect;&sect; 6320, 6330 &mdash; Collection Due Process</div>
+    <div class="holding">Notice requirements before lien (&sect; 6320) and levy (&sect; 6330). Right to CDP hearing before collection action.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="26 usc 6331 levy distraint property seizure irs authority unpaid taxes">
+    <div class="cite">26 U.S.C. &sect; 6331 &mdash; Levy and Distraint</div>
+    <div class="holding">IRS authority to seize property for unpaid taxes.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="26 usc 6335 6337 6342 property seizure sale surplus return levy proceeds">
+    <div class="cite">26 U.S.C. &sect;&sect; 6335&ndash;6342 &mdash; Seizure, Sale &amp; Surplus</div>
+    <div class="holding">Procedures for sale of seized property (&sect;&sect; 6335-6337) and IRS duty to return excess levy proceeds (&sect; 6342).</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="26 usc 6402 offset authority refunds child support federal state debts unemployment">
+    <div class="cite">26 U.S.C. &sect; 6402 &mdash; Offset Authority</div>
+    <div class="holding">IRS authority to offset refunds against liabilities, child support, federal debts, state taxes, and UI overpayments.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="26 usc 6621 interest rate computation federal short term rate quarterly adjustment">
+    <div class="cite">26 U.S.C. &sect; 6621 &mdash; Interest Rate Computation</div>
+    <div class="holding">Federal short-term rate plus three percentage points, adjusted quarterly.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="26 usc 6651 6662 6663 penalties failure file pay accuracy fraud understatement">
+    <div class="cite">26 U.S.C. &sect;&sect; 6651, 6662, 6663 &mdash; Penalties</div>
+    <div class="holding">Failure to file/pay (&sect; 6651), accuracy-related (&sect; 6662), and fraud penalties (&sect; 6663).</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="26 usc 6672 trust fund recovery penalty 100 percent responsible persons employer tax">
+    <div class="cite">26 U.S.C. &sect; 6672 &mdash; Trust Fund Recovery Penalty</div>
+    <div class="holding">"100% penalty" against responsible persons for employer tax remittance failure.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="26 usc 7421 anti injunction act tax specific restraining assessment collection exceptions">
+    <div class="cite">26 U.S.C. &sect; 7421 &mdash; Anti-Injunction Act (Tax)</div>
+    <div class="holding">"No suit for the purpose of restraining the assessment or collection of any tax." THREE EXCEPTIONS: Williams Packing, South Carolina v. Regan, CIC Services.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="26 usc 7422 7433 refund suit procedure damages reckless intentional irs wrongful levy">
+    <div class="cite">26 U.S.C. &sect;&sect; 7422, 7433 &mdash; Refund Suits &amp; IRS Damages</div>
+    <div class="holding">Refund suit procedures (&sect; 7422) and monetary damages for reckless/intentional IRS conduct (&sect; 7433).</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <!-- TREASURY & OTHER -->
+  <h3 style="font-size:16px;color:#1B3A5C;margin:28px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">Treasury, Administrative &amp; Other Federal</h3>
+
+  <div class="auth-card" data-search="31 usc 3716 3720a treasury offset program top authority bfs intercept federal payments">
+    <div class="cite">31 U.S.C. &sect;&sect; 3716, 3720A &mdash; Treasury Offset Program</div>
+    <div class="holding">Authority for Bureau of Fiscal Service to intercept federal payments including tax refunds through TOP.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="31 usc 5324 9705 structuring statute treasury forfeiture fund deposits reporting">
+    <div class="cite">31 U.S.C. &sect;&sect; 5324, 9705 &mdash; Structuring &amp; Forfeiture</div>
+    <div class="holding">Prohibits structuring deposits to evade reporting (&sect; 5324). Treasury Forfeiture Fund for non-tax forfeitures (&sect; 9705).</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="5 usc 552 552a 702 foia privacy act apa sovereign immunity waiver non monetary relief">
+    <div class="cite">5 U.S.C. &sect;&sect; 552, 552a, 702 &mdash; FOIA, Privacy Act, APA</div>
+    <div class="holding">FOIA (&sect; 552) and Privacy Act (&sect; 552a) are inadequate for equitable accounting. APA &sect; 702 waives sovereign immunity for "relief other than money damages."</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Multiple Files</span>
+  </div>
+
+  <div class="auth-card" data-search="15 usc 77aaa 77bbbb trust indenture act 1939 abs securitized fiduciary disclosure">
+    <div class="cite">15 U.S.C. &sect;&sect; 77aaa&ndash;77bbbb &mdash; Trust Indenture Act of 1939</div>
+    <div class="holding">Governs indenture trustees' disclosure duties and fiduciary obligations in SEC-registered ABS/securitized trusts.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Consumer Credit Adaptation</span>
+  </div>
+
+  <div class="auth-card" data-search="8 usc 1401 citizenship naturalization birth requirements acquisition">
+    <div class="cite">8 U.S.C. &sect; 1401 &mdash; Citizenship by Birth</div>
+    <div class="holding">Requirements for acquisition of citizenship through birth.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Vital Records</span>
+  </div>
+
+  <div class="auth-card" data-search="40 usc 3114 condemnation awards just compensation estimated deposit federal">
+    <div class="cite">40 U.S.C. &sect; 3114 &mdash; Condemnation Awards</div>
+    <div class="holding">Federal procedure for deposit of estimated just compensation.</div>
+    <span class="source-tag federal">Federal Statute</span>
+    <span class="source-tag">Court Accounting</span>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 3: STATE / UCC -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="cat-panel" id="panel-state">
+<div class="container">
+  <div class="cat-header">
+    <h2>State Statutes &amp; UCC</h2>
+    <p>Uniform Commercial Code Article 9 provisions and New Jersey constitutional/statutory authority.</p>
+  </div>
+
+  <h3 style="font-size:16px;color:#1B3A5C;margin:20px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">UCC Article 9 &mdash; Secured Transactions</h3>
+
+  <div class="auth-card" data-search="ucc 9-609 self help repossession secured creditor possession collateral quia timet injunction">
+    <div class="cite">UCC &sect; 9-609 &mdash; Self-Help Repossession</div>
+    <div class="holding">Secured creditor's right to take possession without judicial process. Quia timet injunction may defer exercise pending accounting.</div>
+    <span class="source-tag ucc">UCC</span>
+    <span class="source-tag">Consumer Credit Adaptation</span>
+  </div>
+
+  <div class="auth-card" data-search="ucc 9-610 disposition collateral sell secured creditor authority">
+    <div class="cite">UCC &sect; 9-610 &mdash; Disposition of Collateral</div>
+    <div class="holding">Secured creditor's authority to sell or otherwise dispose of collateral after default.</div>
+    <span class="source-tag ucc">UCC</span>
+    <span class="source-tag">Consumer Credit Adaptation</span>
+  </div>
+
+  <div class="auth-card" data-search="ucc 9-615 calculation deficiency net proceeds collateral disposition surplus">
+    <div class="cite">UCC &sect; 9-615 &mdash; Deficiency Calculation</div>
+    <div class="holding">Net proceeds calculation after collateral disposition. Determines surplus or deficiency.</div>
+    <span class="source-tag ucc">UCC</span>
+    <span class="source-tag">Consumer Credit Adaptation</span>
+  </div>
+
+  <div class="auth-card" data-search="ucc 9-616 notice deficiency required procedures floor ceiling equity">
+    <div class="cite">UCC &sect; 9-616 &mdash; Notice of Deficiency</div>
+    <div class="holding">Required notice procedures. This is a procedural floor, not a ceiling for equity.</div>
+    <span class="source-tag ucc">UCC</span>
+    <span class="source-tag">Consumer Credit Adaptation</span>
+  </div>
+
+  <div class="auth-card" data-search="ucc 9-625 remedies non compliance damages article 9 excluded equity bill">
+    <div class="cite">UCC &sect; 9-625 &mdash; Remedies for Non-Compliance</div>
+    <div class="holding">Damages remedy under Article 9. Explicitly excluded from equity bill because equity demands a fuller accounting.</div>
+    <span class="source-tag ucc">UCC</span>
+    <span class="source-tag">Consumer Credit Adaptation</span>
+  </div>
+
+  <h3 style="font-size:16px;color:#1B3A5C;margin:28px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">New Jersey Authority</h3>
+
+  <div class="auth-card" data-search="new jersey constitution 1947 state constitutional law provisions court procedure">
+    <div class="cite">NJ Constitution (1947)</div>
+    <div class="holding">State constitutional law provisions governing court structure, jurisdiction, and individual rights. Full text in JURIS library.</div>
+    <span class="source-tag">State Constitution</span>
+    <span class="source-tag">JURIS Library</span>
+  </div>
+
+  <div class="auth-card" data-search="new jersey estates distribution probate intestate succession estate administration">
+    <div class="cite">NJ Estates &amp; Distribution Statutes</div>
+    <div class="holding">State law on probate, intestate succession, and estate administration. Statutory matrix in JURIS library.</div>
+    <span class="source-tag">State Statute</span>
+    <span class="source-tag">JURIS Library</span>
+  </div>
+
+  <div class="auth-card" data-search="new jersey prerogative writ mandamus framework equitable remedies state">
+    <div class="cite">NJ Prerogative Writ / Mandamus Framework</div>
+    <div class="holding">State equitable remedies including mandamus. Framework document in JURIS library.</div>
+    <span class="source-tag">State Statute</span>
+    <span class="source-tag">JURIS Library</span>
+  </div>
+
+  <div class="auth-card" data-search="new jersey full faith credit statutory matrix recognition out-of-state judgments">
+    <div class="cite">NJ Full Faith &amp; Credit Statutory Matrix</div>
+    <div class="holding">State law recognition of out-of-state judgments. Complete statutory matrix in JURIS library.</div>
+    <span class="source-tag">State Statute</span>
+    <span class="source-tag">JURIS Library</span>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 4: FEDERAL RULES -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="cat-panel" id="panel-rules">
+<div class="container">
+  <div class="cat-header">
+    <h2>Federal Rules of Civil Procedure</h2>
+    <p>The procedural framework that merged law and equity in form — but not in substance.</p>
+  </div>
+
+  <div class="auth-card" data-search="frcp rule 2 merger actions 1938 procedural form substance equity survives">
+    <div class="cite">FRCP Rule 2 &mdash; Merger of Actions</div>
+    <div class="holding">The 1938 procedural merger of law and equity. CRITICAL: This is merger of form, not substance. It does not abolish equity jurisdiction. The actual nature of the action (equitable accounting) is not altered by compliance with procedural form.</div>
+    <span class="source-tag rule">Federal Rule</span>
+    <span class="source-tag">All Cha0s Files</span>
+  </div>
+
+  <div class="auth-card" data-search="frcp rule 8 pleading requirements notice standard">
+    <div class="cite">FRCP Rule 8 &mdash; Pleading Requirements</div>
+    <div class="holding">Notice pleading standard. Not applicable to equity bill substantive analysis — equity pleading follows its own tradition.</div>
+    <span class="source-tag rule">Federal Rule</span>
+    <span class="source-tag">Consumer Credit Adaptation</span>
+  </div>
+
+  <div class="auth-card" data-search="frcp rule 19 indispensable required parties joinder shields barrow necessary">
+    <div class="cite">FRCP Rule 19 &mdash; Required Parties</div>
+    <div class="holding">Standards for joining necessary and indispensable parties (per Shields v. Barrow). Persons whose absence would leave the controversy in a condition inconsistent with equity and good conscience.</div>
+    <span class="source-tag rule">Federal Rule</span>
+    <span class="source-tag">Multiple Files</span>
+  </div>
+
+  <div class="auth-card" data-search="frcp rule 67 court deposits funds into registry deposit authority">
+    <div class="cite">FRCP Rule 67 &mdash; Court Deposits</div>
+    <div class="holding">Authority for deposit of funds into court registry. Statutory basis for court registry accounting demands.</div>
+    <span class="source-tag rule">Federal Rule</span>
+    <span class="source-tag">Court Accounting</span>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 5: CASE LAW -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="cat-panel" id="panel-caselaw">
+<div class="container">
+  <div class="cat-header">
+    <h2>Case Law</h2>
+    <p>34+ Supreme Court and appellate authorities — the judicial backbone of the Cha0s doctrine.</p>
+  </div>
+
+  <h3 style="font-size:16px;color:#1B3A5C;margin:20px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">Foundational Equity Cases</h3>
+
+  <div class="auth-card" data-search="grupo mexicano desarrollo alliance bond fund 527 us 308 1999 equity chancery 1789 high court">
+    <div class="cite">Grupo Mexicano de Desarrollo v. Alliance Bond Fund, 527 U.S. 308 (1999)</div>
+    <div class="holding">Equity jurisdiction of federal courts is coextensive with the High Court of Chancery in England at the time of the Constitution and the Judiciary Act of 1789. THE foundational authority for all equitable remedies.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">All Cha0s Files</span>
+  </div>
+
+  <div class="auth-card" data-search="porter warner holding 328 us 395 1946 full scope equity jurisdiction statute restricts">
+    <div class="cite">Porter v. Warner Holding Co., 328 U.S. 395 (1946)</div>
+    <div class="holding">"Unless a statute in so many words, or by a necessary and inescapable inference, restricts the court's jurisdiction in equity, the full scope of that jurisdiction is to be recognized and applied." Presumption favoring equity.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Multiple Files</span>
+  </div>
+
+  <div class="auth-card" data-search="russell todd 309 us 280 1940 equity accounting jurisdiction action at law available">
+    <div class="cite">Russell v. Todd, 309 U.S. 280 (1940)</div>
+    <div class="holding">Equity accounting jurisdiction exists even where an action at law is available. The jurisdiction is "well established" and "not defeated" by legal alternatives.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Multiple Files</span>
+  </div>
+
+  <div class="auth-card" data-search="hecht bowles 321 us 321 1944 equity moulds decree necessities particular case flexibility">
+    <div class="cite">Hecht Co. v. Bowles, 321 U.S. 321 (1944)</div>
+    <div class="holding">Equity moulds each decree to the necessities of the particular case. Flexibility over rigidity in equitable remedies.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+  </div>
+
+  <div class="auth-card" data-search="deckert independence shares 311 us 282 1940 status quo interlocutory injunction preserve pending">
+    <div class="cite">Deckert v. Independence Shares Corp., 311 U.S. 282 (1940)</div>
+    <div class="holding">Court has jurisdiction to preserve status quo by interlocutory injunction pending final hearing. Foundation for quia timet injunction authority.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Multiple Files</span>
+  </div>
+
+  <div class="auth-card" data-search="cigna amara 563 us 421 2011 surcharge constructive trust accounting traditional equitable remedies">
+    <div class="cite">CIGNA Corp. v. Amara, 563 U.S. 421 (2011)</div>
+    <div class="holding">Surcharge, constructive trust, and accounting are traditional equitable remedies. Modern confirmation that federal courts sitting in equity have authority to provide these remedies.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Multiple Files</span>
+  </div>
+
+  <div class="auth-card" data-search="dairy queen wood 369 us 469 1962 equitable accounting substantive relief no jury trial right">
+    <div class="cite">Dairy Queen, Inc. v. Wood, 369 U.S. 469 (1962)</div>
+    <div class="holding">Where equitable accounting is the substantive relief sought (not merely incidental), no jury trial right exists. The matter rests in equity, not at law.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+  </div>
+
+  <div class="auth-card" data-search="shields barrow 58 us 17 how 130 1854 indispensable parties equity definition interest">
+    <div class="cite">Shields v. Barrow, 58 U.S. (17 How.) 130 (1854)</div>
+    <div class="holding">Defines indispensable parties: persons with interest of such nature that a final decree cannot be made without affecting that interest, or leaving the controversy inconsistent with equity and good conscience.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Multiple Files</span>
+  </div>
+
+  <h3 style="font-size:16px;color:#1B3A5C;margin:28px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">Administrative &amp; Benefits Law</h3>
+
+  <div class="auth-card" data-search="weinberger salfi 422 us 749 1975 arising under social security broadly channeling">
+    <div class="cite">Weinberger v. Salfi, 422 U.S. 749 (1975)</div>
+    <div class="holding">Reads "arising under" Social Security Act broadly for channeling purposes. Establishes boundary of &sect; 405(h).</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Accounting Master</span>
+  </div>
+
+  <div class="auth-card" data-search="shalala illinois council 529 us 1 2000 405h no review at all safety valve exception channeling">
+    <div class="cite">Shalala v. Illinois Council on Long Term Care, 529 U.S. 1 (2000)</div>
+    <div class="holding">&sect; 405(h) does not apply where channeling would mean "no review at all." The safety valve exception when no alternative remedy exists.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Accounting Master</span>
+  </div>
+
+  <div class="auth-card" data-search="bowen michigan academy 476 us 667 1986 strong presumption judicial review constitutional claims">
+    <div class="cite">Bowen v. Michigan Academy of Family Physicians, 476 U.S. 667 (1986)</div>
+    <div class="holding">Strong presumption that Congress intends judicial review. Courts will not attribute intent to preclude review of constitutional claims.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Multiple Files</span>
+  </div>
+
+  <div class="auth-card" data-search="mathews eldridge 424 us 319 1976 due process balancing test exhaustion not required futile">
+    <div class="cite">Mathews v. Eldridge, 424 U.S. 319 (1976)</div>
+    <div class="holding">Due process balancing test for risk of erroneous deprivation. Exhaustion not required when administrative process cannot deliver the specific relief sought.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Multiple Files</span>
+  </div>
+
+  <div class="auth-card" data-search="califano yamasaki 442 us 682 1979 secretary recoup overpayments notice opportunity heard">
+    <div class="cite">Califano v. Yamasaki, 442 U.S. 682 (1979)</div>
+    <div class="holding">Secretary may not recoup alleged overpayments from continuing benefits without notice and opportunity to be heard.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Multiple Files</span>
+  </div>
+
+  <div class="auth-card" data-search="schweiker chilicky 487 us 412 1988 no bivens damages ssa accounting proper vehicle">
+    <div class="cite">Schweiker v. Chilicky, 487 U.S. 412 (1988)</div>
+    <div class="holding">No Bivens damages claims available against SSA. Supports equitable accounting as the proper vehicle instead.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Accounting Master</span>
+  </div>
+
+  <h3 style="font-size:16px;color:#1B3A5C;margin:28px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">Federal Jurisdiction &amp; Immunity</h3>
+
+  <div class="auth-card" data-search="ex parte young 209 us 123 1908 prospective injunctive relief state officer eleventh amendment sovereign immunity">
+    <div class="cite">Ex parte Young, 209 U.S. 123 (1908)</div>
+    <div class="holding">Suit for prospective injunctive relief against state officer in official capacity is not a suit against the state. Eleventh Amendment does not bar. Gateway doctrine for equitable accounting.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Multiple Files</span>
+  </div>
+
+  <div class="auth-card" data-search="exxon mobil saudi basic 544 us 280 2005 rooker feldman bars only inextricably intertwined judgment narrowed">
+    <div class="cite">Exxon Mobil Corp. v. Saudi Basic Industries, 544 U.S. 280 (2005)</div>
+    <div class="holding">Rooker-Feldman bars review only when federal claim is "inextricably intertwined" with state judgment. Narrowed the doctrine. Fund accounting is not intertwined with underlying judgment.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Court Accounting</span>
+  </div>
+
+  <div class="auth-card" data-search="younger harris 401 us 37 1971 abstain ongoing state proceedings extraordinary circumstances concluded">
+    <div class="cite">Younger v. Harris, 401 U.S. 37 (1971)</div>
+    <div class="holding">Federal courts abstain from interfering with ongoing state proceedings. Does NOT bar federal action targeting custodial handling when proceeding has concluded.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Court Accounting</span>
+  </div>
+
+  <div class="auth-card" data-search="forrester white 484 us 219 1988 judicial immunity judicial acts not administrative ministerial functional test">
+    <div class="cite">Forrester v. White, 484 U.S. 219 (1988)</div>
+    <div class="holding">Judicial immunity protects judicial acts, not administrative/ministerial ones. Fund custody is ministerial, not judicial. No immunity for clerk's accounting duty.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Court Accounting</span>
+  </div>
+
+  <div class="auth-card" data-search="antoine byers anderson 508 us 429 1993 quasi judicial immunity integral judicial process fund custody">
+    <div class="cite">Antoine v. Byers &amp; Anderson, 508 U.S. 429 (1993)</div>
+    <div class="holding">Quasi-judicial immunity limited to acts "integral to judicial process." Fund custody is not integral. No immunity shield for fund custodians.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Court Accounting</span>
+  </div>
+
+  <h3 style="font-size:16px;color:#1B3A5C;margin:28px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">Tax &amp; Revenue Cases</h3>
+
+  <div class="auth-card" data-search="flora united states 362 us 145 1960 full payment required before refund suit district court flora rule">
+    <div class="cite">Flora v. United States, 362 U.S. 145 (1960)</div>
+    <div class="holding">Taxpayer must pay full assessed tax before filing refund suit in federal district court. The "Flora full-payment rule."</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="enochs williams packing 370 us 1 1962 exception anti injunction government cannot prevail equity jurisdiction">
+    <div class="cite">Enochs v. Williams Packing, 370 U.S. 1 (1962)</div>
+    <div class="holding">Williams Packing exception to Anti-Injunction Act: (1) government cannot ultimately prevail, AND (2) equity jurisdiction otherwise exists.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="south carolina regan 465 us 367 1984 anti injunction exception no alternative statutory remedy provided">
+    <div class="cite">South Carolina v. Regan, 465 U.S. 367 (1984)</div>
+    <div class="holding">Anti-Injunction Act does not bar suit when Congress has provided no alternative remedy. Exception when statutory remedy inadequate for specific accounting needed.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="cic services irs 593 us 209 2021 anti injunction reporting requirement not tax administrative modern boundary">
+    <div class="cite">CIC Services, LLC v. IRS, 593 U.S. 209 (2021)</div>
+    <div class="holding">"A reporting requirement is not a tax; and a suit brought to set aside such a rule is not one to enjoin a tax's assessment or collection." Accounting demands are administrative, not tax restraints.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <h3 style="font-size:16px;color:#1B3A5C;margin:28px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">Equity Substance &amp; Other</h3>
+
+  <div class="auth-card" data-search="guaranty trust york 326 us 99 1945 equity law characterization choice substance procedure">
+    <div class="cite">Guaranty Trust Co. v. York, 326 U.S. 99 (1945)</div>
+    <div class="holding">Equity/law characterization for federal/state choice of law. Distinguishes substance from procedure.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Conscience Governs</span>
+  </div>
+
+  <div class="auth-card" data-search="beatty guggenheim 225 ny 380 1919 cardozo constructive trust formula conscience equity property legal title beneficial">
+    <div class="cite">Beatty v. Guggenheim Exploration Co., 225 N.Y. 380 (1919) (Cardozo, J.)</div>
+    <div class="holding">"A constructive trust is the formula through which the conscience of equity finds expression. When property has been acquired in such circumstances that the holder of the legal title may not in good conscience retain the beneficial interest, equity converts him into a trustee."</div>
+    <span class="source-tag caselaw">NY Court of Appeals</span>
+    <span class="source-tag">Consumer Credit Adaptation</span>
+  </div>
+
+  <div class="auth-card" data-search="liu sec 591 us 2020 substance procedure regulatory context">
+    <div class="cite">Liu v. SEC, 591 U.S. ___ (2020)</div>
+    <div class="holding">Substantive vs. procedural analysis in regulatory enforcement context.</div>
+    <span class="source-tag caselaw">Supreme Court</span>
+    <span class="source-tag">Primacy of Substance</span>
+  </div>
+
+  <div class="auth-card" data-search="parkin thorold 1852 english equity substance doctrine classic">
+    <div class="cite">Parkin v. Thorold (1852)</div>
+    <div class="holding">Classic English equity case on the doctrine of substance over form. Historical foundation for the primacy of substance principle.</div>
+    <span class="source-tag caselaw">English Chancery</span>
+    <span class="source-tag">Primacy of Substance</span>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 6: TREATISES -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="cat-panel" id="panel-treatises">
+<div class="container">
+  <div class="cat-header">
+    <h2>Treatises &amp; Secondary Authorities</h2>
+    <p>The classical equity treatises that form the doctrinal spine of every bill in equity.</p>
+  </div>
+
+  <h3 style="font-size:16px;color:#1B3A5C;margin:20px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">Pomeroy, Equity Jurisprudence (5th ed. 1941)</h3>
+
+  <div class="auth-card" data-search="pomeroy 385 chancellor rule he who seeks equity must do equity reciprocal duty">
+    <div class="cite">Pomeroy &sect; 385 &mdash; Chancellor's Rule</div>
+    <div class="holding">"He who seeks equity must do equity." The reciprocal duty analysis — petitioner must come with clean hands.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <div class="auth-card" data-search="pomeroy 428 equity acts in personam injunctions respondents">
+    <div class="cite">Pomeroy &sect; 428 &mdash; Equity Acts In Personam</div>
+    <div class="holding">"Equity acts in personam." Supports in personam injunctions directly against respondent custodians.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <div class="auth-card" data-search="pomeroy 1421 three independent bases equity accounting jurisdiction complicated fiduciary exclusive record control">
+    <div class="cite">Pomeroy &sect; 1421 &mdash; THREE Bases for Equity Accounting</div>
+    <div class="holding">The cornerstone provision. Three independent bases: (1) Complicated and intricate account, (2) Fiduciary or quasi-fiduciary relation, (3) Respondent holds vouchers/records petitioner cannot obtain. Basis 3 stands independently and is sufficient alone.</div>
+    <span class="source-tag treatise">Treatise</span>
+    <span class="source-tag">All Cha0s Files</span>
+  </div>
+
+  <div class="auth-card" data-search="pomeroy 1053 unjust enrichment constructive trust benefit retained expense just cause">
+    <div class="cite">Pomeroy &sect; 1053 &mdash; Unjust Enrichment</div>
+    <div class="holding">Three-element test: (1) Respondent received a benefit, (2) Retained at petitioner's expense without just cause, (3) No adequate remedy at law to compel restoration.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <div class="auth-card" data-search="pomeroy 1080 surcharge equitable tracing remedy accounting entry debit">
+    <div class="cite">Pomeroy &sect; 1080 &mdash; Surcharge &amp; Equitable Tracing</div>
+    <div class="holding">Surcharge (accounting entry debit) and equitable tracing (following funds through conversions) as remedies for breach of fiduciary duty.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <div class="auth-card" data-search="pomeroy 1360 1696 1697 quia timet injunction authority preventive equity apprehended injury">
+    <div class="cite">Pomeroy &sect;&sect; 1360, 1696&ndash;1697 &mdash; Quia Timet Injunction</div>
+    <div class="holding">Authority for preventive equity — injunction against apprehended future injury to preserve the subject matter pending accounting.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <h3 style="font-size:16px;color:#1B3A5C;margin:28px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">Gibson, Suits in Chancery (2d ed. 1907/1955)</h3>
+
+  <div class="auth-card" data-search="gibson 2 equity will not suffer wrong without remedy maxim">
+    <div class="cite">Gibson &sect; 2 &mdash; Foundational Maxim</div>
+    <div class="holding">"Equity will not suffer a wrong to be without a remedy." The rationale for equity jurisdiction itself.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <div class="auth-card" data-search="gibson 48 54 injunction principles equitable relief">
+    <div class="cite">Gibson &sect;&sect; 48&ndash;54 &mdash; Injunction Principles</div>
+    <div class="holding">Comprehensive treatment of injunction principles in chancery practice.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <div class="auth-card" data-search="gibson 53 fiduciary relation exclusive record control duty account">
+    <div class="cite">Gibson &sect; 53 &mdash; Fiduciary Relation &amp; Exclusive Record Control</div>
+    <div class="holding">When one party holds another's records exclusively, a fiduciary accounting duty arises that equity will enforce.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <div class="auth-card" data-search="gibson 95 100 indispensable parties equity necessary joinder">
+    <div class="cite">Gibson &sect;&sect; 95&ndash;100 &mdash; Indispensable Parties</div>
+    <div class="holding">Standards for determining which parties must be joined in equity proceedings for complete relief.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <div class="auth-card" data-search="gibson 952 equitable accounting jurisdiction finality will not remit to law">
+    <div class="cite">Gibson &sect; 952 &mdash; Accounting Jurisdiction &amp; Finality</div>
+    <div class="holding">Equitable accounting jurisdiction is final — equity "will not remit to law" once it takes jurisdiction of the accounting.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <div class="auth-card" data-search="gibson 954 surcharge equitable relief remedy breach fiduciary">
+    <div class="cite">Gibson &sect; 954 &mdash; Surcharge as Equitable Remedy</div>
+    <div class="holding">Surcharge as the primary equitable remedy for breach of fiduciary duty in accounting.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <h3 style="font-size:16px;color:#1B3A5C;margin:28px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">Van Zile, Equity Pleading and Practice (1904)</h3>
+
+  <div class="auth-card" data-search="van zile 38 bill accounting predicate pleading requirements equity">
+    <div class="cite">Van Zile &sect; 38 &mdash; Bill for Accounting Predicate</div>
+    <div class="holding">The foundational requirements for a bill seeking an equitable accounting.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <div class="auth-card" data-search="van zile 56 62 joinder indispensable parties necessary equity bill">
+    <div class="cite">Van Zile &sect;&sect; 56&ndash;62 &mdash; Joinder of Parties</div>
+    <div class="holding">Technical standards for joining indispensable and necessary parties in equity bills.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <div class="auth-card" data-search="van zile 171 175 discovery aid accounting records documents production">
+    <div class="cite">Van Zile &sect;&sect; 171&ndash;175 &mdash; Discovery in Aid of Accounting</div>
+    <div class="holding">Procedures for compelling production of records and documents needed for the accounting.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <div class="auth-card" data-search="van zile 610 615 prayer accounting relief equitable remedy request">
+    <div class="cite">Van Zile &sect;&sect; 610&ndash;615 &mdash; Prayer for Accounting Relief</div>
+    <div class="holding">Proper form and content of the prayer for relief in an equity bill seeking accounting.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <h3 style="font-size:16px;color:#1B3A5C;margin:28px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">Story, Equity Jurisprudence (14th ed. 1918)</h3>
+
+  <div class="auth-card" data-search="story 64 maxim one two innocent persons must suffer agency loss occurred bear">
+    <div class="cite">Story &sect; 64 &mdash; Loss Allocation Maxim</div>
+    <div class="holding">"Where one of two innocent persons must suffer, he through whose agency the loss occurred must bear it." Shifts burden to custodian.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <div class="auth-card" data-search="story 72 complete relief finality settle every part nothing undone equitable decree">
+    <div class="cite">Story &sect; 72 &mdash; Complete Relief Principle</div>
+    <div class="holding">Equity decrees must "settle every part" and leave nothing undone. The completeness requirement for equitable accounting.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <div class="auth-card" data-search="story 1255 constructive trust doctrine imposed operation law">
+    <div class="cite">Story &sect; 1255 &mdash; Constructive Trust Doctrine</div>
+    <div class="holding">Constructive trust ex maleficio — imposed by operation of law when property is wrongfully held.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <h3 style="font-size:16px;color:#1B3A5C;margin:28px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">Drewry, Equity Pleading (1858)</h3>
+
+  <div class="auth-card" data-search="drewry 112 118 bill discovery aid accounting documents production equity">
+    <div class="cite">Drewry &sect;&sect; 112&ndash;118 &mdash; Bill for Discovery</div>
+    <div class="holding">Technical requirements for bills seeking discovery in aid of accounting.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+  <div class="auth-card" data-search="drewry 115 specific averment requirement document possession custody defendant pray production">
+    <div class="cite">Drewry &sect; 115 &mdash; Specific Averment Requirement</div>
+    <div class="holding">"Must aver defendant has in his custody the documents necessary to enable plaintiff to sustain claim, and must pray for their production." The technical pleading standard.</div>
+    <span class="source-tag treatise">Treatise</span>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 7: MAXIMS & DOCTRINES -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="cat-panel" id="panel-maxims">
+<div class="container">
+  <div class="cat-header">
+    <h2>Equitable Maxims &amp; Doctrines</h2>
+    <p>The timeless principles of conscience that govern all equity proceedings.</p>
+  </div>
+
+  <h3 style="font-size:16px;color:#1B3A5C;margin:20px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">The Five Maxims</h3>
+
+  <div class="maxim-card" data-search="equity will not suffer wrong without remedy maxim gibson jurisdiction">
+    <div class="maxim-text">"Equity will not suffer a wrong to be without a remedy."</div>
+    <div class="maxim-source">Gibson, Suits in Chancery &sect; 2</div>
+    <div class="maxim-use">The foundational rationale for equity jurisdiction itself. If a wrong exists and law cannot remedy it, equity steps in.</div>
+  </div>
+
+  <div class="maxim-card" data-search="he who seeks equity must do equity clean hands reciprocal duty pomeroy 385">
+    <div class="maxim-text">"He who seeks equity must do equity."</div>
+    <div class="maxim-source">Pomeroy, Equity Jurisprudence &sect; 385</div>
+    <div class="maxim-use">Reciprocal duty analysis. Petitioner must plead clean hands and demonstrate good faith.</div>
+  </div>
+
+  <div class="maxim-card" data-search="equity acts in personam injunctions custodians respondents pomeroy 428">
+    <div class="maxim-text">"Equity acts in personam."</div>
+    <div class="maxim-source">Pomeroy, Equity Jurisprudence &sect; 428</div>
+    <div class="maxim-use">Justifies in personam injunctions directly against custodians and respondents. Equity commands the person, not the property.</div>
+  </div>
+
+  <div class="maxim-card" data-search="equity regards done which ought done constructive trust specific performance story 64g">
+    <div class="maxim-text">"Equity regards that as done which ought to be done."</div>
+    <div class="maxim-source">Story, Equity Jurisprudence &sect; 64G</div>
+    <div class="maxim-use">Constructive trust rationale and specific performance foundation. What should have been done is treated as already done.</div>
+  </div>
+
+  <div class="maxim-card" data-search="one two innocent persons must suffer agency loss occurred bear story 64 allocation">
+    <div class="maxim-text">"Where one of two innocent persons must suffer, he through whose agency the loss occurred must bear it."</div>
+    <div class="maxim-source">Story, Equity Jurisprudence &sect; 64</div>
+    <div class="maxim-use">Loss allocation doctrine. Shifts the burden to the custodian whose actions or inaction caused the loss.</div>
+  </div>
+
+  <h3 style="font-size:16px;color:#1B3A5C;margin:28px 0 12px;font-family:system-ui,sans-serif;border-bottom:2px solid #E8E4DC;padding-bottom:6px;">Key Doctrines</h3>
+
+  <div class="auth-card" data-search="substance over form doctrine actual nature action equitable accounting procedural rule 2 merger grupo mexicano porter">
+    <div class="cite">Doctrine of Substance Over Form</div>
+    <div class="holding">The actual nature of the action (equitable accounting) is not altered by compliance with Federal Rules procedural form. Rule 2 merger changed the form, not the substance. Authority: Grupo Mexicano, Porter v. Warner, Guaranty Trust v. York.</div>
+    <span class="source-tag maxim">Doctrine</span>
+  </div>
+
+  <div class="auth-card" data-search="exclusive record control pomeroy 1421 basis three respondent vouchers records books discovery petitioner cannot obtain">
+    <div class="cite">Doctrine of Exclusive Record Control</div>
+    <div class="holding">Pomeroy &sect; 1421, Third Independent Basis: When the respondent holds vouchers, records, and books necessary to state the account, and petitioner cannot obtain discovery by other means, equity jurisdiction arises independently. This is the STRONGEST basis — sufficient alone.</div>
+    <span class="source-tag maxim">Doctrine</span>
+  </div>
+
+  <div class="auth-card" data-search="fiduciary accounting doctrine elements trust confidence duty account surcharge constructive trust tracing">
+    <div class="cite">Fiduciary Accounting Doctrine</div>
+    <div class="holding">Elements: (1) One party holds another's funds/property, (2) Trust and confidence relationship, (3) Duty to account. Remedies: surcharge, constructive trust, equitable tracing, restoration.</div>
+    <span class="source-tag maxim">Doctrine</span>
+  </div>
+
+  <div class="auth-card" data-search="double recovery bar creditor cannot collect same debt twice gap insurance deficiency overpayment surcharge">
+    <div class="cite">Double Recovery Bar</div>
+    <div class="holding">A creditor cannot collect the same debt twice. Applies to GAP insurance + deficiency claims, overpayment recoupment + offset intercepts, and multiple assessments. Remedy: surcharge to reduce over-collected amount.</div>
+    <span class="source-tag maxim">Doctrine</span>
+  </div>
+
+  <div class="auth-card" data-search="adequate remedy at law test inadequacy foia privacy act administrative review sworn accounting surcharge falsification constructive trust">
+    <div class="cite">Adequate Remedy at Law Test</div>
+    <div class="holding">Inadequacy established when: (1) Statutory remedy produces documents, not sworn accounting, (2) Cannot subject entries to surcharge and falsification, (3) Cannot impose constructive trust or equitable tracing, (4) Structural barrier prevents specific relief sought.</div>
+    <span class="source-tag maxim">Doctrine</span>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 8: REGULATIONS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="cat-panel" id="panel-regulations">
+<div class="container">
+  <div class="cat-header">
+    <h2>Regulations &amp; Administrative Authority</h2>
+    <p>CFR provisions, administrative frameworks, and regulatory guidance cited in the Cha0s doctrine.</p>
+  </div>
+
+  <div class="auth-card" data-search="trust indenture act 1939 regulations sec registered abs trusts fiduciary disclosure 15 usc 77aaa">
+    <div class="cite">Trust Indenture Act of 1939 Regulations</div>
+    <div class="holding">Federal regulations implementing TIA for SEC-registered ABS trusts. Governs indenture trustees' disclosure duties.</div>
+    <span class="source-tag regulation">Regulation</span>
+    <span class="source-tag">Consumer Credit Adaptation</span>
+  </div>
+
+  <div class="auth-card" data-search="sec regulation ab registered abs offerings servicer disclosure duties securitized">
+    <div class="cite">SEC Regulation AB</div>
+    <div class="holding">Governs registered ABS offerings and servicer disclosure duties in securitized loan transactions.</div>
+    <span class="source-tag regulation">Regulation</span>
+    <span class="source-tag">Consumer Credit Adaptation</span>
+  </div>
+
+  <div class="auth-card" data-search="irs document 6209 adp idrs individual master file imf transaction codes reference manual">
+    <div class="cite">IRS Document 6209 &mdash; ADP/IDRS Information</div>
+    <div class="holding">Reference manual for Individual Master File (IMF) transaction codes. Required to decode IMF account transcripts. Lack of public access supports the inadequacy-at-law argument.</div>
+    <span class="source-tag regulation">Administrative</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="judicial conference cris court registry investment system fee structure 10 percent investment income">
+    <div class="cite">Judicial Conference / CRIS Administration</div>
+    <div class="holding">Court Registry Investment System (CRIS) fee structure: 10% of investment income retained by the judiciary. Administrative authority for federal court registry investment practices.</div>
+    <span class="source-tag regulation">Administrative</span>
+    <span class="source-tag">Court Accounting</span>
+  </div>
+
+  <div class="auth-card" data-search="gao reports irs modernization gao-19-135 gao-25-107611 cade-2 legacy system individual master file">
+    <div class="cite">GAO Reports on IRS Modernization</div>
+    <div class="holding">GAO-19-135 (2018): Legacy system risk. GAO-25-107611: CADE-2 modernization timeline slipped from 2014 to 2023, full replacement not expected until 2030+. Documents systemic IMF obsolescence and accounting risk.</div>
+    <span class="source-tag regulation">GAO Report</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+  <div class="auth-card" data-search="national taxpayer advocate reports transcription errors processing delays 1.4 billion additional interest systemic opacity">
+    <div class="cite">National Taxpayer Advocate Reports</div>
+    <div class="holding">Persistent transcription errors, processing delays causing approximately $1.4 billion in additional interest, systemic opacity. Administrative documentation of inadequate IRS accounting procedures.</div>
+    <span class="source-tag regulation">Administrative</span>
+    <span class="source-tag">IRS Treasury</span>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 9: QUICK LOOKUP -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="cat-panel" id="panel-lookup">
+<div class="container">
+  <div class="cat-header">
+    <h2>Quick Lookup</h2>
+    <p>Want to argue X? Cite Y. Fast reference for court preparation.</p>
+  </div>
+
+  <div class="lookup-section">
+    <h3>Argument &rarr; Authority</h3>
+
+    <div class="lookup-row">
+      <div class="lookup-arg">Federal courts have full equity jurisdiction</div>
+      <div class="lookup-cite">Grupo Mexicano, 527 U.S. 308 (1999); Article III, &sect; 2</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Equitable accounting is separate from statutory review</div>
+      <div class="lookup-cite">42 U.S.C. &sect; 405(h); Bowen v. Michigan; Shalala v. Illinois</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Can compel account even if remedy at law exists</div>
+      <div class="lookup-cite">Russell v. Todd, 309 U.S. 280 (1940)</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Account is too complex for law courts</div>
+      <div class="lookup-cite">Dairy Queen, 369 U.S. 469 (1962); Pomeroy &sect; 1421</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Custodian has ministerial, not judicial duty</div>
+      <div class="lookup-cite">Forrester v. White, 484 U.S. 219 (1988)</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Fund custody is not "integral to judicial process"</div>
+      <div class="lookup-cite">Antoine v. Byers, 508 U.S. 429 (1993)</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Can sue state officer without sovereign immunity bar</div>
+      <div class="lookup-cite">Ex parte Young, 209 U.S. 123 (1908)</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Equitable accounting is not a disguised judgment challenge</div>
+      <div class="lookup-cite">Exxon Mobil, 544 U.S. 280 (2005); CIC Services, 593 U.S. 209 (2021)</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Surcharge and constructive trust are available</div>
+      <div class="lookup-cite">CIGNA v. Amara, 563 U.S. 421 (2011)</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Can issue preliminary injunction to preserve status quo</div>
+      <div class="lookup-cite">Deckert v. Independence Shares, 311 U.S. 282 (1940)</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Need to join all parties with interest</div>
+      <div class="lookup-cite">Shields v. Barrow, 58 U.S. 130 (1854)</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Equity provides complete relief in one decree</div>
+      <div class="lookup-cite">Story &sect; 72</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Anti-Injunction Act doesn't bar accounting demand</div>
+      <div class="lookup-cite">Williams Packing; South Carolina v. Regan; CIC Services</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">FOIA/Privacy Act remedy is inadequate</div>
+      <div class="lookup-cite">Russell v. Todd; CIGNA v. Amara</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Exhaustion not required when futile</div>
+      <div class="lookup-cite">Mathews v. Eldridge, 424 U.S. 319 (1976)</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Due process before overpayment recoupment</div>
+      <div class="lookup-cite">Califano v. Yamasaki, 442 U.S. 682 (1979)</div>
+    </div>
+  </div>
+
+  <div class="lookup-section" style="margin-top:20px;">
+    <h3>Doctrine Boundaries &mdash; When Statutes Don't Apply</h3>
+
+    <div class="lookup-row">
+      <div class="lookup-arg">&sect; 405(h) Channeling &rarr; "No review at all" exception</div>
+      <div class="lookup-cite">Shalala v. Illinois; Bowen v. Michigan</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">&sect; 7421 Anti-Injunction (Tax) &rarr; Three exceptions</div>
+      <div class="lookup-cite">Williams Packing; South Carolina v. Regan; CIC Services v. IRS</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">&sect; 2283 Anti-Injunction (Federal-State) &rarr; In personam</div>
+      <div class="lookup-cite">Injunction runs against officer, not against state proceedings</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Judicial Immunity &rarr; Ministerial acts excluded</div>
+      <div class="lookup-cite">Forrester v. White, 484 U.S. 219 (1988)</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Quasi-Judicial Immunity &rarr; Fund custody not integral</div>
+      <div class="lookup-cite">Antoine v. Byers, 508 U.S. 429 (1993)</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Eleventh Amendment &rarr; Prospective relief vs. officer</div>
+      <div class="lookup-cite">Ex parte Young, 209 U.S. 123 (1908)</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Rooker-Feldman &rarr; Fund custody &ne; judgment review</div>
+      <div class="lookup-cite">Exxon Mobil, 544 U.S. 280 (2005)</div>
+    </div>
+    <div class="lookup-row">
+      <div class="lookup-arg">Younger Abstention &rarr; Only if ongoing + actual interference</div>
+      <div class="lookup-cite">Younger v. Harris, 401 U.S. 37 (1971)</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 10: PLEADING CHECKLIST -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="cat-panel" id="panel-checklist">
+<div class="container">
+  <div class="cat-header">
+    <h2>Pleading Checklist</h2>
+    <p>Minimum required averments for a bill in equity seeking accounting. Click to check off items.</p>
+  </div>
+
+  <div class="lookup-section">
+    <h3>Required Averments</h3>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Admission of underlying relationship/obligation (bill does not deny the debt)</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Averment of uncertainty of true balance/account</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Federal subject-matter jurisdiction (&sect; 1331 or &sect; 1332 or both)</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Venue (28 U.S.C. &sect; 1391)</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Identification of fund/account (amount, date, custodian, records custodian)</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Averment of custodial relationship</div></div>
+  </div>
+
+  <div class="lookup-section" style="margin-top:20px;">
+    <h3>Three Pomeroy &sect; 1421 Bases</h3>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text"><strong>Basis 1:</strong> Complicated and intricate account character</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text"><strong>Basis 2:</strong> Fiduciary or quasi-fiduciary relation (can be conditional on finding)</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text"><strong>Basis 3:</strong> EXCLUSIVE CONTROL of records by respondent (strongest — sufficient alone)</div></div>
+  </div>
+
+  <div class="lookup-section" style="margin-top:20px;">
+    <h3>Discovery &amp; Inadequacy</h3>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Specific identification of document categories held by respondent</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Averment that petitioner cannot obtain discovery by other means</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Averment of inadequacy of remedy at law</div></div>
+  </div>
+
+  <div class="lookup-section" style="margin-top:20px;">
+    <h3>Immunity/Abstention Defenses (Address Affirmatively)</h3>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Judicial immunity (ministerial act exception — Forrester v. White)</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Quasi-judicial immunity (not integral — Antoine v. Byers)</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Sovereign immunity / Eleventh Amendment (Ex parte Young)</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Rooker-Feldman (not inextricably intertwined)</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Younger abstention (no ongoing adjudication or separable function)</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Anti-Injunction Act (prospective relief, no restraint on assessment/collection)</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">CAVEAT paragraph (mandatory six-paragraph form)</div></div>
+  </div>
+
+  <div class="lookup-section" style="margin-top:20px;">
+    <h3>Prayer for Relief</h3>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Full, complete, verified accounting (specify all categories)</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Surcharge and restoration of improperly retained amounts</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Constructive trust ex maleficio (if unjust retention shown)</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Equitable tracing (if funds converted)</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Quia timet injunction (if active depletion/mootness threat)</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Settlement of account by final decree</div></div>
+    <div class="checklist-item"><div class="check-box" onclick="this.classList.toggle('checked')">&#10003;</div><div class="checklist-text">Ancillary declaratory relief</div></div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════ FOOTER ═══════ -->
+<div class="portal-footer">
+  <p>Ronquillo Family Trust &mdash; Block 301, Lot 17</p>
+  <p>Source: Cha0s Equity Doctrine Series &mdash; 10 Documents Scanned</p>
+  <p class="motto">The truth doesn't need permission. It just needs a witness.</p>
+</div>
+
+<!-- ═══════ JAVASCRIPT ═══════ -->
+<script>
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.cat-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+});
+
+// Search functionality
+const searchBox = document.getElementById('searchBox');
+const searchCount = document.getElementById('searchCount');
+
+searchBox.addEventListener('input', () => {
+  const query = searchBox.value.toLowerCase().trim();
+  const allCards = document.querySelectorAll('.auth-card, .maxim-card');
+  let visible = 0;
+  let total = allCards.length;
+
+  if (!query) {
+    allCards.forEach(c => c.style.display = '');
+    searchCount.textContent = '';
+    return;
+  }
+
+  // Show all panels during search
+  document.querySelectorAll('.cat-panel').forEach(p => p.classList.add('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+  allCards.forEach(card => {
+    const searchData = (card.dataset.search || '').toLowerCase();
+    const textContent = card.textContent.toLowerCase();
+    const match = searchData.includes(query) || textContent.includes(query);
+    card.style.display = match ? '' : 'none';
+    if (match) visible++;
+  });
+
+  searchCount.textContent = visible + ' of ' + total + ' authorities match "' + searchBox.value + '"';
+});
+</script>
+
+</body>
+</html>

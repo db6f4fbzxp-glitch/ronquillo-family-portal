@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Trust Architecture Intel Map",
+  "schemaVersion": 1,
+  "description": "Trust Architecture Intelligence Map — Interactive visualization of the five-layer Fortress showing how public identifiers flow through the Express Trust, get processed by the RBT doctrine engine, shielded by the PMA, and deployed by the PFO. Live JURIS queries show doctrine connections at each layer. Cha0s equity series integration mapped.",
+  "mcpTools": [
+    "mcp__anythingllm__vector_search"
+  ],
+  "mcpServerNames": [
+    "anythingllm"
+  ]
+}
+</script>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trust Architecture Intelligence Map — Ronquillo Fortress</title>
+<style>
+:root { color-scheme: light; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #F5F6FA; color: #1a1a2e; line-height: 1.6; padding: 16px; }
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, #0D1B2A 0%, #1B3A5C 50%, #2C5F8A 100%);
+  color: white;
+  padding: 24px 28px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(232,101,10,0.1) 0%, transparent 60%);
+  border-radius: 50%;
+}
+.header h1 { font-size: 20px; font-weight: 800; letter-spacing: 3px; color: #FF8C3A; position: relative; }
+.header .subtitle { font-size: 12px; opacity: 0.6; margin-top: 4px; position: relative; }
+.header .live-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(46,204,113,0.2); border: 1px solid rgba(46,204,113,0.4);
+  color: #2ecc71; padding: 4px 12px; border-radius: 20px;
+  font-size: 11px; font-weight: 600; letter-spacing: 1px; margin-top: 8px; position: relative;
+}
+.live-dot { width: 7px; height: 7px; background: #2ecc71; border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ARCHITECTURE SPINE */
+.spine { max-width: 900px; margin: 0 auto; position: relative; }
+.spine::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(to bottom, #1B3A5C, #2C5F8A, #3E85B5, #1B9E5A, #C87A00);
+  transform: translateX(-50%);
+  border-radius: 4px;
+  z-index: 0;
+}
+
+/* LAYER NODE */
+.layer-node {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 20px;
+}
+.layer-core {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  align-items: start;
+}
+
+/* CENTER BADGE */
+.layer-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 900;
+  color: white;
+  z-index: 2;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  margin: 0 12px;
+  flex-shrink: 0;
+}
+.layer-badge.l1 { background: linear-gradient(135deg, #1B3A5C, #0D1B2A); }
+.layer-badge.l2 { background: linear-gradient(135deg, #2C5F8A, #1B3A5C); }
+.layer-badge.l3 { background: linear-gradient(135deg, #3E85B5, #2C5F8A); }
+.layer-badge.l4 { background: linear-gradient(135deg, #1B9E5A, #0D7A3E); }
+.layer-badge.l5 { background: linear-gradient(135deg, #C87A00, #A06000); }
+
+/* SIDE PANELS */
+.layer-left, .layer-right {
+  background: white;
+  border-radius: 14px;
+  padding: 16px 18px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  border: 1px solid #E8EAF0;
+  min-height: 100px;
+}
+.layer-left { text-align: right; border-right: 3px solid; }
+.layer-right { border-left: 3px solid; }
+.layer-left.l1, .layer-right.l1 { border-color: #1B3A5C; }
+.layer-left.l2, .layer-right.l2 { border-color: #2C5F8A; }
+.layer-left.l3, .layer-right.l3 { border-color: #3E85B5; }
+.layer-left.l4, .layer-right.l4 { border-color: #1B9E5A; }
+.layer-left.l5, .layer-right.l5 { border-color: #C87A00; }
+
+.panel-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: #8892A4;
+}
+.panel-heading {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.panel-detail { font-size: 12px; color: #6B7280; margin-bottom: 4px; }
+.panel-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin: 2px 2px 2px 0;
+}
+.tag-doctrine { background: #EDE9FE; color: #7C3AED; }
+.tag-weapon { background: #FEE2E2; color: #DC2626; }
+.tag-shield { background: #DBEAFE; color: #2563EB; }
+.tag-id { background: #FEF3C7; color: #B45309; }
+.tag-intel { background: #D1FAE5; color: #059669; }
+
+/* FLOW ARROWS */
+.flow-section {
+  background: white;
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin: 20px auto;
+  max-width: 900px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  border: 1px solid #E8EAF0;
+}
+.flow-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #8892A4;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  text-align: center;
+}
+.flow-chain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.flow-node {
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  min-width: 100px;
+}
+.flow-node.public { background: #FEF3C7; color: #B45309; border: 1px solid #F59E0B; }
+.flow-node.trust { background: #D1FAE5; color: #059669; border: 1px solid #10B981; }
+.flow-node.doctrine { background: #EDE9FE; color: #7C3AED; border: 1px solid #8B5CF6; }
+.flow-node.deploy { background: #FEE2E2; color: #DC2626; border: 1px solid #EF4444; }
+.flow-node.shield { background: #DBEAFE; color: #2563EB; border: 1px solid #3B82F6; }
+.flow-arrow { color: #D1D5DB; font-size: 18px; font-weight: 700; }
+
+/* JURIS LIVE SECTION */
+.juris-section {
+  background: white;
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin: 16px auto;
+  max-width: 900px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  border: 1px solid #E8EAF0;
+}
+.juris-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.juris-item {
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #F8F9FC;
+  border-left: 4px solid #8E44AD;
+}
+.juris-item .source { font-size: 12px; font-weight: 600; color: #1a1a2e; }
+.juris-item .excerpt { font-size: 11px; color: #6B7280; line-height: 1.4; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin-top: 3px; }
+.juris-item .score { font-size: 10px; font-weight: 700; color: #8E44AD; margin-top: 4px; }
+.loading { text-align:center; padding:20px; color:#8892A4; font-size:13px; }
+.loading-spinner { width:20px; height:20px; border:3px solid #E8EAF0; border-top:3px solid #1B3A5C; border-radius:50%; animation:spin 1s linear infinite; margin:0 auto 8px; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* ADVERSARY MAP */
+.adversary-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 12px; }
+.adversary {
+  text-align: center;
+  padding: 10px 6px;
+  background: #FFF5F5;
+  border: 1px solid #FECACA;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #991B1B;
+}
+.adversary .adv-name { font-size: 11px; margin-bottom: 2px; }
+.adversary .adv-role { font-size: 9px; color: #B91C1C; font-weight: 400; }
+
+/* PUBLIC ID GRID */
+.id-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 8px; }
+.id-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 10px;
+  background: #FFFBEB;
+  border-radius: 8px;
+  font-size: 11px;
+  border: 1px solid #FDE68A;
+}
+.id-label { color: #92400E; font-weight: 600; }
+.id-value { color: #B45309; font-family: 'Courier New', monospace; font-size: 10px; }
+
+.footer { text-align:center; font-size:11px; color:#8892A4; padding:16px; margin-top:16px; border-top:1px solid #E8EAF0; }
+
+@media(max-width:700px) {
+  .layer-core { grid-template-columns: 1fr; gap: 10px; }
+  .layer-badge { margin: 0 auto 10px; }
+  .layer-left, .layer-right { text-align: left; border-left: 3px solid; border-right: none; }
+  .spine::before { display: none; }
+  .adversary-grid { grid-template-columns: repeat(3, 1fr); }
+  .juris-grid { grid-template-columns: 1fr; }
+  .flow-chain { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div style="position:fixed;top:10px;left:10px;z-index:99999;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;background:#1B3A5C;color:#fff;padding:8px 16px;border-radius:8px;font-family:system-ui,-apple-system,sans-serif;font-size:13px;font-weight:600;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.15);">&larr; Back to Portal</a></div>
+
+<div class="header">
+  <h1>TRUST ARCHITECTURE INTELLIGENCE MAP</h1>
+  <div class="subtitle">Ronquillo Fortress — Living Doctrine Engine — JURIS Connected</div>
+  <div class="live-badge"><span class="live-dot"></span> LIVE — PROCESSING INTELLIGENCE</div>
+</div>
+
+<!-- INTELLIGENCE FLOW -->
+<div class="flow-section">
+  <div class="flow-title">Intelligence Processing Pipeline</div>
+  <div class="flow-chain">
+    <div class="flow-node public">Public IDs<br><span style="font-size:9px;font-weight:400">Loan · CUSIP · MERS MIN</span></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-node trust">Express Trust<br><span style="font-size:9px;font-weight:400">Captures · Holds · Claims</span></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-node doctrine">RBT Doctrine Engine<br><span style="font-size:9px;font-weight:400">Processes · Cross-checks · Arms</span></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-node shield">PMA Shield<br><span style="font-size:9px;font-weight:400">Protects · Governs · Shields</span></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-node deploy">PFO Deploys<br><span style="font-size:9px;font-weight:400">Authorizes · Files · Attacks</span></div>
+  </div>
+</div>
+
+<!-- ARCHITECTURE SPINE -->
+<div class="spine">
+
+  <!-- LAYER 1: PMA -->
+  <div class="layer-node">
+    <div class="layer-core">
+      <div class="layer-left l1">
+        <div class="panel-title">Constitutional Doctrine</div>
+        <div class="panel-heading" style="color:#1B3A5C;">Constitutional Shield</div>
+        <div class="panel-detail">1st &amp; 14th Amendments — Freedom of Association</div>
+        <div class="panel-detail">NJ Art. I ¶¶1, 20 — Natural Rights / Property</div>
+        <div class="panel-detail">NJ Art. IV §VII ¶9 — Descent Protection</div>
+        <span class="panel-tag tag-shield">NAACP v. Alabama</span>
+        <span class="panel-tag tag-shield">AmJur Assoc. §§ 5, 21</span>
+        <span class="panel-tag tag-doctrine">NJ Constitution 1947</span>
+      </div>
+      <div class="layer-badge l1">1</div>
+      <div class="layer-right l1">
+        <div class="panel-title">Entity</div>
+        <div class="panel-heading" style="color:#1B3A5C;">PMA — Ronquillo Real Party Assembly Association</div>
+        <div class="panel-detail">Register No. 557515 · Act 55-2020 (Puerto Rico)</div>
+        <div class="panel-detail">Founded July 4, 2024</div>
+        <div class="panel-detail">Self-governance: "as sacred as its right to make them"</div>
+        <span class="panel-tag tag-shield">Privacy Perimeter</span>
+        <span class="panel-tag tag-intel">Full Faith &amp; Credit Bridge</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 2: RBT -->
+  <div class="layer-node">
+    <div class="layer-core">
+      <div class="layer-left l2">
+        <div class="panel-title">Doctrine Engine — Ingested</div>
+        <div class="panel-heading" style="color:#2C5F8A;">Cha0s Equity Arsenal</div>
+        <div class="panel-detail">Pomeroy § 1421 — Three-prong accounting jurisdiction</div>
+        <div class="panel-detail">Constructive trust ex maleficio — disgorgement</div>
+        <div class="panel-detail">Equitable tracing — surcharge &amp; falsification</div>
+        <div class="panel-detail">Quia timet — injunction pending accounting</div>
+        <div class="panel-detail">Flora rule rebuttal — APA § 702 waiver</div>
+        <span class="panel-tag tag-weapon">5 Cha0s Treatises</span>
+        <span class="panel-tag tag-weapon">229 Pages Ingested</span>
+        <span class="panel-tag tag-doctrine">Pomeroy · Story · Gibson</span>
+      </div>
+      <div class="layer-badge l2">2</div>
+      <div class="layer-right l2">
+        <div class="panel-title">Entity</div>
+        <div class="panel-heading" style="color:#2C5F8A;">RBT — Master Trust Network</div>
+        <div class="panel-detail">Master Trust Indenture v3 — Apex Fiduciary</div>
+        <div class="panel-detail">§5 Spendthrift Shield — bars all creditor attachment</div>
+        <div class="panel-detail">§6 Accounts &amp; Records — Pomeroy-grade audit standard</div>
+        <div class="panel-detail">Governs all subordinate trusts and entities</div>
+        <span class="panel-tag tag-shield">Spendthrift §104</span>
+        <span class="panel-tag tag-intel">773 JURIS Docs</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 3: Private Bank + Estate -->
+  <div class="layer-node">
+    <div class="layer-core">
+      <div class="layer-left l3">
+        <div class="panel-title">Operational Doctrine</div>
+        <div class="panel-heading" style="color:#3E85B5;">Banking &amp; Property</div>
+        <div class="panel-detail">10 AmJur 2d Banks § 1 — Common law banking right</div>
+        <div class="panel-detail">Estate capacity — separate legal identity</div>
+        <div class="panel-detail">PFO Art. IV — private banking operations</div>
+        <div class="panel-detail">PFO Art. VI — financial administration / controls</div>
+        <span class="panel-tag tag-doctrine">Common Law</span>
+        <span class="panel-tag tag-shield">Tax Compliance</span>
+      </div>
+      <div class="layer-badge l3">3</div>
+      <div class="layer-right l3">
+        <div class="panel-title">Entities</div>
+        <div class="panel-heading" style="color:#3E85B5;">Private Bank E&amp;T + Estate</div>
+        <div class="panel-detail">Ramon Ronquillo Private Bank E&amp;T (EIN: Sep 23, 2024)</div>
+        <div class="panel-detail">Ramon Arturo Ronquillo Estate (EIN: Sep 20, 2024)</div>
+        <div class="panel-detail">Custodianship · Cash management · Record-keeping</div>
+        <span class="panel-tag tag-shield">Non-profit / Tax-exempt</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 4: EXPRESS TRUST -->
+  <div class="layer-node">
+    <div class="layer-core">
+      <div class="layer-left l4">
+        <div class="panel-title">Public Identifiers Captured</div>
+        <div class="panel-heading" style="color:#1B9E5A;">The Crosswalk</div>
+        <div class="id-grid">
+          <div class="id-item"><span class="id-label">Loan No.</span><span class="id-value">0058732660</span></div>
+          <div class="id-item"><span class="id-label">FHA Case</span><span class="id-value">353-0076164</span></div>
+          <div class="id-item"><span class="id-label">CUSIP</span><span class="id-value">38382WPB7</span></div>
+          <div class="id-item"><span class="id-label">MERS MIN</span><span class="id-value">1007191-...752-9</span></div>
+          <div class="id-item"><span class="id-label">Block/Lot</span><span class="id-value">301 / 17</span></div>
+          <div class="id-item"><span class="id-label">Trust</span><span class="id-value">REMIC 2021-116</span></div>
+        </div>
+        <div style="margin-top:8px;">
+          <span class="panel-tag tag-id">Wire Ref: 20210604L2LFCK1C002715</span>
+        </div>
+      </div>
+      <div class="layer-badge l4">4</div>
+      <div class="layer-right l4">
+        <div class="panel-title">Entity</div>
+        <div class="panel-heading" style="color:#1B9E5A;">Express Trust — The Res</div>
+        <div class="panel-detail">RRPA-LC-092820251444-00</div>
+        <div class="panel-detail">Irrevocable Spendthrift Trust — N.J.S.A. 3B:31-1</div>
+        <div class="panel-detail">Property: 120 77th St, North Bergen NJ 07047</div>
+        <div class="panel-detail">Grantor & Settlor: Ramon A. Ronquillo</div>
+        <div class="panel-detail">Beneficiary: Ilka Cheryl Colon</div>
+        <span class="panel-tag tag-shield">11 U.S.C. §541(c)(2)</span>
+        <span class="panel-tag tag-intel">Equitable Title Holder</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 5: DELOREAN -->
+  <div class="layer-node">
+    <div class="layer-core">
+      <div class="layer-left l5">
+        <div class="panel-title">Temporal Priority Map</div>
+        <div class="panel-heading" style="color:#C87A00;">First in Time</div>
+        <div class="panel-detail" style="font-family:'Courier New',monospace; font-size:11px; line-height:2;">
+          <span style="color:#1B9E5A;font-weight:700;">Jun 4, 2021</span> — Equitable interest anchored<br>
+          <span style="color:#B91C1C;">Jul 30, 2021</span> — Securitization closes (AFTER)<br>
+          <span style="color:#B91C1C;">Aug 29, 2021</span> — Mortgage recorded (AFTER)<br>
+          <span style="color:#B91C1C;">Nov 6, 2024</span> — Belated assignment (AFTER)
+        </div>
+      </div>
+      <div class="layer-badge l5">5</div>
+      <div class="layer-right l5">
+        <div class="panel-title">Doctrine</div>
+        <div class="panel-heading" style="color:#C87A00;">DeLorean Relation Back</div>
+        <div class="panel-detail">Correction Deed anchors equitable interest to closing date</div>
+        <div class="panel-detail">All adverse interests are temporally subordinate</div>
+        <div class="panel-detail">Express Trust's claim predates the entire securitization chain</div>
+        <span class="panel-tag tag-weapon">Temporal Anchor</span>
+        <span class="panel-tag tag-shield">First in Time, First in Right</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ADVERSARY MAP -->
+<div class="flow-section">
+  <div class="flow-title">Adversary Chain — Connected to Public Identifiers</div>
+  <div class="adversary-grid">
+    <div class="adversary">
+      <div class="adv-name">City National Bank</div>
+      <div class="adv-role">Warehouse Lender</div>
+      <div style="font-size:9px;color:#DC2626;margin-top:4px;">Wire: $429,556.39</div>
+    </div>
+    <div class="adversary">
+      <div class="adv-name">CrossCountry Mtg.</div>
+      <div class="adv-role">Originator / Conduit</div>
+      <div style="font-size:9px;color:#DC2626;margin-top:4px;">§909 Orphan Creator</div>
+    </div>
+    <div class="adversary">
+      <div class="adv-name">MERS / MERSCORP</div>
+      <div class="adv-role">Registry (Inactive MIN)</div>
+      <div style="font-size:9px;color:#DC2626;margin-top:4px;">Reactive Assignment</div>
+    </div>
+    <div class="adversary">
+      <div class="adv-name">Ginnie Mae / HUD</div>
+      <div class="adv-role">Trust 2021-116 Guarantor</div>
+      <div style="font-size:9px;color:#DC2626;margin-top:4px;">6 Ghost Pools</div>
+    </div>
+    <div class="adversary">
+      <div class="adv-name">Lakeview Loan Svc.</div>
+      <div class="adv-role">Servicer (No PSA)</div>
+      <div style="font-size:9px;color:#DC2626;margin-top:4px;">14 Silences</div>
+    </div>
+  </div>
+</div>
+
+<!-- JURIS LIVE INTELLIGENCE -->
+<div class="juris-section">
+  <div class="flow-title">JURIS Live Doctrine Retrieval — By Layer</div>
+  <div id="juris-layers"><div class="loading"><div class="loading-spinner"></div>Querying JURIS across all five layers...</div></div>
+</div>
+
+<div class="footer" id="timestamp">Loading...</div>
+
+<script>
+async function queryJuris(q, n) {
+  try {
+    var r = await window.cowork.callMcpTool('mcp__anythingllm__vector_search', { workspace:'juris', query:q, top_n: n||2, score_threshold:0.5 });
+    return r;
+  } catch(e) { return null; }
+}
+
+function parseResults(raw) {
+  var items = [];
+  if (!raw) return items;
+  var text = typeof raw === 'string' ? raw : JSON.stringify(raw);
+  var chunks = text.split(/---\s*\[\d+\]/);
+  for (var i = 1; i < chunks.length; i++) {
+    var c = chunks[i];
+    var srcM = c.match(/sourceDocument:\s*([^\n<]+)/);
+    var scM = c.match(/score:\s*([\d.]+)/);
+    var src = srcM ? srcM[1].trim().replace('.md','') : 'JURIS';
+    var sc = scM ? parseFloat(scM[1]) : 0;
+    var clean = c.replace(/<document_metadata>[\s\S]*?<\/document_metadata>/g,'').replace(/^[^\n]*score:.*\n/m,'').replace(/^---\s*/gm,'').trim();
+    if (clean.length > 20) items.push({ source:src, excerpt: clean.length > 160 ? clean.substring(0,160)+'...' : clean, score:sc });
+  }
+  return items;
+}
+
+function renderItem(item) {
+  var col = item.score >= 0.7 ? '#059669' : item.score >= 0.6 ? '#B45309' : '#6B7280';
+  return '<div class="juris-item"><div class="source">' + item.source + '</div><div class="excerpt">' + item.excerpt + '</div><div class="score" style="color:'+col+'">Relevance: '+(item.score*100).toFixed(1)+'%</div></div>';
+}
+
+async function loadAll() {
+  var queries = [
+    { label: 'Layer 1 — Constitutional Shield', q: 'PMA constitutional association freedom privacy NAACP Alabama self-governance' },
+    { label: 'Layer 2 — RBT Doctrine Engine', q: 'Pomeroy equity accounting constructive trust surcharge spendthrift master trust' },
+    { label: 'Layer 3 — Banking & Operations', q: 'private banking common law unincorporated financial administration controls' },
+    { label: 'Layer 4 — Express Trust Crosswalk', q: 'Express Trust equitable title Block 301 Lot 17 foreclosure defense spendthrift irrevocable' },
+    { label: 'Layer 5 — DeLorean Temporal Anchor', q: 'DeLorean relation back temporal priority mortgage securitization first in time June 2021' }
+  ];
+
+  var html = '<div class="juris-grid">';
+  for (var i = 0; i < queries.length; i++) {
+    var raw = await queryJuris(queries[i].q, 2);
+    var items = parseResults(raw);
+    html += '<div style="grid-column: span ' + (i === queries.length - 1 && queries.length % 2 === 1 ? '2' : '1') + ';">';
+    html += '<div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#8892A4;text-transform:uppercase;margin-bottom:8px;">' + queries[i].label + '</div>';
+    for (var j = 0; j < items.length; j++) {
+      html += renderItem(items[j]);
+    }
+    if (items.length === 0) html += '<div style="font-size:11px;color:#8892A4;padding:8px;">No results for this layer.</div>';
+    html += '</div>';
+  }
+  html += '</div>';
+  document.getElementById('juris-layers').innerHTML = html;
+  document.getElementById('timestamp').textContent = 'Last refreshed: ' + new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }) + ' at ' + new Date().toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
+}
+
+loadAll();
+</script>
+</body>
+</html>

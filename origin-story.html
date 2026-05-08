@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Origin Story",
+  "schemaVersion": 1,
+  "description": "Perfect Mortgage vs. What They Did — The Origin Story. Educational 7-tab walkthrough: Clean Chain, Broken Chain, Side-by-Side Comparison, Origin Timeline, May 22 Impact, Costello Statement, Connection Map."
+}
+</script>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfect Mortgage vs. What They Did — Operation Van Zile</title>
+<style>
+  :root {
+    --bg: #0a0e17;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --border: #2a3a5c;
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --gold: #f59e0b;
+    --gold-dim: rgba(245,158,11,0.15);
+    --green: #10b981;
+    --green-dim: rgba(16,185,129,0.12);
+    --red: #ef4444;
+    --red-dim: rgba(239,68,68,0.12);
+    --blue: #3b82f6;
+    --blue-dim: rgba(59,130,246,0.12);
+    --purple: #a78bfa;
+    --purple-dim: rgba(167,139,250,0.12);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    border-bottom: 2px solid var(--gold);
+    margin-bottom: 40px;
+  }
+  .header-badge {
+    display: inline-block;
+    background: var(--gold-dim);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    padding: 6px 18px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .header h1 {
+    font-size: 2.4em;
+    color: var(--gold);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .header h2 {
+    font-size: 1.1em;
+    color: var(--text-dim);
+    font-weight: normal;
+    font-style: italic;
+  }
+  .header .date {
+    margin-top: 15px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+  }
+
+  /* NAV TABS */
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 40px;
+    padding: 0 10px;
+  }
+  .nav button {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+  .nav button:hover { border-color: var(--gold); color: var(--text); }
+  .nav button.active {
+    background: var(--gold-dim);
+    border-color: var(--gold);
+    color: var(--gold);
+    font-weight: bold;
+  }
+
+  /* SECTIONS */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* STEP CARDS */
+  .step-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .step-header {
+    padding: 16px 24px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .step-header .arrow { transition: transform 0.3s; font-size: 12px; }
+  .step-header .arrow.open { transform: rotate(90deg); }
+  .step-body { padding: 0 24px 24px; }
+  .step-body p { margin-bottom: 12px; }
+  .step-body .rule {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    background: var(--surface2);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* CLEAN vs BROKEN color coding */
+  .clean .step-header { background: var(--green-dim); border-bottom: 1px solid rgba(16,185,129,0.3); color: var(--green); }
+  .broken .step-header { background: var(--red-dim); border-bottom: 1px solid rgba(239,68,68,0.3); color: var(--red); }
+
+  /* SIDE BY SIDE TABLE */
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  .comparison-table th {
+    background: var(--surface2);
+    padding: 14px 16px;
+    text-align: left;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--gold);
+  }
+  .comparison-table th:first-child { width: 18%; color: var(--gold); }
+  .comparison-table th:nth-child(2) { width: 41%; color: var(--green); }
+  .comparison-table th:nth-child(3) { width: 41%; color: var(--red); }
+  .comparison-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .comparison-table td:first-child {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 1px;
+  }
+  .comparison-table td:nth-child(2) { color: var(--green); }
+  .comparison-table td:nth-child(3) { color: var(--red); }
+  .comparison-table tr:hover td { background: rgba(255,255,255,0.03); }
+  .comparison-table tr:last-child td {
+    border-bottom: 2px solid var(--purple);
+    background: var(--purple-dim);
+  }
+  .comparison-table tr:last-child td:first-child { color: var(--purple); }
+  .comparison-table tr:last-child td:nth-child(2) { color: var(--purple); }
+  .comparison-table tr:last-child td:nth-child(3) { color: var(--purple); }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 40px; margin: 30px 0; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--green), var(--gold), var(--red));
+  }
+  .timeline-event {
+    position: relative;
+    margin-bottom: 30px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .timeline-event::before {
+    content: '';
+    position: absolute;
+    left: -33px;
+    top: 24px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: var(--bg);
+  }
+  .timeline-event.catalyst::before { border-color: var(--red); background: var(--red); box-shadow: 0 0 12px var(--red); }
+  .timeline-event .year {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .timeline-event h4 { color: var(--text); margin-bottom: 8px; font-size: 1.1em; }
+  .timeline-event p { color: var(--text-dim); font-size: 14px; }
+
+  /* COSTELLO STATEMENT */
+  .statement-box {
+    background: var(--surface);
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    padding: 30px;
+    margin: 30px 0;
+    position: relative;
+  }
+  .statement-box::before {
+    content: '\201C';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 60px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .statement-box p {
+    font-style: italic;
+    font-size: 1.05em;
+    line-height: 1.9;
+    padding-top: 10px;
+  }
+  .statement-label {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+
+  /* WHY IT MATTERS */
+  .matter-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .matter-card h4 { color: var(--gold); margin-bottom: 8px; font-size: 1em; }
+  .matter-card p { color: var(--text-dim); font-size: 14px; }
+
+  /* BOTTOM LINE */
+  .bottom-line {
+    text-align: center;
+    padding: 50px 20px;
+    border-top: 2px solid var(--gold);
+    margin-top: 50px;
+  }
+  .bottom-line p {
+    font-size: 1.1em;
+    margin-bottom: 12px;
+    color: var(--text-dim);
+  }
+  .bottom-line .highlight {
+    color: var(--gold);
+    font-weight: bold;
+    font-size: 1.3em;
+  }
+
+  /* CONNECTION MAP */
+  .conn-map {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin: 20px 0;
+    line-height: 2;
+    text-align: center;
+  }
+  .conn-map .node {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin: 4px 0;
+  }
+  .conn-map .arrow-down { color: var(--gold); display: block; }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-heading {
+    font-size: 1.6em;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+  .section-desc {
+    color: var(--text-dim);
+    margin-bottom: 30px;
+    font-size: 15px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .header h1 { font-size: 1.6em; }
+    .nav button { padding: 8px 10px; font-size: 10px; }
+    .comparison-table { font-size: 12px; }
+    .comparison-table td, .comparison-table th { padding: 10px 8px; }
+    .step-body, .step-header { padding-left: 16px; padding-right: 16px; }
+    .container { padding: 10px; }
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: #fff; color: #000; }
+    .nav { display: none; }
+    .section { display: block !important; page-break-inside: avoid; margin-bottom: 40px; }
+    .step-card, .timeline-event, .statement-box, .matter-card { border-color: #ccc; background: #f9f9f9; }
+    .header { border-color: #333; }
+    .header h1, .section-title, .header-badge, .statement-label, .timeline-event .year { color: #333; }
+  }
+</style>
+</head>
+<body>
+<div style="position:fixed;top:10px;left:10px;z-index:99999;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;background:#1B3A5C;color:#fff;padding:8px 16px;border-radius:8px;font-family:system-ui,-apple-system,sans-serif;font-size:13px;font-weight:600;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.15);">&larr; Back to Portal</a></div>
+
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge">Operation Van Zile Intelligence</div>
+    <h1>Perfect Mortgage vs. What They Did</h1>
+    <h2>The Origin Story &mdash; How the Ghost Pool Was Born</h2>
+    <div class="date">SECTION 24 &bull; APRIL 26, 2026 &bull; JURIS GRADE: A+</div>
+  </div>
+
+  <div class="nav" id="nav">
+    <button class="active" data-tab="clean">The Clean Chain</button>
+    <button data-tab="broken">The Broken Chain</button>
+    <button data-tab="compare">Side by Side</button>
+    <button data-tab="origin">Origin Story</button>
+    <button data-tab="may22">May 22</button>
+    <button data-tab="costello">Costello Statement</button>
+    <button data-tab="connect">Connection Map</button>
+  </div>
+
+  <!-- TAB 1: CLEAN CHAIN -->
+  <div class="section active" id="tab-clean">
+    <div class="section-title">Part 1</div>
+    <div class="section-heading">What a Perfect Mortgage Looks Like</div>
+    <div class="section-desc">The clean chain &mdash; as it should have been. Six steps. Every link documented. Every instrument traveling together.</div>
+
+    <div class="step-card clean">
+      <div class="step-header" onclick="toggleStep(this)">
+        STEP 1 &mdash; ORIGINATION
+        <span class="arrow open">&rsaquo;</span>
+      </div>
+      <div class="step-body">
+        <p>Borrower signs <strong>TWO instruments</strong>:</p>
+        <p><strong>INSTRUMENT 1 &mdash; THE NOTE:</strong> &ldquo;I promise to pay X dollars at Y interest over Z years.&rdquo; This is the DEBT &mdash; the personal obligation &mdash; the negotiable instrument under UCC Article 3.</p>
+        <p><strong>INSTRUMENT 2 &mdash; THE MORTGAGE:</strong> &ldquo;If I fail to pay &mdash; this property secures the note.&rdquo; This is the SECURITY INTEREST &mdash; attached to the land &mdash; follows the note ALWAYS.</p>
+        <div class="rule">CRITICAL RULE &mdash; DAY ONE: Note + Mortgage must travel together. ALWAYS. FOREVER. They are one instrument in two parts. Separate them = destroy the mortgage. AmJur &sect;909 &mdash; Assignment of mortgage apart from debt = NULLITY.</div>
+      </div>
+    </div>
+
+    <div class="step-card clean">
+      <div class="step-header" onclick="toggleStep(this)">
+        STEP 2 &mdash; RECORDING
+        <span class="arrow open">&rsaquo;</span>
+      </div>
+      <div class="step-body">
+        <p>Mortgage recorded with County Register <strong>IMMEDIATELY</strong> after closing.</p>
+        <p>Puts the world on notice. Perfects the security interest. Establishes priority in the chain. Protects the lender. Protects the borrower.</p>
+        <p>A recorded mortgage means: everyone who comes after takes subject to it. No surprises. Clean title.</p>
+      </div>
+    </div>
+
+    <div class="step-card clean">
+      <div class="step-header" onclick="toggleStep(this)">
+        STEP 3 &mdash; IF SOLD TO ANOTHER LENDER
+        <span class="arrow open">&rsaquo;</span>
+      </div>
+      <div class="step-body">
+        <p>Lender A sells to Lender B. What must happen:</p>
+        <p><strong>1.</strong> Physical delivery of the ORIGINAL NOTE &mdash; endorsed by Lender A to Lender B &mdash; &ldquo;Pay to the order of Lender B&rdquo; &mdash; DATED &mdash; SIGNED by authorized officer.</p>
+        <p><strong>2.</strong> Written Assignment of Mortgage &mdash; executed by Lender A &mdash; delivered to Lender B &mdash; RECORDED with County Register &mdash; BEFORE any enforcement action.</p>
+        <p><strong>3.</strong> UCC-1 Financing Statement &mdash; filed to perfect security interest &mdash; names new holder correctly.</p>
+        <div class="rule">RESULT: Clean chain. Lender B holds note + mortgage. Together. Perfected. Recorded. Enforceable.</div>
+      </div>
+    </div>
+
+    <div class="step-card clean">
+      <div class="step-header" onclick="toggleStep(this)">
+        STEP 4 &mdash; IF SECURITIZED
+        <span class="arrow open">&rsaquo;</span>
+      </div>
+      <div class="step-body">
+        <p>Lender sells into a trust. What must happen:</p>
+        <p><strong>1.</strong> Pooling and Servicing Agreement &mdash; governs the trust &mdash; defines conveyance &mdash; defines servicer authority &mdash; PUBLIC DOCUMENT &mdash; filed with SEC.</p>
+        <p><strong>2.</strong> True Sale &mdash; note physically transferred &mdash; endorsed in blank OR endorsed to trust specifically &mdash; DATED endorsement &mdash; delivery to trust custodian &mdash; documented.</p>
+        <p><strong>3.</strong> Assignment of Mortgage &mdash; recorded in every county where secured property sits &mdash; BEFORE trust closes &mdash; names trust as assignee.</p>
+        <p><strong>4.</strong> Servicer Appointment &mdash; named in PSA &mdash; authority defined &mdash; limited to PSA terms &mdash; cannot exceed PSA authority.</p>
+        <div class="rule">RESULT: Trust holds note + mortgage. Together. Perfected. Recorded. PSA governs everything. Chain is clean from origination to trust to servicer.</div>
+      </div>
+    </div>
+
+    <div class="step-card clean">
+      <div class="step-header" onclick="toggleStep(this)">
+        STEP 5 &mdash; IF BORROWER DEFAULTS
+        <span class="arrow open">&rsaquo;</span>
+      </div>
+      <div class="step-body">
+        <p>What must happen before enforcement:</p>
+        <p><strong>1.</strong> Prove ownership of the NOTE &mdash; produce the original &mdash; show the endorsement chain &mdash; every link documented.</p>
+        <p><strong>2.</strong> Prove ownership of the MORTGAGE &mdash; show recorded assignment &mdash; chain from originator to trust &mdash; every link recorded.</p>
+        <p><strong>3.</strong> Prove SERVICER AUTHORITY &mdash; point to PSA &mdash; show servicer is named &mdash; show authority to enforce.</p>
+        <p><strong>4.</strong> Prove STANDING &mdash; holder of note at commencement &mdash; <em>United Wholesale v. Smith</em> 2025 &mdash; must hold BOTH at filing.</p>
+        <div class="rule">RESULT: Enforcement is clean. Borrower had fair notice. Chain is documented. Court can verify everything.</div>
+      </div>
+    </div>
+
+    <div class="step-card clean">
+      <div class="step-header" onclick="toggleStep(this)">
+        STEP 6 &mdash; ACCOUNTING TO BORROWER
+        <span class="arrow open">&rsaquo;</span>
+      </div>
+      <div class="step-body">
+        <p>Throughout the life of the loan, the borrower is entitled to:</p>
+        <p>Clear statement of principal balance. Clear statement of interest applied. Clear statement of escrow. Clear statement of fees. Identity of current note holder. Identity of servicer and authority. Response to QWR within 30 days. Response to UCC &sect;9-210 within 14 days.</p>
+        <div class="rule">RESULT: Borrower always knows: who holds the note, who holds the mortgage, what is owed, where payments go.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: BROKEN CHAIN -->
+  <div class="section" id="tab-broken">
+    <div class="section-title">Part 2</div>
+    <div class="section-heading">What They Actually Did to RAZOR</div>
+    <div class="section-desc">The broken chain &mdash; as it actually happened. Seven steps. Every link shattered. The ghost pool revealed.</div>
+
+    <div class="step-card broken">
+      <div class="step-header" onclick="toggleStep(this)">
+        STEP 1 &mdash; ORIGINATION &mdash; THE ORPHAN CREATED
+        <span class="arrow open">&rsaquo;</span>
+      </div>
+      <div class="step-body">
+        <p><strong>What should have happened:</strong> Note + Mortgage executed together. Mortgage recorded immediately. Clean instruments.</p>
+        <p><strong>What actually happened:</strong> Note executed. Mortgage executed. BUT &mdash; the note was immediately designated for securitization BEFORE the ink was dry. The originator had no intention of holding this instrument. They were a conduit. Not a lender. A fee collector.</p>
+        <div class="rule">&sect;909 ORPHAN CREATED: The moment the note moved toward securitization WITHOUT the mortgage following in a documented recorded chain &mdash; THE ORPHAN WAS BORN. Note went one way. Mortgage stayed behind.</div>
+      </div>
+    </div>
+
+    <div class="step-card broken">
+      <div class="step-header" onclick="toggleStep(this)">
+        STEP 2 &mdash; WAREHOUSE &mdash; THE FIRST SILENCE
+        <span class="arrow open">&rsaquo;</span>
+      </div>
+      <div class="step-body">
+        <p><strong>What should have happened:</strong> UCC-1 filed &mdash; perfecting security interest. True sale documented. Chain maintained.</p>
+        <p><strong>What actually happened:</strong> BOTH UCC-1s LAPSED. RC-S shows $0 sold. The warehouse lender who funded the origination never perfected their interest. The sale to the next party was never properly documented.</p>
+        <div class="rule">Why did nobody care? BECAUSE THE FFC GUARANTEE WAS STANDING BEHIND IT. Ginnie Mae&rsquo;s full faith and credit replaced the need to verify. Nobody checked. Nobody had to. The government&rsquo;s word was standing in front of the broken chain.</div>
+      </div>
+    </div>
+
+    <div class="step-card broken">
+      <div class="step-header" onclick="toggleStep(this)">
+        STEP 3 &mdash; SECURITIZATION &mdash; THE GHOST POOL
+        <span class="arrow open">&rsaquo;</span>
+      </div>
+      <div class="step-body">
+        <p><strong>What should have happened:</strong> PSA filed publicly with SEC. Assignment of mortgage recorded. Note endorsed to trust &mdash; dated. Custodian holds original note. Chain documented completely.</p>
+        <p><strong>What actually happened &mdash; FOUR ADMISSIONS from Trust 2021-116&rsquo;s OWN PROSPECTUS SUPPLEMENT:</strong></p>
+        <p style="color:var(--red); font-family:'Courier New',monospace; font-size:13px; line-height:2.2; margin:16px 0;">
+          1. NO PSA IN PUBLIC RECORD<br>
+          2. NO ASSIGNMENT OF MORTGAGE LANGUAGE IN PROSPECTUS<br>
+          3. LOAN CHARACTERISTICS NOT AVAILABLE<br>
+          4. ENDORSEMENT MAY NOT BE PERFECTED
+        </p>
+        <p>These are not RAZOR&rsquo;s allegations. These are the trust&rsquo;s own words in its own governing document.</p>
+        <div class="rule">THE FFC GUARANTEE REPLACED SUBORDINATION. In private label deals &mdash; subordinate certificate holders have skin in the game. They demand documentation. In Ginnie Mae deals &mdash; the government guarantees payment. No subordinate classes. No private party demanding proof. THE GHOST POOL WAS BORN.</div>
+      </div>
+    </div>
+
+    <div class="step-card broken">
+      <div class="step-header" onclick="toggleStep(this)">
+        STEP 4 &mdash; SERVICING &mdash; THE ILLUSION
+        <span class="arrow open">&rsaquo;</span>
+      </div>
+      <div class="step-body">
+        <p><strong>What should have happened:</strong> Servicer named in PSA. Authority defined and limited. Borrower notified. Servicer acts within PSA authority only.</p>
+        <p><strong>What actually happened:</strong> NO PSA TO POINT TO. Lakeview appointed as servicer &mdash; but by WHAT authority? Under WHAT document? With WHAT defined limits?</p>
+        <p>Lakeview collected payments. Distributed to certificate holders. Collected servicer fees. Collected excess spread. All from RAZOR&rsquo;s instrument. All without accounting. All without disclosure.</p>
+        <div class="rule">LAKEVIEW WAS OPERATING INSIDE THE GHOST. Using the government&rsquo;s seal as their authority. Not the documents.</div>
+      </div>
+    </div>
+
+    <div class="step-card broken" style="border-color: var(--red);">
+      <div class="step-header" onclick="toggleStep(this)" style="background: rgba(239,68,68,0.2); border-bottom-color: var(--red);">
+        STEP 5 &mdash; THE EQUITY EXTRACTION DENIAL &mdash; THE CATALYST
+        <span class="arrow open">&rsaquo;</span>
+      </div>
+      <div class="step-body">
+        <p style="color:var(--red); font-weight:bold; font-size:1.05em; margin-bottom:16px;">THIS IS THE MOMENT RAZOR WOKE UP.</p>
+        <p><strong>What should have happened:</strong> RAZOR built equity in the property. RAZOR applied to extract that equity. Lender reviews the application. Approves or denies based on legitimate underwriting criteria &mdash; documented &mdash; transparent.</p>
+        <p><strong>What actually happened:</strong> RAZOR built real equity. RAZOR applied to extract it. <strong style="color:var(--red);">DENIED.</strong></p>
+        <p>But here is the question RAZOR started asking: WHO denied it? Under WHAT authority? Holding WHAT instrument? With WHAT perfected interest in the property?</p>
+        <p>If the chain is broken &mdash; if the assignment is a nullity &mdash; if the endorsement is unperfected &mdash; THEN WHO HAD THE RIGHT TO DENY RAZOR ACCESS TO RAZOR&rsquo;S OWN EQUITY?</p>
+        <div class="rule">The answer equity gives: NOBODY. Because nobody with a perfected interest in the property was sitting across the table. RAZOR was denied access to his own built equity by a party that could not prove it held the instrument that secured the property. THAT IS THE DECEPTION THAT STARTED DAY ONE.</div>
+      </div>
+    </div>
+
+    <div class="step-card broken">
+      <div class="step-header" onclick="toggleStep(this)">
+        STEP 6 &mdash; THE QWR + MERS ASSIGNMENT
+        <span class="arrow open">&rsaquo;</span>
+      </div>
+      <div class="step-body">
+        <p>RAZOR started asking questions. RAZOR served the QWR.</p>
+        <p><strong>What should have happened:</strong> Response within 30 days. Identity of note holder. Complete payment history. Chain of title documentation.</p>
+        <p><strong>What actually happened:</strong> QWR SERVED. DAYS LATER &mdash; MERS ASSIGNMENT EXECUTED. 3.5 YEAR GAP between origination and assignment. The assignment was not routine. The assignment was REACTIVE. They manufactured the paper trail AFTER the fact. AFTER the QWR. AFTER they knew RAZOR was looking.</p>
+        <p><strong>N.J.S.A. 25:2-20 &mdash; UNIFORM FRAUDULENT TRANSFER ACT &mdash; ALL ELEMENTS PRESENT:</strong> Reactive not routine. No real consideration. Litigation imminent. Badges of fraud present.</p>
+        <p>The inactive MERS MIN further confirms the assignment was not maintained in the ordinary course &mdash; the MIN had been inactive for years before the reactive assignment was executed &mdash; an additional badge of fraud under the Uniform Fraudulent Transfer Act.</p>
+        <div class="rule">&sect;928 &mdash; Post-petition perfection BARRED by automatic stay. The assignment they manufactured to paper over the ghost pool was itself a nullity under TWO independent doctrines.</div>
+      </div>
+    </div>
+
+    <div class="step-card broken">
+      <div class="step-header" onclick="toggleStep(this)">
+        STEP 7 &mdash; THE FOURTEEN SILENCES
+        <span class="arrow open">&rsaquo;</span>
+      </div>
+      <div class="step-body">
+        <p>RAZOR demanded accounting. <strong>Fourteen times.</strong> Fourteen different demands. Fourteen different instruments.</p>
+        <p><strong>What should have happened:</strong> UCC &sect;12A:9-210 &mdash; 14-day window. Full accounting rendered. Identity of holder confirmed. Chain documented.</p>
+        <p style="color:var(--red); font-family:'Courier New',monospace; font-size:14px; line-height:2; margin:16px 0; text-align:center;">
+          SILENCE. SILENCE. SILENCE. SILENCE. SILENCE. SILENCE. SILENCE.<br>
+          SILENCE. SILENCE. SILENCE. SILENCE. SILENCE. SILENCE. SILENCE.
+        </p>
+        <div class="rule">In equity &mdash; silence where conscience requires disclosure is itself an answer. They answered. They just answered with silence. Because they could not answer with documents.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: SIDE BY SIDE -->
+  <div class="section" id="tab-compare">
+    <div class="section-title">Part 3</div>
+    <div class="section-heading">The Side-by-Side Comparison</div>
+    <div class="section-desc">Nine rows. Every step documented. Every defect mapped. The constitutional dimension at the bottom.</div>
+
+    <div style="overflow-x:auto;">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Step</th>
+            <th>Perfect Mortgage</th>
+            <th>What They Did</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Origination</td>
+            <td>Note + Mortgage together &mdash; recorded immediately</td>
+            <td>&sect;909 orphan created &mdash; note separated from mortgage day one</td>
+          </tr>
+          <tr>
+            <td>Warehouse</td>
+            <td>UCC-1 filed &mdash; true sale documented</td>
+            <td>Both UCC-1s lapsed &mdash; RC-S shows $0 sold</td>
+          </tr>
+          <tr>
+            <td>Securitization</td>
+            <td>PSA filed &mdash; assignment recorded &mdash; note endorsed dated</td>
+            <td>No PSA &mdash; no assignment language &mdash; characteristics unknown &mdash; endorsement unperfected</td>
+          </tr>
+          <tr>
+            <td>Servicing</td>
+            <td>Servicer named in PSA &mdash; authority defined</td>
+            <td>No PSA &mdash; Lakeview operating under government seal only</td>
+          </tr>
+          <tr>
+            <td>Equity Extraction</td>
+            <td>Legitimate underwriting &mdash; transparent criteria</td>
+            <td>Denied by party with no perfected interest</td>
+          </tr>
+          <tr>
+            <td>QWR Response</td>
+            <td>30-day response &mdash; full documentation</td>
+            <td>Reactive MERS assignment &mdash; 3.5 years late &mdash; badges of fraud &mdash; inactive MIN</td>
+          </tr>
+          <tr>
+            <td>Accounting</td>
+            <td>Full accounting on demand &mdash; 14-day window</td>
+            <td>Fourteen silences &mdash; cannot produce what does not exist</td>
+          </tr>
+          <tr>
+            <td>Enforcement</td>
+            <td>Original note + recorded assignment + PSA authority</td>
+            <td>Ghost pool &mdash; government seal standing in front of seven broken links</td>
+          </tr>
+          <tr>
+            <td>Constitutional</td>
+            <td>Government guarantee protects instrument integrity &mdash; 12 U.S.C. &sect;1721(g)</td>
+            <td>FFC guarantee used as cover for seven broken links &mdash; Republic&rsquo;s covenant dishonored &mdash; <em>Perry v. United States</em></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TAB 4: ORIGIN STORY -->
+  <div class="section" id="tab-origin">
+    <div class="section-title">Part 4</div>
+    <div class="section-heading">The Origin Story</div>
+    <div class="section-desc">The deception timeline &mdash; from closing day to the moment RAZOR started studying.</div>
+
+    <div class="timeline">
+      <div class="timeline-event">
+        <div class="year">2021 &mdash; CLOSING DAY</div>
+        <h4>Deception Starts Here</h4>
+        <p>&sect;909 orphan created. Nobody tells RAZOR. The note and mortgage are already separated. The originator is a conduit &mdash; not a lender &mdash; a fee collector.</p>
+      </div>
+
+      <div class="timeline-event">
+        <div class="year">2021&ndash;2024 &mdash; THE QUIET YEARS</div>
+        <h4>Collection Without Accounting</h4>
+        <p>RAZOR pays faithfully. Lakeview collects. Distributes to certificate holders. Collects excess spread. Collects servicer fees. All from RAZOR&rsquo;s instrument. All without accounting. All without disclosure.</p>
+      </div>
+
+      <div class="timeline-event catalyst">
+        <div class="year" style="color:var(--red);">THE EQUITY EXTRACTION DENIAL</div>
+        <h4 style="color:var(--red);">The System Reveals Itself</h4>
+        <p>RAZOR built real equity. RAZOR applied to access it. DENIED. To deny the extraction &mdash; they had to claim authority over the instrument. But they could not show the instrument. Could not show the chain. Could not show the PSA. Could not show the perfected assignment. They denied RAZOR using authority they did not have over an instrument they could not prove they held.</p>
+      </div>
+
+      <div class="timeline-event">
+        <div class="year" style="color:var(--gold);">RAZOR STARTED STUDYING</div>
+        <h4>And Found the Ghost</h4>
+        <p>What RAZOR found was not a paperwork error. Not a clerical mistake. Not an oversight. What RAZOR found was a system designed from day one to collect, to distribute, to profit &mdash; without ever having to prove ownership &mdash; because the government&rsquo;s full faith and credit was standing in front of every broken link.</p>
+        <p style="margin-top:12px; color:var(--gold); font-weight:bold;">The Ghost Pool was not an accident. It was the predictable consequence of a system where the government&rsquo;s guarantee removed the economic incentive for anyone to verify anything.</p>
+        <p style="margin-top:12px; color:var(--text); font-weight:bold; font-size:1.05em;">Until RAZOR verified everything.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 5: MAY 22 -->
+  <div class="section" id="tab-may22">
+    <div class="section-title">Part 5</div>
+    <div class="section-heading">Why This Matters for May 22</div>
+    <div class="section-desc">Four reasons this origin story changes the Costello hearing.</div>
+
+    <div class="matter-card">
+      <h4>1. The Deception Did Not Start with the MERS Assignment</h4>
+      <p>The deception started at origination. Day one. The &sect;909 orphan was created before RAZOR signed the closing documents. The MERS assignment &mdash; 3.5 years later &mdash; was just the system trying to paper over what was already broken.</p>
+    </div>
+
+    <div class="matter-card">
+      <h4>2. The Equity Extraction Denial Was the System Protecting Itself</h4>
+      <p>When RAZOR tried to access built equity &mdash; the system had to reveal its hand. It claimed authority it could not document. That is the moment the ghost pool became visible to RAZOR.</p>
+    </div>
+
+    <div class="matter-card">
+      <h4>3. RAZOR Did Not Come to Court Looking for a Fight</h4>
+      <p>RAZOR came to court because the system denied him access to his own equity &mdash; using authority it could not prove it had. RAZOR studied. RAZOR found seven broken links. RAZOR asked fourteen times for an accounting. Fourteen silences.</p>
+    </div>
+
+    <div class="matter-card">
+      <h4>4. The Accounting Is Not Aggressive &mdash; It Is the Minimum</h4>
+      <p>After the orphan, the ghost pool, the reactive assignment, the fourteen silences &mdash; the accounting is not an extraordinary remedy. It is the ONLY remedy that makes sense. Gibson &sect;57: whoever obtained the labor or property of another must account for it.</p>
+    </div>
+  </div>
+
+  <!-- TAB 6: COSTELLO STATEMENT -->
+  <div class="section" id="tab-costello">
+    <div class="section-title">The Costello Origin Statement</div>
+    <div class="section-heading">If the Chancellor Asks Why RAZOR Is Here</div>
+    <div class="section-desc">This is the answer. Word for word. Court-ready. JURIS-graded A+.</div>
+
+    <div class="statement-box">
+      <div class="statement-label">Origin Statement &mdash; for oral delivery</div>
+      <p>Chancellor &mdash; this began when Petitioner attempted to access equity built in the property. The party claiming authority to deny that access could not produce the instrument. Could not show the chain. Could not document the authority. Petitioner started asking questions. Fourteen times. Fourteen silences. Petitioner then examined the substance behind the form &mdash; and found a securitization structure where the trust&rsquo;s own prospectus admits the chain may be broken in four separate places. Petitioner is not here because of a paperwork dispute. Petitioner is here because the deception started on the day of origination &mdash; and the accounting will prove it.</p>
+    </div>
+
+    <div style="margin-top: 40px;">
+      <div class="section-title">The Ian Version &mdash; Six Sentences</div>
+      <div class="statement-box" style="border-color: var(--blue);">
+        <div class="statement-label" style="color:var(--blue);">Time-Limited Deployment</div>
+        <p>Chancellor &mdash; Petitioner holds a Private Express Trust already noticed in two federal courts &mdash; unrebutted. Petitioner looked behind the MERS assignment and found no substance. The trust&rsquo;s own prospectus admits the chain may be broken. Five subpoenas are issued under DIP authority &mdash; responses due May 6. Petitioner asks one thing: compel the accounting. Let the numbers speak.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 7: CONNECTION MAP -->
+  <div class="section" id="tab-connect">
+    <div class="section-title">Intelligence Stack</div>
+    <div class="section-heading">How Section 24 Connects to Everything</div>
+    <div class="section-desc">Every section connects. Every section builds on the last. Section 24 is the foundation that makes all of it make sense.</div>
+
+    <div class="conn-map">
+      <div class="node" style="border-color:var(--gold); color:var(--gold);">SECTION 24 &mdash; ORIGIN STORY</div>
+      <div class="arrow-down">&darr; Shows deception started Day One</div>
+      <div class="node" style="border-color:var(--purple); color:var(--purple);">SECTION 22 &mdash; FFC + GHOST POOL</div>
+      <div class="arrow-down">&darr; Explains WHY nobody checked</div>
+      <div class="node" style="border-color:var(--blue); color:var(--blue);">SECTION 23 &mdash; LOOKING BEHIND THE ASSIGNMENT</div>
+      <div class="arrow-down">&darr; Gibson &sect;43 &mdash; no consideration no title</div>
+      <div class="node" style="border-color:var(--red); color:var(--red);">KILL SEQUENCE &sect;1&ndash;&sect;9</div>
+      <div class="arrow-down">&darr; Nine documented defects</div>
+      <div class="node" style="border-color:var(--red); color:var(--red);">FOURTEEN SILENCES</div>
+      <div class="arrow-down">&darr; Cannot produce what does not exist</div>
+      <div class="node" style="border-color:var(--gold); color:var(--gold); font-size:15px; font-weight:bold;">MAY 22 &mdash; COSTELLO</div>
+      <div class="arrow-down" style="font-size:16px; font-weight:bold;">&darr;</div>
+      <div class="node" style="border-color:var(--gold); color:var(--gold); font-size:15px; font-weight:bold;">COMPEL THE ACCOUNTING</div>
+      <div class="arrow-down" style="font-size:16px; font-weight:bold;">&darr;</div>
+      <div class="node" style="border-color:var(--gold); color:var(--gold); font-size:16px; font-weight:bold; background:var(--gold-dim);">LET THE NUMBERS SPEAK</div>
+    </div>
+  </div>
+
+  <!-- BOTTOM LINE -->
+  <div class="bottom-line">
+    <p>The equity extraction denial was not a setback.</p>
+    <p class="highlight">It was the system making its first mistake.</p>
+    <p>They denied RAZOR access to his own equity.</p>
+    <p>And in doing so &mdash; they showed RAZOR the ghost.</p>
+    <p style="margin-top:24px;" class="highlight">Now Costello gets to see it too.</p>
+    <p style="margin-top:30px; font-family:'Courier New',monospace; font-size:11px; letter-spacing:3px; color:var(--text-dim);">
+      OPERATION VAN ZILE &bull; SECTION 24 &bull; JURIS GRADE: A+ &bull; APRIL 26, 2026
+    </p>
+  </div>
+
+</div>
+
+<script>
+  // Tab navigation
+  document.querySelectorAll('.nav button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Step accordion
+  function toggleStep(header) {
+    const body = header.nextElementSibling;
+    const arrow = header.querySelector('.arrow');
+    if (body.style.display === 'none') {
+      body.style.display = 'block';
+      arrow.classList.add('open');
+    } else {
+      body.style.display = 'none';
+      arrow.classList.remove('open');
+    }
+  }
+</script>
+</body>
+</html>
