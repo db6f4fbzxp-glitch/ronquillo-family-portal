@@ -84,6 +84,55 @@ body {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.3; }
 }
+@keyframes alertPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(231,76,60,0.3), inset 0 0 0 1px rgba(231,76,60,0.4); }
+  50% { box-shadow: 0 0 20px rgba(231,76,60,0.6), inset 0 0 0 1px rgba(231,76,60,0.8); }
+}
+@keyframes countdownBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.hit-list-card {
+  background: linear-gradient(135deg, #1a0000 0%, #2d0a0a 40%, #1a1a2e 100%) !important;
+  border: 2px solid #E74C3C !important;
+  animation: alertPulse 3s ease-in-out infinite;
+}
+.hit-list-card .card-title {
+  color: #ff4141 !important;
+  border-color: #E74C3C !important;
+  font-size: 16px !important;
+  letter-spacing: 1px;
+}
+.hit-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.countdown-badge {
+  background: #E74C3C;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  animation: countdownBlink 2s ease-in-out infinite;
+}
+.hit-list-card .layer-name { color: #f0f0f0 !important; }
+.hit-list-card .layer-role { color: #b0b0b0 !important; }
+.hit-list-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin: 16px 0 12px 0;
+}
+.hit-list-section-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #666;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
 
 /* Grid */
 .grid {
@@ -681,66 +730,91 @@ body {
   </div>
 </div>
 
-<!-- NEXT ACTIONS -->
+<!-- NEXT ACTIONS — HIT LIST -->
 <div class="grid full">
-  <div class="card">
-    <div class="card-title"><span class="icon">&#x1F3AF;</span> NEXT ACTIONS &mdash; MAY 22 COUNTDOWN</div>
-    <div class="fortress-layer" style="border-left:4px solid #E74C3C">
-      <div class="layer-num" style="background:#E74C3C">!</div>
-      <div>
-        <div class="layer-name">Build Costello V7 + Variance Notice &mdash; File by May 13</div>
-        <div class="layer-role">V7: Add &sect; 4 (Section IV), &sect; 17 (Section III), &sect; 55 (Section VIII). Variance Notice: Bill in equity vs. motion at law. Two documents, one package.</div>
-      </div>
-      <div class="layer-status" style="background:#FFEBEE;color:#C62828">CRITICAL</div>
+  <div class="card hit-list-card">
+    <div class="hit-list-header">
+      <div class="card-title" style="margin-bottom:0"><span class="icon">&#x1F6A8;</span> HIT LIST &mdash; ACTIVE OPERATIONS</div>
+      <div class="countdown-badge" id="countdown-badge">FILING IN — DAYS</div>
     </div>
-    <div class="fortress-layer" style="border-left:4px solid #27AE60">
-      <div class="layer-num" style="background:#27AE60">&#x2713;</div>
-      <div>
-        <div class="layer-name">Fix JURIS Gap 1 &mdash; &sect; 26 Added to Tier 2</div>
-        <div class="layer-role">Restitution from Third Parties &mdash; reaches Ginnie Mae Trust 2021-116 directly as REMIC trust</div>
+
+    <!-- CRITICAL — IMMEDIATE -->
+    <div style="background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.3);border-radius:8px;padding:12px;margin-bottom:8px">
+      <div style="font-size:10px;letter-spacing:2px;color:#E74C3C;font-weight:700;margin-bottom:10px">&#x26A0;&#xFE0F; CRITICAL &mdash; FILE BY MAY 13</div>
+      <div class="fortress-layer" style="border-left:4px solid #ff4141;background:rgba(255,65,65,0.06)">
+        <div class="layer-num" style="background:#E74C3C;font-size:16px">!</div>
+        <div>
+          <div class="layer-name" style="font-size:14px">Build Costello V7 + Variance Notice</div>
+          <div class="layer-role">V7: Add &sect; 4 (Section IV), &sect; 17 (Section III), &sect; 55 (Section VIII). Variance Notice: Bill in equity vs. motion at law. Two documents, one package. <strong style="color:#ff6b6b">TUESDAY.</strong></div>
+        </div>
+        <div class="layer-status" style="background:#E74C3C;color:white;font-weight:800;font-size:11px">CRITICAL</div>
       </div>
-      <div class="layer-status" style="background:#E8F5E9;color:#2E7D32">DONE</div>
     </div>
-    <div class="fortress-layer" style="border-left:4px solid #27AE60">
-      <div class="layer-num" style="background:#27AE60">&#x2713;</div>
-      <div>
-        <div class="layer-name">Fix JURIS Gap 2 &mdash; Orator Frame Mapped</div>
-        <div class="layer-role">Gibson Formula added to Memorandum Framework intro &mdash; &sect;&sect; 1, 4, 55 = Standing + Jurisdiction + Remedy</div>
+
+    <!-- BUILD — IN PROGRESS -->
+    <div style="background:rgba(230,126,34,0.06);border:1px solid rgba(230,126,34,0.2);border-radius:8px;padding:12px;margin-bottom:8px">
+      <div style="font-size:10px;letter-spacing:2px;color:#E67E22;font-weight:700;margin-bottom:10px">&#x1F527; BUILD &mdash; IN PROGRESS</div>
+      <div class="fortress-layer" style="border-left:4px solid #E67E22">
+        <div class="layer-num" style="background:#E67E22">2</div>
+        <div>
+          <div class="layer-name">Variance Notice &mdash; JURIS A++ Grade</div>
+          <div class="layer-role">Chaos Equity Doctrine: Bill in equity vs. motion at law = nonresponsive variance. Three defense pillars destroyed. Deploy standalone alongside V7.</div>
+        </div>
+        <div class="layer-status" style="background:#FFF8E1;color:#C87A00;font-weight:700">BUILD</div>
       </div>
-      <div class="layer-status" style="background:#E8F5E9;color:#2E7D32">DONE</div>
     </div>
-    <div class="fortress-layer" style="border-left:4px solid #27AE60">
-      <div class="layer-num" style="background:#27AE60">&#x2713;</div>
-      <div>
-        <div class="layer-name">Router Reinforced &mdash; 0 Misses</div>
-        <div class="layer-role">&sect;&sect; 4, 13, 17, 43, 58 boosted with 55+ keywords. &sect; 26 added. Vector search: 9 HIT / 1 PARTIAL / 0 MISS.</div>
+
+    <!-- PENDING — QUEUED -->
+    <div style="background:rgba(52,152,219,0.06);border:1px solid rgba(52,152,219,0.15);border-radius:8px;padding:12px;margin-bottom:8px">
+      <div style="font-size:10px;letter-spacing:2px;color:#3498DB;font-weight:700;margin-bottom:10px">&#x1F4CB; PENDING &mdash; QUEUED AFTER V7</div>
+      <div class="fortress-layer" style="border-left:4px solid #3498DB">
+        <div class="layer-num" style="background:#3498DB">3</div>
+        <div>
+          <div class="layer-name">Develop 5 Factual Items for Farbiarz Memorandum</div>
+          <div class="layer-role">Subpoena responses, MERS MIN status, UCC-3 search, RC-S $0 sold, Trust 2021-116 prospectus</div>
+        </div>
+        <div class="layer-status status-active">PENDING</div>
       </div>
-      <div class="layer-status" style="background:#E8F5E9;color:#2E7D32">DONE</div>
-    </div>
-    <div class="fortress-layer" style="border-left:4px solid #E74C3C">
-      <div class="layer-num" style="background:#E74C3C">2</div>
-      <div>
-        <div class="layer-name">Variance Notice &mdash; JURIS A++ Grade</div>
-        <div class="layer-role">Chaos Equity Doctrine: Bill in equity vs. motion at law = nonresponsive variance. Three defense pillars destroyed. Deploy standalone alongside V7.</div>
+      <div class="fortress-layer" style="border-left:4px solid #8E44AD">
+        <div class="layer-num" style="background:#8E44AD">4</div>
+        <div>
+          <div class="layer-name">Rehearse ACE Formula &mdash; 5 Answers</div>
+          <div class="layer-role">Trust ID + 3B:2-2, Farbiarz ECF 13/21, Actual notice Oct 21, Seven orders, 2A:50-13</div>
+        </div>
+        <div class="layer-status status-active">PENDING</div>
       </div>
-      <div class="layer-status" style="background:#FFF8E1;color:#C87A00">BUILD</div>
     </div>
-    <div class="fortress-layer" style="border-left:4px solid #3498DB">
-      <div class="layer-num" style="background:#3498DB">3</div>
-      <div>
-        <div class="layer-name">Develop 5 Factual Items for Farbiarz Memorandum</div>
-        <div class="layer-role">Subpoena responses, MERS MIN status, UCC-3 search, RC-S $0 sold, Trust 2021-116 prospectus</div>
+
+    <!-- COMPLETED — COLLAPSED -->
+    <details style="margin-top:4px">
+      <summary style="cursor:pointer;font-size:10px;letter-spacing:2px;color:#27AE60;font-weight:700;padding:8px 0">&#x2705; COMPLETED &mdash; 3 ITEMS (click to expand)</summary>
+      <div style="padding-top:8px">
+        <div class="fortress-layer" style="border-left:4px solid #27AE60;opacity:0.7">
+          <div class="layer-num" style="background:#27AE60">&#x2713;</div>
+          <div>
+            <div class="layer-name">Fix JURIS Gap 1 &mdash; &sect; 26 Added to Tier 2</div>
+            <div class="layer-role">Restitution from Third Parties &mdash; reaches Ginnie Mae Trust 2021-116 directly as REMIC trust</div>
+          </div>
+          <div class="layer-status" style="background:#E8F5E9;color:#2E7D32">DONE</div>
+        </div>
+        <div class="fortress-layer" style="border-left:4px solid #27AE60;opacity:0.7">
+          <div class="layer-num" style="background:#27AE60">&#x2713;</div>
+          <div>
+            <div class="layer-name">Fix JURIS Gap 2 &mdash; Orator Frame Mapped</div>
+            <div class="layer-role">Gibson Formula added to Memorandum Framework intro &mdash; &sect;&sect; 1, 4, 55 = Standing + Jurisdiction + Remedy</div>
+          </div>
+          <div class="layer-status" style="background:#E8F5E9;color:#2E7D32">DONE</div>
+        </div>
+        <div class="fortress-layer" style="border-left:4px solid #27AE60;opacity:0.7">
+          <div class="layer-num" style="background:#27AE60">&#x2713;</div>
+          <div>
+            <div class="layer-name">Router Reinforced &mdash; 0 Misses</div>
+            <div class="layer-role">&sect;&sect; 4, 13, 17, 43, 58 boosted with 55+ keywords. &sect; 26 added. Vector search: 9 HIT / 1 PARTIAL / 0 MISS.</div>
+          </div>
+          <div class="layer-status" style="background:#E8F5E9;color:#2E7D32">DONE</div>
+        </div>
       </div>
-      <div class="layer-status status-active">PENDING</div>
-    </div>
-    <div class="fortress-layer" style="border-left:4px solid #8E44AD">
-      <div class="layer-num" style="background:#8E44AD">4</div>
-      <div>
-        <div class="layer-name">Rehearse Ace Formula &mdash; 5 Answers</div>
-        <div class="layer-role">Trust ID + 3B:2-2, Farbiarz ECF 13/21, Actual notice Oct 21, Seven orders, 2A:50-13</div>
-      </div>
-      <div class="layer-status status-active">PENDING</div>
-    </div>
+    </details>
   </div>
 </div>
 
@@ -760,6 +834,24 @@ body {
 <div class="timestamp" id="timestamp">Loading...</div>
 
 <script>
+  // Hit List Countdown
+  (function() {
+    var filing = new Date('2026-05-13T23:59:59');
+    var badge = document.getElementById('countdown-badge');
+    function updateCountdown() {
+      var now = new Date();
+      var diff = filing - now;
+      if (diff <= 0) { badge.textContent = 'FILING DAY'; badge.style.background = '#ff4141'; return; }
+      var days = Math.floor(diff / 86400000);
+      var hrs = Math.floor((diff % 86400000) / 3600000);
+      if (days === 0) { badge.textContent = hrs + 'H REMAINING'; badge.style.background = '#ff4141'; }
+      else if (days <= 2) { badge.textContent = days + 'D ' + hrs + 'H TO FILE'; badge.style.background = '#E74C3C'; }
+      else { badge.textContent = days + ' DAYS TO FILE'; }
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 60000);
+  })();
+
   // State
   var jurisResults = [];
 
