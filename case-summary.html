@@ -3,7 +3,7 @@
 {
   "name": "Razor Case Summary",
   "schemaVersion": 1,
-  "description": "RAZOR CODE — Full Forensic Case Summary with live JURIS intelligence. Tabbed navigation: Nucleus (securitization report), Smoking Gun (wire receipt), Ghost Pools, 14 Chain Breaks, Subpoenas (with live JURIS intel), Fortress Architecture (with live verification), and full JURIS Intelligence Feed.",
+  "description": "RAZOR CODE — Full Forensic Case Summary with live JURIS intelligence. Tabbed navigation: Nucleus (securitization report), Smoking Gun (wire receipt), Ghost Pools, 17 Chain Breaks, Subpoenas (with live JURIS intel), Fortress Architecture (with live verification), and full JURIS Intelligence Feed.",
   "mcpTools": [
     "mcp__anythingllm__vector_search"
   ],
@@ -243,10 +243,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sa
 
 <!-- STATS -->
 <div class="stats-row">
-  <div class="stat-box"><div class="number" id="stat-juris">773</div><div class="label">JURIS Docs</div></div>
+  <div class="stat-box"><div class="number" id="stat-juris">800+</div><div class="label">JURIS Docs</div></div>
   <div class="stat-box"><div class="number">5</div><div class="label">Subpoenas Served</div></div>
   <div class="stat-box"><div class="number">6</div><div class="label">Ghost Pools</div></div>
-  <div class="stat-box"><div class="number">14</div><div class="label">Chain Breaks</div></div>
+  <div class="stat-box"><div class="number">17</div><div class="label">Chain Breaks</div></div>
 </div>
 
 <!-- NAV -->
@@ -254,7 +254,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sa
   <button class="nav-btn active" onclick="showPanel('nucleus')">The Nucleus</button>
   <button class="nav-btn" onclick="showPanel('smoking-gun')">Smoking Gun</button>
   <button class="nav-btn" onclick="showPanel('ghost-pools')">Ghost Pools</button>
-  <button class="nav-btn" onclick="showPanel('chain-breaks')">14 Chain Breaks</button>
+  <button class="nav-btn" onclick="showPanel('chain-breaks')">17 Chain Breaks</button>
+  <button class="nav-btn" onclick="showPanel('note-chain')">Note Chain</button>
   <button class="nav-btn" onclick="showPanel('subpoenas')">Subpoenas</button>
   <button class="nav-btn" onclick="showPanel('fortress')">Fortress</button>
   <button class="nav-btn" onclick="showPanel('intelligence')">JURIS Intel</button>
@@ -347,7 +348,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sa
 <!-- PANEL: 14 CHAIN BREAKS -->
 <div class="panel" id="panel-chain-breaks">
   <div class="section" style="border-left: 4px solid var(--red);">
-    <h2>14 Documented Chain-of-Title Breaks</h2>
+    <h2>17 Documented Chain-of-Title Breaks</h2>
     <div class="break-item"><span class="break-number">#1</span> No Assignment of Mortgage from CrossCountry to Ginnie Mae</div>
     <div class="break-item"><span class="break-number">#2</span> MERS MIN Status: INACTIVE — no active servicer of record</div>
     <div class="break-item"><span class="break-number">#3</span> No PSA publicly available — the trust's governing document is missing</div>
@@ -359,9 +360,108 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sa
     <div class="break-item"><span class="break-number">#9</span> Note endorsed in blank — no chain of specific endorsements to Lakeview</div>
     <div class="break-item"><span class="break-number">#10</span> CNB warehouse line proves no true sale at origination</div>
     <div class="break-item"><span class="break-number">#11</span> Six ghost pools — same loan claimed by six different securities</div>
-    <div class="break-item"><span class="break-number">#12</span> Delaware UCC filing lapse — security interest in collateral expired</div>
+    <div class="break-item"><span class="break-number">#12</span> Both UCC-1 filings lapsed — UBS AG (Oct 2024) and CNB (Mar 2025) — Delaware ICIS confirmed May 13, 2026</div>
     <div class="break-item"><span class="break-number">#13</span> RC-S public data shows $0 outstanding balance — loan reported as paid</div>
     <div class="break-item"><span class="break-number">#14</span> Form 56 notice served — IRS notified of fiduciary capacity, no response from opposing parties</div>
+    <div class="break-item"><span class="break-number">#15</span> MERS Section 9 warranty breach — signed "No Adverse Interest" while UBS AG UCC-1 was active (OCR-recovered May 13, 2026)</div>
+    <div class="break-item"><span class="break-number">#16</span> 14-minute corporate conversion window — Ohio withdrawal to Delaware formation (Sept 30, 2019) — one day before UBS AG UCC-1 filed</div>
+    <div class="break-item"><span class="break-number">#17</span> Facility progression OCR-confirmed: $50M &rarr; $50M retained &rarr; $100M &rarr; $200M — active at $200M when Ronquillo loan funded</div>
+  </div>
+</div>
+
+<!-- PANEL: NOTE CHAIN — The Complete Logic Chain -->
+<div class="panel" id="panel-note-chain">
+  <div class="section" style="border-left: 4px solid var(--gold);">
+    <h2>THE NOTE CHAIN — Repurchase Agreement to No Standing</h2>
+    <p style="color: var(--accent); font-style: italic;">JURIS intelligence analysis — May 13, 2026. The five-step logic chain that destroys Lakeview's foreclosure.</p>
+
+    <!-- STEP 1 -->
+    <h3 style="color: var(--gold); font-size: 15px; margin-top: 20px;">STEP 1 — How the Loan Was Funded</h3>
+    <div class="evidence-box gold" style="font-family: monospace; line-height: 2;">
+      <strong style="color: var(--gold);">MASTER REPURCHASE AGREEMENT</strong><br>
+      CNB bought the note from CrossCountry. Temporarily. With an obligation for CrossCountry to repurchase it.<br><br>
+      <strong>This is NOT a loan to CrossCountry.</strong><br>
+      This is a <span class="val">SALE of the note to CNB</span> with a repurchase obligation.<br><br>
+      <span style="color: var(--green);">Fedwire:</span> <strong style="color: var(--accent);">20210604L2LFCK1C002715</strong><br>
+      <span style="color: var(--green);">Amount:</span> <span class="val">$429,556.39</span><br>
+      <span style="color: var(--green);">Date:</span> June 4, 2021<br><br>
+      <strong>The note went to CNB on June 4, 2021.</strong>
+    </div>
+
+    <div class="chain-arrow" style="font-size: 24px; padding: 8px 0; color: var(--red);">&#x25BC; &#x25BC; &#x25BC;</div>
+
+    <!-- STEP 2 -->
+    <h3 style="color: var(--gold); font-size: 15px;">STEP 2 — The FRBNY Finding</h3>
+    <div class="evidence-box red">
+      <strong style="color: var(--red);">FRBNY BIC INELIGIBILITY</strong><br>
+      Federal Reserve Bank of New York explicitly states: loans documented as repurchase agreements are <strong>INELIGIBLE</strong> for BIC pledging.<br><br>
+      CNB could not pledge this note to the Federal Reserve under BIC.<br><br>
+      <strong>The deeper question:</strong><br>
+      Did CrossCountry ever actually repurchase the note?<br>
+      <span style="color: var(--red);">If YES</span> — the note went back to CrossCountry. Then where did it go?<br>
+      <span style="color: var(--red);">If NO</span> — CNB still holds it. Or held it until sold elsewhere.<br><br>
+      <strong>Either way — Lakeview cannot show they have it.</strong>
+    </div>
+
+    <div class="chain-arrow" style="font-size: 24px; padding: 8px 0; color: var(--red);">&#x25BC; &#x25BC; &#x25BC;</div>
+
+    <!-- STEP 3 -->
+    <h3 style="color: var(--gold); font-size: 15px;">STEP 3 — The MERS Assignment Problem</h3>
+    <div class="evidence-box red">
+      <strong style="color: var(--red);">VOID — NOT VOIDABLE</strong><br>
+      November 1, 2024 — MERS assigns the mortgage to Lakeview.<br><br>
+      But MERS is just the nominee. MERS never held the note. MERS never funded the loan. MERS is an electronic registry.<br><br>
+      Under <strong>Restatement Third, Property (Mortgages) &sect; 5.4(c)</strong> — you can only enforce the mortgage if you are entitled to enforce the obligation (the note).<br><br>
+      MERS cannot transfer what MERS never had. The MIN was inactive. No nominee authority.<br><br>
+      <strong style="color: var(--red); font-size: 15px;">VOID. NOT VOIDABLE. VOID.</strong>
+    </div>
+
+    <div class="chain-arrow" style="font-size: 24px; padding: 8px 0; color: var(--red);">&#x25BC; &#x25BC; &#x25BC;</div>
+
+    <!-- STEP 4 -->
+    <h3 style="color: var(--gold); font-size: 15px;">STEP 4 — Where Is the Note Right Now?</h3>
+    <div class="evidence-box" style="border-left: 4px solid var(--orange); padding: 20px;">
+      <div class="chain-step"><div class="chain-num">1</div><div class="chain-text">CrossCountry Mortgage LLC originated the loan.</div></div>
+      <div class="chain-arrow">&#x25BC;</div>
+      <div class="chain-step"><div class="chain-num">2</div><div class="chain-text">CNB <strong>bought it</strong> under Master Repurchase Agreement — June 4, 2021.</div></div>
+      <div class="chain-arrow">&#x25BC;</div>
+      <div class="chain-step"><div class="chain-num" style="background:var(--gold);">3</div><div class="chain-text">Did CrossCountry repurchase it? <strong style="color:var(--red);">UNKNOWN. NOT DOCUMENTED.</strong></div></div>
+      <div class="chain-arrow">&#x25BC;</div>
+      <div class="chain-step"><div class="chain-num" style="background:var(--gold);">4</div><div class="chain-text">Was it pledged to Federal Reserve? <strong style="color:var(--red);">Category 7 Silence. FRBNY says INELIGIBLE anyway.</strong></div></div>
+      <div class="chain-arrow">&#x25BC;</div>
+      <div class="chain-step"><div class="chain-num" style="background:var(--gold);">5</div><div class="chain-text">Was it delivered to Ginnie Mae Trust 2021-116? <strong style="color:var(--red);">Ghost Pool CD7957 does NOT exist in Ginnie Mae FDS.</strong></div></div>
+      <div class="chain-arrow">&#x25BC;</div>
+      <div class="chain-step"><div class="chain-num" style="background:var(--gold);">6</div><div class="chain-text">Did Lakeview ever receive physical delivery? <strong style="color:var(--red);">ZERO documentation. Copies only. Not the original.</strong></div></div>
+      <div class="chain-arrow">&#x25BC;</div>
+      <div class="chain-step"><div class="chain-num" style="background:var(--red);">?</div><div class="chain-text" style="font-weight:700; color:var(--red); font-size:14px;">WHERE IS THE NOTE RIGHT NOW? NOBODY KNOWS.</div></div>
+    </div>
+
+    <div class="chain-arrow" style="font-size: 24px; padding: 8px 0; color: var(--red);">&#x25BC; &#x25BC; &#x25BC;</div>
+
+    <!-- STEP 5 -->
+    <h3 style="color: var(--gold); font-size: 15px;">STEP 5 — The Legal Consequence</h3>
+    <div class="evidence-box" style="border-left: 4px solid #1B3A5C; padding: 20px;">
+      <strong style="color: var(--accent); font-size: 14px;">DLJ Mortgage Capital v. Sheridan: Possession PLUS Indorsement. Both required.</strong><br><br>
+      <strong>Lakeview has:</strong><br>
+      <span style="color: var(--green);">&#x2713;</span> A recorded assignment of the mortgage. <em>(That is all.)</em><br><br>
+      <strong>Lakeview does NOT have:</strong><br>
+      <span style="color: var(--red);">&#x2717;</span> Possession of the original note.<br>
+      <span style="color: var(--red);">&#x2717;</span> Documented chain of physical delivery.<br>
+      <span style="color: var(--red);">&#x2717;</span> Clean indorsement to Lakeview. <em>(Two endorsements, two signers, two titles, same transfer — which one is operative?)</em>
+    </div>
+
+    <!-- VERDICT -->
+    <div style="background: linear-gradient(135deg, #1B3A5C 0%, #0D1B2A 100%); color: white; border-radius: 14px; padding: 28px; margin-top: 20px; text-align: center;">
+      <div style="font-size: 13px; color: rgba(255,255,255,0.6); letter-spacing: 2px; margin-bottom: 12px;">THE VERDICT</div>
+      <div style="font-size: 18px; font-weight: 800; color: #FF8C3A; margin-bottom: 16px;">NO NOTE = NO MORTGAGE = NO FORECLOSURE</div>
+      <div style="font-size: 13px; color: rgba(255,255,255,0.85); line-height: 2; max-width: 500px; margin: 0 auto;">
+        Under <strong>&sect; 5.4(c)</strong> — Lakeview is not an entitled person.<br>
+        Under <strong>Illustration 7</strong> — Lakeview cannot foreclose.<br>
+        Under <strong>DLJ Sheridan</strong> — Lakeview has no standing.<br>
+        <span style="color: #FF8C3A; font-weight: 700;">As a matter of law. Full stop.</span>
+      </div>
+      <div style="margin-top: 16px; font-size: 12px; color: rgba(255,255,255,0.4);">Source: JURIS Intelligence Analysis — May 13, 2026</div>
+    </div>
   </div>
 </div>
 
