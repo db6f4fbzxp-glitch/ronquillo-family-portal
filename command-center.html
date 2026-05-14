@@ -84,55 +84,6 @@ body {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.3; }
 }
-@keyframes alertPulse {
-  0%, 100% { box-shadow: 0 0 8px rgba(231,76,60,0.3), inset 0 0 0 1px rgba(231,76,60,0.4); }
-  50% { box-shadow: 0 0 20px rgba(231,76,60,0.6), inset 0 0 0 1px rgba(231,76,60,0.8); }
-}
-@keyframes countdownBlink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
-.hit-list-card {
-  background: linear-gradient(135deg, #1a0000 0%, #2d0a0a 40%, #1a1a2e 100%) !important;
-  border: 2px solid #E74C3C !important;
-  animation: alertPulse 3s ease-in-out infinite;
-}
-.hit-list-card .card-title {
-  color: #ff4141 !important;
-  border-color: #E74C3C !important;
-  font-size: 16px !important;
-  letter-spacing: 1px;
-}
-.hit-list-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-.countdown-badge {
-  background: #E74C3C;
-  color: white;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  animation: countdownBlink 2s ease-in-out infinite;
-}
-.hit-list-card .layer-name { color: #f0f0f0 !important; }
-.hit-list-card .layer-role { color: #b0b0b0 !important; }
-.hit-list-divider {
-  border: none;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  margin: 16px 0 12px 0;
-}
-.hit-list-section-label {
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: #666;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
 
 /* Grid */
 .grid {
@@ -452,7 +403,7 @@ body {
 <!-- Stats Row -->
 <div class="stats-row">
   <div class="stat-card">
-    <div class="stat-value" id="juris-count">781</div>
+    <div class="stat-value" id="juris-count">800+</div>
     <div class="stat-label">JURIS Documents</div>
   </div>
   <div class="stat-card">
@@ -464,49 +415,8 @@ body {
     <div class="stat-label">Subpoenas Served</div>
   </div>
   <div class="stat-card">
-    <div class="stat-value">4</div>
+    <div class="stat-value">8</div>
     <div class="stat-label">Cross-Checks Passed</div>
-  </div>
-</div>
-
-<!-- MOBILE JURIS STATUS -->
-<div class="grid full">
-  <div class="card" style="background:linear-gradient(135deg,#1B3A5C 0%,#0D1B2A 100%);color:white;border:1px solid #2D5F8A">
-    <div class="card-title" style="color:#4FC3F7;border-color:#2D5F8A"><span class="icon">&#x1F4F1;</span> MOBILE JURIS &mdash; TELEGRAM BOT LIVE</div>
-    <div style="display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center">
-      <div style="text-align:center">
-        <img src="razors-edge-logo.jpg" alt="RAZOR's Edge Chatbot" style="width:80px;height:80px;border-radius:50%;border:2px solid #4FC3F7;object-fit:cover">
-        <div style="font-size:10px;color:#4FC3F7;letter-spacing:2px;margin-top:4px">RAZOR&#x2019;S EDGE</div>
-      </div>
-      <div>
-        <div style="font-size:15px;color:#E0E0E0;margin-bottom:8px">JURIS vector search is now accessible from <strong style="color:#4FC3F7">Telegram</strong> via AnythingLLM bot integration. 781+ documents searchable from any device, anywhere.</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px">
-          <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(79,195,247,0.25);border-radius:8px;padding:10px;text-align:center">
-            <div style="font-size:18px;color:#4FC3F7;font-weight:700">SYNCED</div>
-            <div style="font-size:10px;color:#90A4AE;margin-top:2px">Desktop &harr; Mobile</div>
-          </div>
-          <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(76,175,80,0.25);border-radius:8px;padding:10px;text-align:center">
-            <div style="font-size:18px;color:#66BB6A;font-weight:700">7</div>
-            <div style="font-size:10px;color:#90A4AE;margin-top:2px">Self-Corrections</div>
-          </div>
-          <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,183,77,0.25);border-radius:8px;padding:10px;text-align:center">
-            <div style="font-size:18px;color:#FFB74D;font-weight:700">4</div>
-            <div style="font-size:10px;color:#90A4AE;margin-top:2px">Fronts Open</div>
-          </div>
-        </div>
-        <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <div style="background:rgba(76,175,80,0.1);border:1px solid rgba(76,175,80,0.2);border-radius:6px;padding:8px 12px">
-            <div style="font-size:11px;color:#66BB6A;letter-spacing:1px">&#x2705; SYNC TEST PASSED</div>
-            <div style="font-size:11px;color:#90A4AE;margin-top:2px">Mobile grades match desktop grades. Same library, same doctrine, same corrections.</div>
-          </div>
-          <div style="background:rgba(79,195,247,0.1);border:1px solid rgba(79,195,247,0.2);border-radius:6px;padding:8px 12px">
-            <div style="font-size:11px;color:#4FC3F7;letter-spacing:1px">&#x1F512; SECURITY CONFIRMED</div>
-            <div style="font-size:11px;color:#90A4AE;margin-top:2px">Jonny Test passed. JURIS refuses unauthorized access. Protocol holds at all times.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="text-align:center;font-size:11px;color:#546E7A;margin-top:14px;padding-top:10px;border-top:1px solid #2D5F8A">The fortress in your pocket &mdash; 781+ documents searchable from anywhere &mdash; May 10, 2026</div>
   </div>
 </div>
 
@@ -563,7 +473,7 @@ body {
       <div class="family-member razor">
         <div class="initials">RR</div>
         <div class="name">RAZOR</div>
-        <div class="role">Grantor & Settlor</div>
+        <div class="role">Managing Trustee</div>
         <div class="role">Commanding Officer</div>
       </div>
       <div class="family-member isaiah">
@@ -661,184 +571,56 @@ body {
     </div>
     <div class="check-row">
       <div class="check-icon">&#x2705;</div>
-      <div class="check-text">Restatement (Third) Integration &mdash; 22 sections mapped, 3 volumes, 13-step kill sequence, Router reinforced</div>
-      <div class="check-result" style="background:#FFF8E1;color:#C87A00">A++</div>
+      <div class="check-text">CNB Subpoena Production — 354 pages, 15 files, 0 gaps</div>
+      <div class="check-result">PASSED</div>
     </div>
     <div class="check-row">
       <div class="check-icon">&#x2705;</div>
-      <div class="check-text">Restatement ROI Assessment &mdash; $1,200 invested (Derrick Round 2) &rarr; 22 sections, 5 pillars confirmed</div>
-      <div class="check-result" style="background:#FFF8E1;color:#C87A00">A++</div>
+      <div class="check-text">OCR Deep Extraction — 17 new findings, all gaps resolved</div>
+      <div class="check-result">PASSED</div>
+    </div>
+    <div class="check-row">
+      <div class="check-icon">&#x2705;</div>
+      <div class="check-text">JURIS 4-Document Review — 40/40, zero corrections needed</div>
+      <div class="check-result">PERFECT</div>
     </div>
   </div>
 </div>
 
-<!-- VECTOR SEARCH HEALTH -->
+<!-- Costello Filing Status -->
 <div class="grid full">
-  <div class="card">
-    <div class="card-title"><span class="icon">&#x1F50D;</span> VECTOR SEARCH HEALTH &mdash; 10 QUERIES TESTED</div>
-    <div class="check-row">
-      <div class="check-icon">&#x2705;</div>
-      <div class="check-text">MERS lack of authority &rarr; &sect; 17 (0.729)</div>
-      <div class="check-result">HIT</div>
-    </div>
-    <div class="check-row">
-      <div class="check-icon">&#x2705;</div>
-      <div class="check-text">Constructive trust priority &rarr; &sect; 55 (0.764)</div>
-      <div class="check-result">HIT</div>
-    </div>
-    <div class="check-row">
-      <div class="check-icon">&#x2705;</div>
-      <div class="check-text">Fiduciary breach disgorgement &rarr; &sect; 43 (0.652)</div>
-      <div class="check-result">HIT</div>
-    </div>
-    <div class="check-row">
-      <div class="check-icon">&#x2705;</div>
-      <div class="check-text">Tracing commingled funds &rarr; Cha0s + &sect;&sect; 58-59 (0.705)</div>
-      <div class="check-result">HIT</div>
-    </div>
-    <div class="check-row">
-      <div class="check-icon">&#x2705;</div>
-      <div class="check-text">Void transfer BFP &rarr; Router &sect; 66 direct hit (0.738)</div>
-      <div class="check-result">HIT</div>
-    </div>
-    <div class="check-row">
-      <div class="check-icon">&#x2705;</div>
-      <div class="check-text">Fraud tolling &rarr; Router &sect; 70 boosted (0.741)</div>
-      <div class="check-result">HIT</div>
-    </div>
-    <div class="check-row">
-      <div class="check-icon">&#x2705;</div>
-      <div class="check-text">Unjust enrichment servicer &rarr; Router &sect;&sect; 1, 3, 41 (0.712)</div>
-      <div class="check-result">HIT</div>
-    </div>
-    <div class="check-row">
-      <div class="check-icon">&#x2705;</div>
-      <div class="check-text">Inadequacy of legal remedy &rarr; Router &sect; 4 direct hit (0.814)</div>
-      <div class="check-result">HIT</div>
-    </div>
-    <div class="check-row">
-      <div class="check-icon">&#x2705;</div>
-      <div class="check-text">Orator remediless &rarr; Router Gibson Formula &sect;&sect; 1, 4, 55 (0.729)</div>
-      <div class="check-result">HIT</div>
-    </div>
-    <div class="check-row">
-      <div class="check-icon">&#x26A0;&#xFE0F;</div>
-      <div class="check-text">Warehouse unauthorized transfer &rarr; Router &sect; 17+&sect; 13, case intel still leads (0.714)</div>
-      <div class="check-result" style="background:#FFF8E1;color:#C87A00">PARTIAL</div>
-    </div>
-    <div style="text-align:center;font-size:12px;color:#8892A4;margin-top:12px;padding-top:10px;border-top:1px solid #F0F1F5">9 HITS &bull; 1 PARTIAL &bull; 0 MISSES &mdash; Router reinforced May 9 &mdash; &sect;&sect; 4, 13, 17, 43, 58 boosted + &sect; 26 added</div>
-  </div>
-</div>
-
-<!-- NEXT ACTIONS — HIT LIST -->
-<div class="grid full">
-  <div class="card hit-list-card">
-    <div class="hit-list-header">
-      <div class="card-title" style="margin-bottom:0"><span class="icon">&#x1F6A8;</span> HIT LIST &mdash; ACTIVE OPERATIONS</div>
-      <div class="countdown-badge" id="countdown-badge">FILING IN — DAYS</div>
-    </div>
-
-    <!-- CRITICAL — IMMEDIATE -->
-    <div style="background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.3);border-radius:8px;padding:12px;margin-bottom:8px">
-      <div style="font-size:10px;letter-spacing:2px;color:#E74C3C;font-weight:700;margin-bottom:10px">&#x26A0;&#xFE0F; CRITICAL &mdash; TWO DOCUMENTS BY TUESDAY MAY 13</div>
-      <div class="fortress-layer" style="border-left:4px solid #ff4141;background:rgba(255,65,65,0.06)">
-        <div class="layer-num" style="background:#E74C3C;font-size:16px">!</div>
-        <div>
-          <div class="layer-name" style="font-size:14px">Document 1: Build Costello V7</div>
-          <div class="layer-role">Three Restatement insertions: &sect; 4 &rarr; Section IV, &sect; 17 &rarr; Section III, &sect; 55 &rarr; Section VIII. <strong>NEW: &sect; 5.4(c) kill shot + DLJ Mortgage Capital binding precedent.</strong> File via JEDS, deliver courtesy copy to chambers with date stamp.</div>
-        </div>
-        <div class="layer-status" style="background:#E74C3C;color:white;font-weight:800;font-size:11px">CRITICAL</div>
+  <div class="card" style="border-left: 4px solid #E74C3C;">
+    <div class="card-title"><span class="icon">&#x2696;&#xFE0F;</span> COSTELLO FILING STATUS — MAY 22, 2026 HEARING</div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 12px;">
+      <div style="background: #F0FFF4; border: 1px solid #C6F6D5; border-radius: 10px; padding: 14px; text-align: center;">
+        <div style="font-size: 11px; color: #38A169; font-weight: 700; letter-spacing: 1px;">DOC 1</div>
+        <div style="font-size: 10px; color: #4A5568; margin: 6px 0;">Non-Engagement &amp; Variance</div>
+        <div style="font-size: 22px; font-weight: 800; color: #1B9E5A;">10/10</div>
+        <div style="font-size: 10px; color: #38A169; font-weight: 600; margin-top: 4px;">READY TO FILE</div>
       </div>
-      <div class="fortress-layer" style="border-left:4px solid #ff4141;background:rgba(255,65,65,0.06)">
-        <div class="layer-num" style="background:#E74C3C;font-size:16px">!</div>
-        <div>
-          <div class="layer-name" style="font-size:14px">Document 2: Variance Notice</div>
-          <div class="layer-role">Petitioner&rsquo;s Notice of Variance and Judicial Non-Engagement. Four sections: chronological record, the variance, federal nexus, Westcor claim. A++ weapon &mdash; FOR the appellate record.</div>
-        </div>
-        <div class="layer-status" style="background:#E74C3C;color:white;font-weight:800;font-size:11px">CRITICAL</div>
+      <div style="background: #F0FFF4; border: 1px solid #C6F6D5; border-radius: 10px; padding: 14px; text-align: center;">
+        <div style="font-size: 11px; color: #38A169; font-weight: 700; letter-spacing: 1px;">DOC 2</div>
+        <div style="font-size: 10px; color: #4A5568; margin: 6px 0;">Judicial Notice N.J.R.E. 201</div>
+        <div style="font-size: 22px; font-weight: 800; color: #1B9E5A;">10/10</div>
+        <div style="font-size: 10px; color: #38A169; font-weight: 600; margin-top: 4px;">READY TO FILE</div>
       </div>
-      <div class="fortress-layer" style="border-left:4px solid #ff4141;background:rgba(255,65,65,0.06)">
-        <div class="layer-num" style="background:#E74C3C;font-size:16px">!</div>
-        <div>
-          <div class="layer-name" style="font-size:14px">Five Exhibits: A&ndash;E</div>
-          <div class="layer-role">A: Certification of Trust (3B:31-81, signed). B: PACER docket ECF 12&ndash;27. C: BK Notice 25-12633-JKS. D: USPS tracking. <strong style="color:#ff6b6b">E: LoanCare QWR April 27 &mdash; Ghost Pool CD7957 confirmed twice in writing.</strong></div>
-        </div>
-        <div class="layer-status" style="background:#E74C3C;color:white;font-weight:800;font-size:11px">CRITICAL</div>
+      <div style="background: #F0FFF4; border: 1px solid #C6F6D5; border-radius: 10px; padding: 14px; text-align: center;">
+        <div style="font-size: 11px; color: #38A169; font-weight: 700; letter-spacing: 1px;">DOC 3</div>
+        <div style="font-size: 10px; color: #4A5568; margin: 6px 0;">Supplemental Submission</div>
+        <div style="font-size: 22px; font-weight: 800; color: #1B9E5A;">10/10</div>
+        <div style="font-size: 10px; color: #38A169; font-weight: 600; margin-top: 4px;">PERFECT</div>
+      </div>
+      <div style="background: #F0FFF4; border: 1px solid #C6F6D5; border-radius: 10px; padding: 14px; text-align: center;">
+        <div style="font-size: 11px; color: #38A169; font-weight: 700; letter-spacing: 1px;">DOC 4</div>
+        <div style="font-size: 10px; color: #4A5568; margin: 6px 0;">Reply to Opposition</div>
+        <div style="font-size: 22px; font-weight: 800; color: #1B9E5A;">10/10</div>
+        <div style="font-size: 10px; color: #38A169; font-weight: 600; margin-top: 4px;">READY TO FILE</div>
       </div>
     </div>
-
-    <!-- FRONT BURNER — DEADLINE THIS WEEK -->
-    <div style="background:rgba(230,126,34,0.06);border:1px solid rgba(230,126,34,0.2);border-radius:8px;padding:12px;margin-bottom:8px">
-      <div style="font-size:10px;letter-spacing:2px;color:#E67E22;font-weight:700;margin-bottom:10px">&#x1F525; FRONT BURNER &mdash; DEADLINES THIS WEEK</div>
-      <div class="fortress-layer" style="border-left:4px solid #E67E22">
-        <div class="layer-num" style="background:#E67E22">2</div>
-        <div>
-          <div class="layer-name">Westcor 10-Day Acknowledgment &mdash; Due May 14</div>
-          <div class="layer-role">Policy OP-15-NJ1158-11847417. $450K coverage. SHALL defend. If silent: document under N.J.S.A. 17:29B-4 &mdash; bad faith confirmed, damages not limited to policy amount.</div>
-        </div>
-        <div class="layer-status" style="background:#FFF8E1;color:#C87A00;font-weight:700">WATCH</div>
-      </div>
-      <div class="fortress-layer" style="border-left:4px solid #E67E22">
-        <div class="layer-num" style="background:#E67E22">3</div>
-        <div>
-          <div class="layer-name">LoanCare Separate Cover &mdash; Due ~June 9</div>
-          <div class="layer-role">April 27 QWR response promised additional info within 30 business days. Second ghost pool admission already locked. Calendar and monitor.</div>
-        </div>
-        <div class="layer-status" style="background:#FFF8E1;color:#C87A00;font-weight:700">MONITOR</div>
-      </div>
+    <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid #F0F1F5; display: flex; justify-content: space-between; align-items: center;">
+      <div style="font-size: 12px; color: #4A5568;">Filing Method: <strong>JEDS + Certified Mail</strong> to Brock &amp; Scott PLLC</div>
+      <div style="font-size: 13px; font-weight: 700; color: #E74C3C;">HEARING: MAY 22, 2026</div>
     </div>
-
-    <!-- PENDING — QUEUED -->
-    <div style="background:rgba(52,152,219,0.06);border:1px solid rgba(52,152,219,0.15);border-radius:8px;padding:12px;margin-bottom:8px">
-      <div style="font-size:10px;letter-spacing:2px;color:#3498DB;font-weight:700;margin-bottom:10px">&#x1F4CB; PENDING &mdash; QUEUED AFTER V7</div>
-      <div class="fortress-layer" style="border-left:4px solid #3498DB">
-        <div class="layer-num" style="background:#3498DB">4</div>
-        <div>
-          <div class="layer-name">Develop 5 Factual Items for Farbiarz Memorandum</div>
-          <div class="layer-role">LoanCare QWR (1 of 5 done &#x2713;), MERS MIN status, UCC-3 search, RC-S $0 sold, Trust 2021-116 prospectus</div>
-        </div>
-        <div class="layer-status status-active">PENDING</div>
-      </div>
-      <div class="fortress-layer" style="border-left:4px solid #8E44AD">
-        <div class="layer-num" style="background:#8E44AD">5</div>
-        <div>
-          <div class="layer-name">Rehearse ACE Formula &mdash; 5 Answers + Orator Opening</div>
-          <div class="layer-role">Trust ID + 3B:2-2, Farbiarz ECF 13/21, Actual notice Oct 21, Seven orders, 2A:50-13. Practice opening 10x until natural. Under 5 minutes total.</div>
-        </div>
-        <div class="layer-status status-active">PENDING</div>
-      </div>
-    </div>
-
-    <!-- COMPLETED — COLLAPSED -->
-    <details style="margin-top:4px">
-      <summary style="cursor:pointer;font-size:10px;letter-spacing:2px;color:#27AE60;font-weight:700;padding:8px 0">&#x2705; COMPLETED &mdash; 3 ITEMS (click to expand)</summary>
-      <div style="padding-top:8px">
-        <div class="fortress-layer" style="border-left:4px solid #27AE60;opacity:0.7">
-          <div class="layer-num" style="background:#27AE60">&#x2713;</div>
-          <div>
-            <div class="layer-name">Fix JURIS Gap 1 &mdash; &sect; 26 Added to Tier 2</div>
-            <div class="layer-role">Restitution from Third Parties &mdash; reaches Ginnie Mae Trust 2021-116 directly as REMIC trust</div>
-          </div>
-          <div class="layer-status" style="background:#E8F5E9;color:#2E7D32">DONE</div>
-        </div>
-        <div class="fortress-layer" style="border-left:4px solid #27AE60;opacity:0.7">
-          <div class="layer-num" style="background:#27AE60">&#x2713;</div>
-          <div>
-            <div class="layer-name">Fix JURIS Gap 2 &mdash; Orator Frame Mapped</div>
-            <div class="layer-role">Gibson Formula added to Memorandum Framework intro &mdash; &sect;&sect; 1, 4, 55 = Standing + Jurisdiction + Remedy</div>
-          </div>
-          <div class="layer-status" style="background:#E8F5E9;color:#2E7D32">DONE</div>
-        </div>
-        <div class="fortress-layer" style="border-left:4px solid #27AE60;opacity:0.7">
-          <div class="layer-num" style="background:#27AE60">&#x2713;</div>
-          <div>
-            <div class="layer-name">Router Reinforced &mdash; 0 Misses</div>
-            <div class="layer-role">&sect;&sect; 4, 13, 17, 43, 58 boosted with 55+ keywords. &sect; 26 added. Vector search: 9 HIT / 1 PARTIAL / 0 MISS.</div>
-          </div>
-          <div class="layer-status" style="background:#E8F5E9;color:#2E7D32">DONE</div>
-        </div>
-      </div>
-    </details>
   </div>
 </div>
 
@@ -858,24 +640,6 @@ body {
 <div class="timestamp" id="timestamp">Loading...</div>
 
 <script>
-  // Hit List Countdown
-  (function() {
-    var filing = new Date('2026-05-13T23:59:59');
-    var badge = document.getElementById('countdown-badge');
-    function updateCountdown() {
-      var now = new Date();
-      var diff = filing - now;
-      if (diff <= 0) { badge.textContent = 'FILING DAY'; badge.style.background = '#ff4141'; return; }
-      var days = Math.floor(diff / 86400000);
-      var hrs = Math.floor((diff % 86400000) / 3600000);
-      if (days === 0) { badge.textContent = hrs + 'H REMAINING'; badge.style.background = '#ff4141'; }
-      else if (days <= 2) { badge.textContent = days + 'D ' + hrs + 'H TO FILE'; badge.style.background = '#E74C3C'; }
-      else { badge.textContent = days + ' DAYS TO FILE'; }
-    }
-    updateCountdown();
-    setInterval(updateCountdown, 60000);
-  })();
-
   // State
   var jurisResults = [];
 
@@ -964,7 +728,7 @@ body {
       'Express Trust foreclosure defense equitable title spendthrift',
       'DeLorean relation back temporal priority mortgage securitization',
       'constructive trust surcharge equity accounting Pomeroy',
-      'Restatement restitution unjust enrichment void transfer MERS authority'
+      'CNB subpoena MERS UCC lapse warehouse facility nemo dat'
     ];
 
     var allItems = [];
