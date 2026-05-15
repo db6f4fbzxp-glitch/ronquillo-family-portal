@@ -400,6 +400,31 @@ body {
   </div>
 </div>
 
+<!-- FILING STATUS BANNER -->
+<div class="card" style="border-left: 4px solid #1B9E5A; margin-bottom: 16px; background: linear-gradient(135deg, #F0FFF4 0%, #FFFFFF 100%);">
+  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+    <div>
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <span style="font-size: 20px;">&#x2705;</span>
+        <span style="font-size: 16px; font-weight: 800; color: #1B9E5A; letter-spacing: 1px;">COSTELLO PACKAGE &mdash; FILED</span>
+      </div>
+      <div style="font-size: 12px; color: #4A5568; line-height: 1.8;">
+        <div><strong>JEDS Trans ID:</strong> CHC2026156759 &bull; <strong>Ref:</strong> EF-4181969 &bull; <strong>Filed:</strong> May 15, 2026</div>
+        <div><strong>Courtesy Copies:</strong> Clerk-stamped, hand-delivered to Hudson County Courthouse</div>
+        <div><strong>Certified Mail:</strong> USPS 9214 8901 4298 0479 3019 13 &rarr; Selmanovic / Brock &amp; Scott</div>
+      </div>
+    </div>
+    <div style="text-align: center; padding: 12px 20px; background: #1B3A5C; border-radius: 12px; min-width: 140px;">
+      <div id="countdown-days" style="font-size: 32px; font-weight: 900; color: #FF8C3A; line-height: 1;">--</div>
+      <div style="font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.8); letter-spacing: 1px; margin-top: 4px;">DAYS TO HEARING</div>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 2px;">May 22, 2026</div>
+    </div>
+  </div>
+  <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid #C6F6D5;">
+    <div style="font-size: 11px; color: #718096;"><strong>Documents Filed:</strong> Doc 1 (Non-Engagement) &bull; Doc 2 (Judicial Notice N.J.R.E. 201) &bull; Doc 3 (Supplemental Dismissal) &bull; Doc 4 (Reply Brief) &bull; Exhibit A (Delaware ICIS UCC Lapse Confirmations)</div>
+  </div>
+</div>
+
 <!-- Stats Row -->
 <div class="stats-row">
   <div class="stat-card">
@@ -415,7 +440,7 @@ body {
     <div class="stat-label">Subpoenas Served</div>
   </div>
   <div class="stat-card">
-    <div class="stat-value">8</div>
+    <div class="stat-value">9</div>
     <div class="stat-label">Cross-Checks Passed</div>
   </div>
 </div>
@@ -583,6 +608,11 @@ body {
       <div class="check-icon">&#x2705;</div>
       <div class="check-text">JURIS 4-Document Review — 40/40, zero corrections needed</div>
       <div class="check-result">PERFECT</div>
+    </div>
+    <div class="check-row">
+      <div class="check-icon">&#x2705;</div>
+      <div class="check-text">Costello Filing Package — 5 docs filed, clerk-stamped, certified mail sent</div>
+      <div class="check-result">FILED</div>
     </div>
   </div>
 </div>
@@ -854,6 +884,23 @@ body {
     await loadIntelligence();
     document.getElementById('timestamp').textContent = 'Last refreshed: ' + formatTime();
   }
+
+  // Countdown to May 22, 2026
+  function updateCountdown() {
+    const hearing = new Date('2026-05-22T09:00:00-04:00');
+    const now = new Date();
+    const diff = hearing - now;
+    const el = document.getElementById('countdown-days');
+    if (diff <= 0) {
+      el.textContent = 'TODAY';
+      el.style.fontSize = '22px';
+    } else {
+      const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+      el.textContent = days;
+    }
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 60000);
 
   // Initial load
   (async function() {
