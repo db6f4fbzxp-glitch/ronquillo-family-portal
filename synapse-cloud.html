@@ -265,6 +265,7 @@ function gVM(){
 }
 
 let aF='all',selN=-1,sT='',pp=0;
+let al=new Float32Array(N); // hoisted for click/hover access
 const b1=gl.createBuffer(),b2=gl.createBuffer(),b3=gl.createBuffer(),b4=gl.createBuffer(),b5=gl.createBuffer(),b6=gl.createBuffer(),b7=gl.createBuffer();
 
 function render(time){
@@ -288,7 +289,7 @@ function render(time){
   const view=gVM();
   const mvp=m4M(proj,view);
 
-  const pos=new Float32Array(N*3),col=new Float32Array(N*3),sz=new Float32Array(N),al=new Float32Array(N);
+  const pos=new Float32Array(N*3),col=new Float32Array(N*3),sz=new Float32Array(N);al=new Float32Array(N);
 
   for(let i=0;i<N;i++){
     pos[i*3]=px[i];pos[i*3+1]=py[i];pos[i*3+2]=pz[i];
