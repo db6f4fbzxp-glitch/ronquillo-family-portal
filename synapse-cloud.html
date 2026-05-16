@@ -39,10 +39,15 @@ body { background: #0A0E17; color: #E0E0E0; font-family: system-ui, -apple-syste
 .detail-meta { font-size: 10px; color: #445; margin-top: 12px; }
 .detail-concepts { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px; }
 .concept-tag { font-size: 9px; padding: 2px 8px; border-radius: 8px; background: rgba(55,138,221,0.15); color: #5A9FE0; }
-.search-box { position: fixed; top: 90px; left: 24px; z-index: 10; }
+.search-box { margin-top: 10px; }
 .search-box input { background: rgba(15,20,30,0.9); border: 1px solid #223; border-radius: 8px; padding: 8px 14px; color: #ddd; font-size: 12px; width: 220px; outline: none; }
 .search-box input:focus { border-color: #378ADD; }
 .search-box input::placeholder { color: #445; }
+.hover-tip { position: fixed; z-index: 20; pointer-events: none; background: rgba(10,16,28,0.95); border: 1px solid #334; border-radius: 8px; padding: 8px 14px; max-width: 340px; display: none; backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.6); }
+.hover-tip .ht-title { font-size: 12px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 4px; }
+.hover-tip .ht-type { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 2px 8px; border-radius: 6px; display: inline-block; color: #fff; margin-bottom: 4px; }
+.hover-tip .ht-files { font-size: 10px; color: #7A9EC2; line-height: 1.4; margin-top: 4px; }
+.hover-tip .ht-concepts { font-size: 9px; color: #556; margin-top: 3px; }
 .zoom-hint { position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%); z-index: 10; font-size: 11px; color: #334; letter-spacing: 0.5px; transition: opacity 2s; }
 </style>
 </head>
@@ -59,6 +64,7 @@ body { background: #0A0E17; color: #E0E0E0; font-family: system-ui, -apple-syste
     <div class="hud-stat stat-pattern"><span class="num">1</span><span class="lbl">Pattern</span></div>
     <div class="hud-stat stat-links"><span class="num">130</span><span class="lbl">Synapses</span></div>
   </div>
+  <div class="search-box"><input type="text" id="search" placeholder="Search memories..." /></div>
 </div>
 <div class="filters">
   <button class="filter-btn active" data-type="all">All</button>
@@ -67,7 +73,12 @@ body { background: #0A0E17; color: #E0E0E0; font-family: system-ui, -apple-syste
   <button class="filter-btn" data-type="workflow">Workflow</button>
   <button class="filter-btn" data-type="pattern">Pattern</button>
 </div>
-<div class="search-box"><input type="text" id="search" placeholder="Search memories..." /></div>
+<div class="hover-tip" id="hoverTip">
+  <div class="ht-type" id="htType"></div>
+  <div class="ht-title" id="htTitle"></div>
+  <div class="ht-files" id="htFiles"></div>
+  <div class="ht-concepts" id="htConcepts"></div>
+</div>
 <div class="detail" id="detail">
   <button class="detail-close" id="detailClose">&times;</button>
   <div class="detail-type" id="detailType"></div>
@@ -177,16 +188,61 @@ let camD=80,camRX=0.25,camRY=0,autoR=true;
 let drag=false,lmx=0,lmy=0,dragMoved=false;
 
 canvas.addEventListener('mousedown',e=>{drag=true;dragMoved=false;lmx=e.clientX;lmy=e.clientY;autoR=false;});
+let hovN=-1,lastHX=0,lastHY=0;
+const hTip=document.getElementById('hoverTip'),htType=document.getElementById('htType'),htTitle=document.getElementById('htTitle'),htFiles=document.getElementById('htFiles'),htConcepts=document.getElementById('htConcepts');
+const TH2={fact:'#378ADD',architecture:'#1D9E75',workflow:'#BA7517',preference:'#E24B4A',pattern:'#DAA520'};
 canvas.addEventListener('mousemove',e=>{
-  if(!drag)return;
-  const dx=e.clientX-lmx,dy=e.clientY-lmy;
-  if(Math.abs(dx)+Math.abs(dy)>3)dragMoved=true;
-  camRY+=dx*0.005;
-  camRX+=dy*0.005;
-  camRX=Math.max(-1.5,Math.min(1.5,camRX));
-  lmx=e.clientX;lmy=e.clientY;
+  if(drag){
+    const dx=e.clientX-lmx,dy=e.clientY-lmy;
+    if(Math.abs(dx)+Math.abs(dy)>3)dragMoved=true;
+    camRY+=dx*0.005;
+    camRX+=dy*0.005;
+    camRX=Math.max(-1.5,Math.min(1.5,camRX));
+    lmx=e.clientX;lmy=e.clientY;
+    hTip.style.display='none';hovN=-1;
+    return;
+  }
+  // Hover detection — find nearest node to cursor
+  lastHX=e.clientX;lastHY=e.clientY;
+  const r=canvas.getBoundingClientRect();
+  const mx2=(e.clientX-r.left)/r.width*2-1,my2=-((e.clientY-r.top)/r.height*2-1);
+  const asp2=canvas.width/canvas.height,proj2=m4P(Math.PI/3,asp2,0.5,2000),view2=gVM(),mvp2=m4M(proj2,view2);
+  let best=-1,bestD=20;
+  for(let i=0;i<N;i++){
+    if(al[i]===0)continue;
+    const x=px[i],y=py[i],z=pz[i];
+    const cx3=mvp2[0]*x+mvp2[4]*y+mvp2[8]*z+mvp2[12];
+    const cy3=mvp2[1]*x+mvp2[5]*y+mvp2[9]*z+mvp2[13];
+    const cw2=mvp2[3]*x+mvp2[7]*y+mvp2[11]*z+mvp2[15];
+    if(cw2<0.01)continue;
+    const sx2=cx3/cw2,sy2=cy3/cw2;
+    const dx2=(sx2-mx2)*r.width/2,dy2=(sy2-my2)*r.height/2;
+    const d=Math.sqrt(dx2*dx2+dy2*dy2);
+    if(d<bestD){bestD=d;best=i;}
+  }
+  if(best>=0){
+    hovN=best;
+    const nd=DATA.nodes[best];
+    htType.textContent=nd.type;htType.style.background=TH2[nd.type]||'#378ADD';
+    htTitle.textContent=nd.title;
+    // Show associated files
+    const files=nd.concepts.filter(c=>c.includes('.')||c.includes('/')||c.includes('docx')||c.includes('pdf')||c.includes('html'));
+    htFiles.textContent=files.length>0?files.join(', '):'';
+    htConcepts.textContent=nd.concepts.slice(0,6).join(' · ');
+    // Position tooltip near cursor
+    let tx=e.clientX+16,ty=e.clientY-10;
+    if(tx+350>window.innerWidth)tx=e.clientX-360;
+    if(ty+100>window.innerHeight)ty=e.clientY-100;
+    if(ty<0)ty=10;
+    hTip.style.left=tx+'px';hTip.style.top=ty+'px';hTip.style.display='block';
+    canvas.style.cursor='pointer';
+  } else {
+    hovN=-1;hTip.style.display='none';
+    canvas.style.cursor='grab';
+  }
 });
 canvas.addEventListener('mouseup',()=>{drag=false;});
+canvas.addEventListener('mouseleave',()=>{hTip.style.display='none';hovN=-1;});
 // Smooth zoom — can go all the way in
 canvas.addEventListener('wheel',e=>{
   camD*=1+e.deltaY*0.001;
