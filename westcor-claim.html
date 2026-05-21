@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Westcor Title Insurance &mdash; Claim 2026520-WC-23778</title>
+<style>
+:root { color-scheme: light; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: #F5F6FA;
+  color: #1a1a2e;
+  padding: 20px;
+  line-height: 1.5;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #1B5E20 0%, #0D2818 100%);
+  color: white;
+  padding: 28px 28px 24px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.header .subtitle {
+  font-size: 13px;
+  opacity: 0.7;
+  font-weight: 400;
+}
+.header .claim-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(46, 204, 113, 0.2);
+  border: 1px solid rgba(46, 204, 113, 0.4);
+  color: #2ecc71;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 8px;
+}
+.claim-dot {
+  width: 7px;
+  height: 7px;
+  background: #2ecc71;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.grid.full { grid-template-columns: 1fr; }
+.grid.triple { grid-template-columns: 1fr 1fr 1fr; }
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px 22px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  border: 1px solid #E8EAF0;
+  transition: box-shadow 0.2s;
+}
+.card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.card-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #8892A4;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-title .icon { font-size: 14px; }
+
+/* Stats Row */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.stat-card {
+  background: white;
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  border: 1px solid #E8EAF0;
+  text-align: center;
+}
+.stat-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1B5E20;
+  line-height: 1;
+}
+.stat-label {
+  font-size: 11px;
+  color: #8892A4;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+
+/* Chain Break Item */
+.break-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  background: #FFF5F5;
+  border-left: 4px solid #E53E3E;
+}
+.break-item .break-num {
+  font-size: 11px;
+  font-weight: 800;
+  color: white;
+  background: #E53E3E;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.break-item .break-text {
+  font-size: 12px;
+  color: #2D3748;
+  line-height: 1.5;
+}
+
+/* Evidence Tag */
+.ev-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #FFF5F5;
+  border: 1px solid #FED7D7;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #E53E3E;
+  letter-spacing: 0.5px;
+}
+.ev-tag.green {
+  background: #F0FFF4;
+  border-color: #C6F6D5;
+  color: #38A169;
+}
+.ev-tag.blue {
+  background: #EBF8FF;
+  border-color: #BEE3F8;
+  color: #3182CE;
+}
+.ev-tag.amber {
+  background: #FFFFF0;
+  border-color: #FEFCBF;
+  color: #D69E2E;
+}
+
+/* Timeline */
+.tl-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #F0F1F5;
+}
+.tl-item:last-child { border-bottom: none; }
+.tl-date {
+  font-size: 10px;
+  font-weight: 800;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  min-width: 72px;
+  text-align: center;
+}
+.tl-text {
+  font-size: 12px;
+  color: #2D3748;
+  line-height: 1.5;
+}
+
+/* Contact Card */
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #F0F1F5;
+}
+.contact-row:last-child { border-bottom: none; }
+.contact-role {
+  font-size: 10px;
+  font-weight: 700;
+  color: #8892A4;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  width: 100px;
+  flex-shrink: 0;
+}
+.contact-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+.contact-detail {
+  font-size: 11px;
+  color: #718096;
+  margin-left: auto;
+}
+
+/* Ghost Pool */
+.ghost-pool {
+  background: #FFF5F5;
+  border: 1px solid #FED7D7;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+.ghost-pool .pool-name {
+  font-size: 10px;
+  font-weight: 700;
+  color: #E53E3E;
+  letter-spacing: 0.5px;
+}
+.ghost-pool .pool-detail {
+  font-size: 9px;
+  color: #718096;
+  margin-top: 4px;
+}
+
+/* Back Link */
+.back-link {
+  text-align: center;
+  margin-top: 20px;
+  padding: 16px;
+}
+.back-link a {
+  color: #1B5E20;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.back-link a:hover { text-decoration: underline; }
+
+/* Timestamp */
+.timestamp {
+  text-align: center;
+  font-size: 11px;
+  color: #A0AEC0;
+  margin-top: 8px;
+  padding-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+  .grid.triple { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>&#x1F6E1;&#xFE0F; WESTCOR TITLE INSURANCE CLAIM</h1>
+  <div class="subtitle">Claim No. 2026520-WC-23778 &mdash; 120 77th Street, North Bergen, NJ &mdash; Block 301, Lot 17</div>
+  <div class="claim-badge"><span class="claim-dot"></span> CLAIM ACTIVE &mdash; ACKNOWLEDGED MAY 20, 2026</div>
+</div>
+
+<!-- STATS ROW -->
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-value">17</div>
+    <div class="stat-label">Chain Breaks</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">6</div>
+    <div class="stat-label">Ghost Pools</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">2</div>
+    <div class="stat-label">UCC-1 Lapses</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" style="font-size:22px;">$429,556</div>
+    <div class="stat-label">Fedwire Amount</div>
+  </div>
+</div>
+
+<!-- CLAIM HANDLER + PROPERTY INFO -->
+<div class="grid">
+  <div class="card" style="border-left: 4px solid #1B5E20;">
+    <div class="card-title"><span class="icon">&#x1F4CB;</span> CLAIM CONTACTS &mdash; WESTCOR</div>
+    <div class="contact-row">
+      <div class="contact-role">Handler</div>
+      <div class="contact-name">Hunter Fahrney</div>
+      <div class="contact-detail">Hunter.Fahrney@wltic.com &bull; 689 621-5606</div>
+    </div>
+    <div class="contact-row">
+      <div class="contact-role">Clerical</div>
+      <div class="contact-name">Vilma Fitzgerald</div>
+      <div class="contact-detail">407 629-5842 / 321 214-6639</div>
+    </div>
+    <div class="contact-row">
+      <div class="contact-role">Cc&rsquo;d</div>
+      <div class="contact-name">Militza Irizarry</div>
+      <div class="contact-detail">&mdash;</div>
+    </div>
+    <div class="contact-row">
+      <div class="contact-role">Company</div>
+      <div class="contact-name">Westcor &mdash; An Ard&aacute;n Company</div>
+      <div class="contact-detail">www.wltic.com</div>
+    </div>
+    <div style="margin-top:12px; padding:8px 12px; background:#F0FFF4; border:1px solid #C6F6D5; border-radius:8px;">
+      <div style="font-size:11px; color:#276749; line-height:1.5;"><strong>INSTRUCTION:</strong> All communications go through Hunter Fahrney per Westcor&rsquo;s directive.</div>
+    </div>
+  </div>
+
+  <div class="card" style="border-left: 4px solid #3182CE;">
+    <div class="card-title"><span class="icon">&#x1F3E0;</span> INSURED PROPERTY</div>
+    <div style="font-size:16px; font-weight:700; color:#1a1a2e; margin-bottom:8px;">120 77th Street</div>
+    <div style="font-size:13px; color:#4A5568; margin-bottom:4px;">North Bergen, NJ 07047</div>
+    <div style="font-size:12px; color:#718096; margin-bottom:12px;">Block 301, Lot 17 &mdash; Hudson County</div>
+    <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;">
+      <span class="ev-tag green">Express Trust RRPA-LC-092820251444-00</span>
+      <span class="ev-tag blue">UCC-1 NJ No. 57604044</span>
+    </div>
+    <div style="padding:8px 12px; background:#EBF8FF; border:1px solid #BEE3F8; border-radius:8px;">
+      <div style="font-size:11px; color:#2A4365; line-height:1.5;"><strong>TRUST STATUS:</strong> Irrevocable Spendthrift Express Trust &mdash; RAZOR as Managing Trustee. Only active perfected security interest on property (NJ UCC-1 No. 57604044, filed Feb 11, 2025, lapse 2030).</div>
+    </div>
+  </div>
+</div>
+
+<!-- MERS WARRANTY BREACH -->
+<div class="grid full">
+  <div class="card" style="border-left: 4px solid #E53E3E;">
+    <div class="card-title"><span class="icon">&#x26A0;&#xFE0F;</span> MERS SECTION 9 &mdash; &ldquo;NO ADVERSE INTEREST&rdquo; WARRANTY BREACH</div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+      <div>
+        <div style="font-size:12px; color:#2D3748; line-height:1.7; margin-bottom:12px;">
+          MERS Membership Agreement Section 9 requires every member to warrant that no adverse interest exists at the time of registration. When the MERS assignment was executed, <strong>UBS AG held an active UCC-1 filing</strong> (Delaware No. 2019-6819697) creating a perfected security interest in the collateral &mdash; including this loan.
+        </div>
+        <div style="font-size:12px; color:#2D3748; line-height:1.7;">
+          The Section 9 warranty was <strong>false when signed</strong>. Under UCC Article 9, UBS AG&rsquo;s perfected security interest was senior to any subsequent claim. The MERS assignment was void ab initio &mdash; you cannot assign what you do not own free and clear. <em>Nemo dat quod non habet.</em>
+        </div>
+      </div>
+      <div>
+        <div style="background:#FFF5F5; border:1px solid #FED7D7; border-radius:10px; padding:14px; margin-bottom:10px;">
+          <div style="font-size:10px; font-weight:700; color:#E53E3E; letter-spacing:0.5px; margin-bottom:6px;">UBS AG UCC-1 &mdash; LAPSED</div>
+          <div style="font-size:12px; color:#2D3748;">Delaware No. 2019-6819697</div>
+          <div style="font-size:11px; color:#718096;">Filed: Oct 1, 2019 &bull; <strong style="color:#E53E3E;">Lapsed: Oct 1, 2024</strong></div>
+          <div style="font-size:10px; color:#718096; margin-top:4px;">Confirmed: ICIS E-UCC Portal, May 13, 2026</div>
+        </div>
+        <div style="background:#FFF5F5; border:1px solid #FED7D7; border-radius:10px; padding:14px;">
+          <div style="font-size:10px; font-weight:700; color:#E53E3E; letter-spacing:0.5px; margin-bottom:6px;">CNB UCC-1 &mdash; LAPSED</div>
+          <div style="font-size:12px; color:#2D3748;">Delaware No. 2020-1795303</div>
+          <div style="font-size:11px; color:#718096;">Filed: Mar 11, 2020 &bull; <strong style="color:#E53E3E;">Lapsed: Mar 11, 2025</strong></div>
+          <div style="font-size:10px; color:#718096; margin-top:4px;">Confirmed: ICIS E-UCC Portal, May 13, 2026</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:12px; padding:10px 14px; background:#FFFFF0; border:1px solid #FEFCBF; border-radius:8px;">
+      <div style="font-size:11px; color:#744210; line-height:1.6;"><strong style="color:#D69E2E;">SIGNIFICANCE:</strong> Both institutional UCC-1 filings have lapsed. Neither UBS AG nor City National Bank renewed. RAZOR&rsquo;s NJ UCC-1 No. 57604044 (filed Feb 11, 2025, lapse 2030) is now the <strong>only active perfected security interest</strong> on this collateral. RA 9 &sect;516(b)(3)(ii).</div>
+    </div>
+  </div>
+</div>
+
+<!-- FEDWIRE + FACILITY PROGRESSION -->
+<div class="grid">
+  <div class="card" style="border-left: 4px solid #7F56D9;">
+    <div class="card-title"><span class="icon">&#x1F4B8;</span> FEDWIRE &mdash; WAREHOUSE FUNDING</div>
+    <div style="text-align:center; margin:12px 0;">
+      <div style="font-size:32px; font-weight:800; color:#7F56D9;">$429,556.39</div>
+      <div style="font-size:11px; color:#718096; margin-top:4px;">Fedwire Transfer &mdash; June 4, 2021</div>
+    </div>
+    <div style="background:#F5F3FF; border:1px solid #E9D5FF; border-radius:10px; padding:12px; margin-top:8px;">
+      <div style="font-size:11px; color:#553C9A; line-height:1.6;">
+        <strong>Reference:</strong> 20210604L2LFCK1C002715<br/>
+        <strong>Significance:</strong> Proves warehouse-funded origination. The loan was funded through a warehouse credit facility &mdash; not by the purported &ldquo;lender.&rdquo; The originator was a conduit, not a creditor.
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="border-left: 4px solid #E67E22;">
+    <div class="card-title"><span class="icon">&#x1F4C8;</span> FACILITY PROGRESSION &mdash; CNB WAREHOUSE</div>
+    <div style="display:flex; flex-direction:column; gap:8px; margin:12px 0;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div style="background:#E67E22; color:white; font-size:10px; font-weight:800; padding:4px 10px; border-radius:6px; min-width:36px; text-align:center;">1</div>
+        <div style="font-size:13px; color:#2D3748;"><strong>$50M</strong> &mdash; Initial warehouse facility</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div style="background:#E67E22; color:white; font-size:10px; font-weight:800; padding:4px 10px; border-radius:6px; min-width:36px; text-align:center;">2</div>
+        <div style="font-size:13px; color:#2D3748;"><strong>$50M</strong> &mdash; Retained (same amount, renewed)</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div style="background:#E67E22; color:white; font-size:10px; font-weight:800; padding:4px 10px; border-radius:6px; min-width:36px; text-align:center;">3</div>
+        <div style="font-size:13px; color:#2D3748;"><strong>$100M</strong> &mdash; Doubled capacity</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div style="background:#9B2C2C; color:white; font-size:10px; font-weight:800; padding:4px 10px; border-radius:6px; min-width:36px; text-align:center;">4</div>
+        <div style="font-size:13px; color:#2D3748;"><strong>$200M</strong> &mdash; Active when loan funded (OCR confirmed)</div>
+      </div>
+    </div>
+    <div style="padding:8px 12px; background:#FFF8F0; border:1px solid #FEEBC8; border-radius:8px;">
+      <div style="font-size:11px; color:#744210; line-height:1.5;"><strong style="color:#C05621;">OCR-CONFIRMED:</strong> Facility progression extracted from CNB subpoena production (354 pages, 15 files). Master Catalog v5.1.</div>
+    </div>
+  </div>
+</div>
+
+<!-- GHOST POOLS -->
+<div class="grid full">
+  <div class="card" style="border-left: 4px solid #9B2C2C;">
+    <div class="card-title"><span class="icon">&#x1F47B;</span> SIX GHOST POOLS &mdash; SAME LOAN, SIX SECURITIES CLAIMS</div>
+    <div style="font-size:12px; color:#2D3748; line-height:1.7; margin-bottom:14px;">
+      The same mortgage loan appears in <strong>six separate securitization pools</strong>. Each pool claimed ownership of this loan as collateral backing mortgage-backed securities. Under PSA (Pooling and Servicing Agreement) rules and the Trust Indenture Act, a single loan cannot secure multiple trusts simultaneously. If the loan was validly transferred to Pool 1, it cannot also be in Pools 2&ndash;6. At least five of the six claims are necessarily fraudulent.
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px;">
+      <div class="ghost-pool">
+        <div class="pool-name">POOL 1</div>
+        <div class="pool-detail">Original claimed securitization</div>
+      </div>
+      <div class="ghost-pool">
+        <div class="pool-name">POOL 2</div>
+        <div class="pool-detail">Duplicate securities claim</div>
+      </div>
+      <div class="ghost-pool">
+        <div class="pool-name">POOL 3</div>
+        <div class="pool-detail">Duplicate securities claim</div>
+      </div>
+      <div class="ghost-pool">
+        <div class="pool-name">POOL 4</div>
+        <div class="pool-detail">Duplicate securities claim</div>
+      </div>
+      <div class="ghost-pool">
+        <div class="pool-name">POOL 5</div>
+        <div class="pool-detail">Duplicate securities claim</div>
+      </div>
+      <div class="ghost-pool">
+        <div class="pool-name">POOL 6</div>
+        <div class="pool-detail">Duplicate securities claim</div>
+      </div>
+    </div>
+    <div style="margin-top:12px; padding:10px 14px; background:#FFF5F5; border:1px solid #FED7D7; border-radius:8px;">
+      <div style="font-size:11px; color:#9B2C2C; line-height:1.6;"><strong style="color:#E53E3E;">TITLE INSURANCE IMPLICATION:</strong> If the same loan was pledged to six pools, the chain of title is irreparably broken. No single entity can demonstrate clean ownership. The title insurer must investigate which (if any) pool actually received a valid transfer &mdash; and whether any of the six can prove standing to foreclose.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CORPORATE CONVERSION -->
+<div class="grid full">
+  <div class="card" style="border-left: 4px solid #D69E2E;">
+    <div class="card-title"><span class="icon">&#x23F1;&#xFE0F;</span> CORPORATE CONVERSION &mdash; OHIO TO DELAWARE IN 14 MINUTES</div>
+    <div style="display:grid; grid-template-columns: 1fr auto 1fr; gap:16px; align-items:center;">
+      <div style="background:#FFFFF0; border:1px solid #FEFCBF; border-radius:10px; padding:14px; text-align:center;">
+        <div style="font-size:10px; font-weight:700; color:#D69E2E; letter-spacing:0.5px;">OHIO ENTITY</div>
+        <div style="font-size:14px; font-weight:700; color:#2D3748; margin-top:6px;">01:01 PM</div>
+        <div style="font-size:11px; color:#718096; margin-top:2px;">September 30, 2019</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:28px; font-weight:800; color:#D69E2E;">14 min</div>
+        <div style="font-size:20px; color:#D69E2E;">&rarr;</div>
+      </div>
+      <div style="background:#FFFFF0; border:1px solid #FEFCBF; border-radius:10px; padding:14px; text-align:center;">
+        <div style="font-size:10px; font-weight:700; color:#D69E2E; letter-spacing:0.5px;">DELAWARE ENTITY</div>
+        <div style="font-size:14px; font-weight:700; color:#2D3748; margin-top:6px;">01:15 PM</div>
+        <div style="font-size:11px; color:#718096; margin-top:2px;">September 30, 2019</div>
+      </div>
+    </div>
+    <div style="margin-top:12px; padding:10px 14px; background:#FFFFF0; border:1px solid #FEFCBF; border-radius:8px;">
+      <div style="font-size:11px; color:#744210; line-height:1.6;"><strong style="color:#D69E2E;">SIGNIFICANCE:</strong> A corporate entity converted from Ohio to Delaware in 14 minutes. This conversion affects the legal identity of the entity in the chain of title. Any assignments executed by the Ohio entity after 01:15 PM on September 30, 2019 were executed by a <strong>non-existent entity</strong> &mdash; the Ohio entity had already ceased to exist.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 17 CHAIN-OF-TITLE BREAKS -->
+<div class="grid full">
+  <div class="card" style="border-left: 4px solid #E53E3E;">
+    <div class="card-title"><span class="icon">&#x1F517;</span> 17 DOCUMENTED CHAIN-OF-TITLE BREAKS</div>
+    <div style="font-size:12px; color:#2D3748; line-height:1.7; margin-bottom:14px;">
+      Each break is independently sufficient to defeat foreclosure standing. Together, they demonstrate a mortgage chain that is <strong>irreparably severed</strong> from origination to the present claimed holder. <em>Nemo dat quod non habet</em> &mdash; no one gives what they do not have &mdash; applies at every link.
+    </div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+      <div class="break-item">
+        <div class="break-num">1</div>
+        <div class="break-text"><strong>MERS &sect;9 Warranty Breach</strong> &mdash; False &ldquo;no adverse interest&rdquo; warranty at registration (UBS AG active)</div>
+      </div>
+      <div class="break-item">
+        <div class="break-num">2</div>
+        <div class="break-text"><strong>UBS AG UCC-1 Lapse</strong> &mdash; Perfected interest lapsed Oct 2024, no continuation filed</div>
+      </div>
+      <div class="break-item">
+        <div class="break-num">3</div>
+        <div class="break-text"><strong>CNB UCC-1 Lapse</strong> &mdash; Warehouse lender&rsquo;s interest lapsed Mar 2025, no continuation</div>
+      </div>
+      <div class="break-item">
+        <div class="break-num">4</div>
+        <div class="break-text"><strong>Warehouse Funding</strong> &mdash; Fedwire proves loan funded by warehouse, not &ldquo;lender&rdquo;</div>
+      </div>
+      <div class="break-item">
+        <div class="break-num">5</div>
+        <div class="break-text"><strong>Six Ghost Pools</strong> &mdash; Same loan in six securities trusts simultaneously</div>
+      </div>
+      <div class="break-item">
+        <div class="break-num">6</div>
+        <div class="break-text"><strong>14-Minute Conversion</strong> &mdash; Ohio entity ceased to exist; subsequent acts void</div>
+      </div>
+      <div class="break-item">
+        <div class="break-num">7</div>
+        <div class="break-text"><strong>Facility Progression</strong> &mdash; $50M&rarr;$200M shows revolving warehouse, not sale</div>
+      </div>
+      <div class="break-item">
+        <div class="break-num">8</div>
+        <div class="break-text"><strong>No Original Note Produced</strong> &mdash; Claimed holder cannot tender the original</div>
+      </div>
+      <div class="break-item">
+        <div class="break-num">9</div>
+        <div class="break-text"><strong>MERS Assignment Void</strong> &mdash; Cannot assign what you don&rsquo;t own free and clear</div>
+      </div>
+      <div class="break-item">
+        <div class="break-num">10</div>
+        <div class="break-text"><strong>No Recorded Assignment</strong> &mdash; Pomeroy &sect;&sect;259/260 &mdash; equity follows the law</div>
+      </div>
+      <div class="break-item">
+        <div class="break-num">11</div>
+        <div class="break-text"><strong>PSA Violation</strong> &mdash; Transfer outside closing date = void under trust indenture</div>
+      </div>
+      <div class="break-item">
+        <div class="break-num">12</div>
+        <div class="break-text"><strong>Broken Custody Chain</strong> &mdash; No endorsed-in-blank note in custodian records</div>
+      </div>
+      <div class="break-item">
+        <div class="break-num">13</div>
+        <div class="break-text"><strong>DLJ Sheridan Standard</strong> &mdash; Cannot meet NJ standing requirement</div>
+      </div>
+      <div class="break-item">
+        <div class="break-num">14</div>
+        <div class="break-text"><strong>&sect;5.4(c) Non-Compliance</strong> &mdash; Failed to produce accounting on demand</div>
+      </div>
+      <div class="break-item">
+        <div class="break-num">15</div>
+        <div class="break-text"><strong>Dual Non-Compliance</strong> &mdash; Neither MERS nor Lakeview responded to demands</div>
+      </div>
+      <div class="break-item">
+        <div class="break-num">16</div>
+        <div class="break-text"><strong>Unclean Hands</strong> &mdash; Foreclosing with known chain defects = inequitable conduct</div>
+      </div>
+      <div class="break-item">
+        <div class="break-num">17</div>
+        <div class="break-text"><strong>FRBNY BIC Ineligibility</strong> &mdash; Fed Reserve rejected loan as eligible collateral</div>
+      </div>
+    </div>
+    <div style="margin-top:14px; padding:10px 14px; background:#FFF5F5; border:1px solid #FED7D7; border-radius:8px;">
+      <div style="font-size:11px; color:#9B2C2C; line-height:1.6;"><strong style="color:#E53E3E;">NEMO DAT QUOD NON HABET:</strong> Applied at every link. If the chain is broken at <em>any one</em> of these 17 points, the current claimed holder cannot prove standing to foreclose. Here, <em>all seventeen</em> fail simultaneously.</div>
+    </div>
+  </div>
+</div>
+
+<!-- EVIDENCE SOURCES -->
+<div class="grid full">
+  <div class="card" style="border-left: 4px solid #3182CE;">
+    <div class="card-title"><span class="icon">&#x1F4C2;</span> EVIDENCE PACKAGE &mdash; SOURCES</div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
+      <div style="background:#EBF8FF; border:1px solid #BEE3F8; border-radius:10px; padding:14px;">
+        <div style="font-size:10px; font-weight:700; color:#3182CE; letter-spacing:0.5px; margin-bottom:6px;">CNB SUBPOENA PRODUCTION</div>
+        <div style="font-size:12px; color:#2D3748; line-height:1.5;">15 files &bull; 354 pages<br/>Master Catalog v5.1<br/>70 scanned pages OCR&rsquo;d &bull; 17 findings</div>
+      </div>
+      <div style="background:#EBF8FF; border:1px solid #BEE3F8; border-radius:10px; padding:14px;">
+        <div style="font-size:10px; font-weight:700; color:#3182CE; letter-spacing:0.5px; margin-bottom:6px;">DELAWARE ICIS PORTAL</div>
+        <div style="font-size:12px; color:#2D3748; line-height:1.5;">UCC-1 lapse confirmations<br/>UBS AG: Oct 1, 2024<br/>CNB: Mar 11, 2025<br/>Confirmed May 13, 2026</div>
+      </div>
+      <div style="background:#EBF8FF; border:1px solid #BEE3F8; border-radius:10px; padding:14px;">
+        <div style="font-size:10px; font-weight:700; color:#3182CE; letter-spacing:0.5px; margin-bottom:6px;">COURT FILINGS</div>
+        <div style="font-size:12px; color:#2D3748; line-height:1.5;">Costello Chancery F-001012-25<br/>Farbiarz Federal D.N.J.<br/>4-document filing package<br/>5 FRCP 45 subpoenas</div>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px; margin-top:10px;">
+      <div style="background:#F5F3FF; border:1px solid #E9D5FF; border-radius:10px; padding:14px;">
+        <div style="font-size:10px; font-weight:700; color:#7F56D9; letter-spacing:0.5px; margin-bottom:6px;">FEDWIRE RECORDS</div>
+        <div style="font-size:12px; color:#2D3748; line-height:1.5;">20210604L2LFCK1C002715<br/>$429,556.39 &bull; June 4, 2021<br/>Warehouse funding proof</div>
+      </div>
+      <div style="background:#F5F3FF; border:1px solid #E9D5FF; border-radius:10px; padding:14px;">
+        <div style="font-size:10px; font-weight:700; color:#7F56D9; letter-spacing:0.5px; margin-bottom:6px;">JURIS INTELLIGENCE</div>
+        <div style="font-size:12px; color:#2D3748; line-height:1.5;">811 documents in vector store<br/>Pomeroy, Gibson, CJS, Restatements<br/>Full legal analysis engine</div>
+      </div>
+      <div style="background:#F5F3FF; border:1px solid #E9D5FF; border-radius:10px; padding:14px;">
+        <div style="font-size:10px; font-weight:700; color:#7F56D9; letter-spacing:0.5px; margin-bottom:6px;">TRUST ARCHITECTURE</div>
+        <div style="font-size:12px; color:#2D3748; line-height:1.5;">Five-layer fortress<br/>PMA &rarr; RBT &rarr; Bank &rarr; Express Trust<br/>UCC-1 as only perfected interest</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEXT STEPS FOR WESTCOR -->
+<div class="grid full">
+  <div class="card" style="border-left: 4px solid #1B5E20;">
+    <div class="card-title"><span class="icon">&#x1F3AF;</span> CLAIM NEXT ACTIONS</div>
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <div class="tl-item">
+        <div class="tl-date" style="background:#1B5E20;">ACTIVE</div>
+        <div class="tl-text"><strong>Communicate with Hunter Fahrney</strong> &mdash; Per Westcor&rsquo;s instruction, all claim communications go through the assigned handler.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date" style="background:#3182CE;">NEXT</div>
+        <div class="tl-text"><strong>Prepare Evidence Package</strong> &mdash; Compile all 17 chain-of-title breaks with supporting documentation for Hunter&rsquo;s review. Include CNB production, Delaware ICIS confirmations, Fedwire records, and court filings.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date" style="background:#7F56D9;">PENDING</div>
+        <div class="tl-text"><strong>Document All Communications</strong> &mdash; Every email, call, and response logged to Operation Van Zile correspondence file.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date" style="background:#E67E22;">MAY 22</div>
+        <div class="tl-text"><strong>Costello Hearing</strong> &mdash; Motion to Vacate Default. Westcor claim proceeds independently of court action. Both fronts advance simultaneously.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BACK TO PORTAL -->
+<div class="back-link">
+  <a href="index.html">&larr; Back to Portal</a> &nbsp;&bull;&nbsp;
+  <a href="command-center.html">Command Center &rarr;</a>
+</div>
+
+<div class="timestamp" id="timestamp">Loading...</div>
+
+<script>
+  document.getElementById('timestamp').textContent = 'Last viewed: ' +
+    new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) +
+    ' at ' + new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+</script>
+
+</body>
+</html>
